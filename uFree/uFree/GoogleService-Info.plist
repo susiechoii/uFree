@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1030577548576-vc5p7jdp8sbckbj9pl95ob63940aj710.apps.googleusercontent.com</string>
+	<string>246193090233-nns1d6rit2m6dlmobpcro1usekqp074f.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1030577548576-vc5p7jdp8sbckbj9pl95ob63940aj710</string>
+	<string>com.googleusercontent.apps.246193090233-nns1d6rit2m6dlmobpcro1usekqp074f</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCTS_Ucb9Saf594iIaVzTQW-5OXTmsy43c</string>
+	<string>AIzaSyAGhfS_sPau4mnx1xdNywZNZufhLwbjQls</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1030577548576</string>
+	<string>246193090233</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>CSE438.uFree</string>
 	<key>PROJECT_ID</key>
-	<string>ufree-16c7a</string>
+	<string>ufree438-a53b5</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ufree-16c7a.appspot.com</string>
+	<string>ufree438-a53b5.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1030577548576:ios:5c1812addb29baa3f5bb45</string>
+	<string>1:246193090233:ios:595528779202343f25b568</string>
+	<key>DATABASE_URL</key>
+	<string>https://ufree438-a53b5-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

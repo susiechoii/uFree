@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         ref.child("something_\(Int.random(in: 0..<100))").setValue("test")
         
         ref.child("something").observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? String else {
+            guard let value = snapshot.value as? Int else {
                 return
             }
             print("Value: \(value)")

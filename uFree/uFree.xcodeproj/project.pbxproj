@@ -13,12 +13,12 @@
 		FFC40F1D290DB16300870A9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC40F1B290DB16300870A9C /* Main.storyboard */; };
 		FFC40F1F290DB16500870A9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFC40F1E290DB16500870A9C /* Assets.xcassets */; };
 		FFC40F22290DB16500870A9C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFC40F20290DB16500870A9C /* LaunchScreen.storyboard */; };
-		FFC40F2A290DB22D00870A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC40F29290DB22D00870A9C /* GoogleService-Info.plist */; };
 		FFC40F2D290DB30E00870A9C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = FFC40F2C290DB30E00870A9C /* FirebaseAnalytics */; };
 		FFC40F2F290DB30E00870A9C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FFC40F2E290DB30E00870A9C /* FirebaseAuth */; };
 		FFC40F31290DB30E00870A9C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FFC40F30290DB30E00870A9C /* FirebaseDatabase */; };
 		FFC40F33290DB30E00870A9C /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FFC40F32290DB30E00870A9C /* FirebaseDatabaseSwift */; };
 		FFC40F35290DB30E00870A9C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FFC40F34290DB30E00870A9C /* FirebaseFirestore */; };
+		FFC40F37290DBDBA00870A9C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC40F36290DBDBA00870A9C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 		FFC40F1E290DB16500870A9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFC40F21290DB16500870A9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFC40F23290DB16500870A9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FFC40F29290DB22D00870A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FFC40F36290DBDBA00870A9C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +75,7 @@
 				FFC40F1E290DB16500870A9C /* Assets.xcassets */,
 				FFC40F20290DB16500870A9C /* LaunchScreen.storyboard */,
 				FFC40F23290DB16500870A9C /* Info.plist */,
-				FFC40F29290DB22D00870A9C /* GoogleService-Info.plist */,
+				FFC40F36290DBDBA00870A9C /* GoogleService-Info.plist */,
 			);
 			path = uFree;
 			sourceTree = "<group>";
@@ -149,7 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FFC40F22290DB16500870A9C /* LaunchScreen.storyboard in Resources */,
-				FFC40F2A290DB22D00870A9C /* GoogleService-Info.plist in Resources */,
+				FFC40F37290DBDBA00870A9C /* GoogleService-Info.plist in Resources */,
 				FFC40F1F290DB16500870A9C /* Assets.xcassets in Resources */,
 				FFC40F1D290DB16300870A9C /* Main.storyboard in Resources */,
 			);
