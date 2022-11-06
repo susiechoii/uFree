@@ -9,6 +9,8 @@ import UIKit
 import FirebaseDatabase
 
 class ViewController: UIViewController {
+    
+    var testBackend: Backend!
 
     
     
@@ -18,17 +20,26 @@ class ViewController: UIViewController {
         
         let ref = Database.database().reference()
         //var test = ExampleClass(newName: "Ian", newPassword: "Password")
-        var dictionary: [String:String] = ["Username": "Ian", "Password": "hello_world"]
+//        var dictionary: [String:String] = ["Username": "Leung Wai", "Password": "my life sucks"]
 
-        ref.child("something_\(Int.random(in: 0..<100))").setValue(dictionary)
+//        ref.child("something_\(Int.random(in: 0..<100))").setValue(dictionary)
         
+        self.testBackend = Backend(newEmail: "test@example.com", newPassword: "example")
         
-        ref.child("something").observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? Int else {
-                return
-            }
-            print("Value: \(value)")
-        })
+        testBackend.login()
+        
+        var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
+        var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
+        var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
+        
+        print("email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+//        ref.child("something").observeSingleEvent(of: .value, with: { snapshot in
+//            guard let value = snapshot.value as? Int else {
+//                return
+//            }
+//            print("Value: \(value)")
+//        })
+        
     }
 
 
