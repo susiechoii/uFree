@@ -35,6 +35,9 @@ class Backend {
                UserDefaults.standard.set(self.email, forKey: "email")
                UserDefaults.standard.set(self.password, forKey: "password")
                UserDefaults.standard.set(true, forKey: "loggedIn");
+               
+               
+               // bullshit
 
            }
        }
