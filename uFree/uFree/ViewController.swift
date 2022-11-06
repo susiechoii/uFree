@@ -19,39 +19,69 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         let ref = Database.database().reference()
-        //var test = ExampleClass(newName: "Ian", newPassword: "Password")
-//        var dictionary: [String:String] = ["Username": "Leung Wai", "Password": "my life sucks"]
 
-//        ref.child("something_\(Int.random(in: 0..<100))").setValue(dictionary)
         
-        self.testBackend = Backend(newEmail: "test@example.com", newPassword: "example")
+    }
+    
+    @IBAction func createUser() {
+        var testBackend = Backend()
         
-        testBackend.login()
+        testBackend.createUser(newEmail: "xcodesucks@gmail.com", newPassword: "fuckyouxcode")
         
         var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
         var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
         var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
         
-        print("email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
-//        ref.child("something").observeSingleEvent(of: .value, with: { snapshot in
-//            guard let value = snapshot.value as? Int else {
-//                return
-//            }
-//            print("Value: \(value)")
-//        })
+        print("LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+    }
+    
+    
+    @IBAction func loginFunction() {
+            
+        var testBackend = Backend()
+        
+        
+         testBackend.login(email: "xcodesucks@gmail.com", password: "fuckyouxcode")
+        
+        
+        var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
+        var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
+        var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
+        
+        print("LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+            
+            
         
     }
-
-
-}
-
-class ExampleClass {
-    var name: String?
-    var password: String?
     
-    init(newName: String, newPassword: String) {
-        self.name = newName
-        self.password = newPassword
+    @IBAction func getUserDefaults(_ sender: Any) {
+        
+        print("AT USER DEFAULTS")
+        
+        var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
+        var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
+        var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
+        
+        print("USER DEFAULTS email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
     }
+    
+    @IBAction func logoutFunction() {
+        
+        UserDefaults.standard.set("", forKey: "email")
+        UserDefaults.standard.set("", forKey: "password")
+        UserDefaults.standard.set(false, forKey: "loggedIn")
+        
+        // verify
+        
+        var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
+        var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
+        var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
+        
+        print("LOGGING OUT email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+
+    }
+    
 }
+
+
 
