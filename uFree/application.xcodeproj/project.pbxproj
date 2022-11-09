@@ -197,7 +197,7 @@
 		8853052B2771949600B04E6F /* UINavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
 		88680D1B2775C601002E964F /* ViewportHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewportHelper.swift; sourceTree = "<group>"; };
 		888CB47427686A000041116C /* APIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIExtensions.swift; sourceTree = "<group>"; };
-		88ED74E4272FFE6E0088E3EF /* uFree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = uFree.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88ED74E4272FFE6E0088E3EF /* application.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = application.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		88ED74EB272FFE6F0088E3EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88ED74EE272FFE6F0088E3EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		88ED74F0272FFE6F0088E3EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -556,7 +556,7 @@
 		88ED74E5272FFE6E0088E3EF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				88ED74E4272FFE6E0088E3EF /* uFree.app */,
+				88ED74E4272FFE6E0088E3EF /* application.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -811,9 +811,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		88ED74E3272FFE6E0088E3EF /* uFree */ = {
+		88ED74E3272FFE6E0088E3EF /* application */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 88ED74F3272FFE6F0088E3EF /* Build configuration list for PBXNativeTarget "uFree" */;
+			buildConfigurationList = 88ED74F3272FFE6F0088E3EF /* Build configuration list for PBXNativeTarget "application" */;
 			buildPhases = (
 				958D0FC77F5EE7779AE535B7 /* [CP] Check Pods Manifest.lock */,
 				88ED74E0272FFE6E0088E3EF /* Sources */,
@@ -825,7 +825,7 @@
 			);
 			dependencies = (
 			);
-			name = uFree;
+			name = application;
 			packageProductDependencies = (
 				512567BF291B0E4E004A0702 /* FirebaseAnalytics */,
 				512567C1291B0E4E004A0702 /* FirebaseAnalyticsOnDeviceConversion */,
@@ -856,7 +856,7 @@
 				512567F3291B0E4E004A0702 /* FirebaseStorageCombine-Community */,
 			);
 			productName = application;
-			productReference = 88ED74E4272FFE6E0088E3EF /* uFree.app */;
+			productReference = 88ED74E4272FFE6E0088E3EF /* application.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -873,7 +873,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 88ED74DF272FFE6E0088E3EF /* Build configuration list for PBXProject "uFree" */;
+			buildConfigurationList = 88ED74DF272FFE6E0088E3EF /* Build configuration list for PBXProject "application" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -889,7 +889,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				88ED74E3272FFE6E0088E3EF /* uFree */,
+				88ED74E3272FFE6E0088E3EF /* application */,
 			);
 		};
 /* End PBXProject section */
@@ -1221,7 +1221,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		88ED74DF272FFE6E0088E3EF /* Build configuration list for PBXProject "uFree" */ = {
+		88ED74DF272FFE6E0088E3EF /* Build configuration list for PBXProject "application" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				88ED74F1272FFE6F0088E3EF /* Debug */,
@@ -1230,7 +1230,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		88ED74F3272FFE6F0088E3EF /* Build configuration list for PBXNativeTarget "uFree" */ = {
+		88ED74F3272FFE6F0088E3EF /* Build configuration list for PBXNativeTarget "application" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				88ED74F4272FFE6F0088E3EF /* Debug */,
