@@ -546,7 +546,7 @@
 			isa = PBXGroup;
 			children = (
 				516E927C291B11EC0090C65F /* GoogleService-Info.plist */,
-				88ED74E6272FFE6E0088E3EF /* uFree */,
+				88ED74E6272FFE6E0088E3EF /* application */,
 				88ED74E5272FFE6E0088E3EF /* Products */,
 				6F608FE24A7ED711BB129FFD /* Pods */,
 				147E3B4734390837FA4A9C41 /* Frameworks */,
@@ -561,7 +561,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		88ED74E6272FFE6E0088E3EF /* uFree */ = {
+		88ED74E6272FFE6E0088E3EF /* application */ = {
 			isa = PBXGroup;
 			children = (
 				512567F5291B0F1E004A0702 /* Backend.swift */,
@@ -578,7 +578,7 @@
 				3977BC6504A937B4821C515A /* Views */,
 				71F0BFD40332D2708B4A7EBB /* CustomViews */,
 			);
-			path = uFree;
+			path = application;
 			sourceTree = "<group>";
 		};
 		88ED74ED272FFE6F0088E3EF /* Preview Content */ = {
