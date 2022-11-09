@@ -289,6 +289,8 @@ struct SignUpView: View {
                             VStack {
                                 Button(action: {
                                     createUser()
+                                    signUpViewModel.nextScreen = "OnboardAvailabilityScreenView"
+
                                 }, label: {
                                     HStack(spacing: 0) {
                                         Text(StringConstants.kLblSignUp2)
@@ -350,8 +352,8 @@ struct SignUpView: View {
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 Group {
-                    NavigationLink(destination: SignInView(),
-                                   tag: "SignInView",
+                    NavigationLink(destination: OnboardAvailabilityScreenView(),
+                                   tag: "OnboardAvailabilityScreenView",
                                    selection: $signUpViewModel.nextScreen,
                                    label: {
                                        EmptyView()
@@ -378,6 +380,10 @@ struct SignUpView_Previews: PreviewProvider {
 func createUser() {
     var testBackend = Backend()
     
+    var listOfHours: [Int] = []
+    
+    UserDefaults.standard.set(listOfHours, forKey: "listOfHours")
+    
     testBackend.createUser(newEmail: "xcodereeeeallysucks@gmail.com", newPassword: "fuckyouxcodeevenmore")
     
     var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
@@ -385,4 +391,6 @@ func createUser() {
     var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
     
     print("LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+    
+
 }
