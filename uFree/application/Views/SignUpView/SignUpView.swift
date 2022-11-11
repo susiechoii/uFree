@@ -329,18 +329,19 @@ struct SignUpView: View {
                         .padding(.top, getRelativeHeight(29.0))
                         .padding(.leading, getRelativeWidth(18.0))
                         Text(StringConstants.kMsgHaveAnAccount)
-                            .font(FontScheme.kNotoSans(size: getRelativeHeight(13.0)))
-                            .fontWeight(.regular)
-                            .foregroundColor(ColorConstants.Black900)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(14.0),
-                                   alignment: .topLeading)
-                            .padding(.top, getRelativeHeight(14.0))
-                            .padding(.horizontal, getRelativeWidth(18.0))
-                            .onTapGesture {
-                                signUpViewModel.nextScreen = "SignInView"
-                            }
+                                .font(FontScheme.kNotoSans(size: getRelativeHeight(13.0)))
+                                .fontWeight(.regular)
+                                .foregroundColor(ColorConstants.Black900)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(14.0),
+                                       alignment: .topLeading)
+                                .padding(.top, getRelativeHeight(14.0))
+                                .padding(.horizontal, getRelativeWidth(18.0))
+                                .onTapGesture {
+                                    signUpViewModel.nextScreen = "SignInView"
+                                }
+                        
                     }
                     .frame(width: getRelativeWidth(313.0), height: getRelativeHeight(497.0),
                            alignment: .leading)
@@ -354,6 +355,12 @@ struct SignUpView: View {
                 Group {
                     NavigationLink(destination: OnboardAvailabilityScreenView(),
                                    tag: "OnboardAvailabilityScreenView",
+                                   selection: $signUpViewModel.nextScreen,
+                                   label: {
+                                       EmptyView()
+                                   })
+                    NavigationLink(destination: SignInView(),
+                                   tag: "SignInView",
                                    selection: $signUpViewModel.nextScreen,
                                    label: {
                                        EmptyView()
@@ -384,13 +391,13 @@ func createUser() {
     
     UserDefaults.standard.set(listOfHours, forKey: "listOfHours")
     
-    testBackend.createUser(newEmail: "xcodereeeeallysucks@gmail.com", newPassword: "fuckyouxcodeevenmore")
+    testBackend.createUser(newEmail: "ufree438s@gmail.com", newPassword: "ToddSproull!")
     
     var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
     var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
     var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
     
-    print("LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+    print("SIGN UP LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
     
 
 }

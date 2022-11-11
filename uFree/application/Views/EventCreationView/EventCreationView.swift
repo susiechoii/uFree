@@ -1,4 +1,5 @@
 import SwiftUI
+import Firebase
 
 struct EventCreationView: View {
     @StateObject var eventCreationViewModel = EventCreationViewModel()
@@ -336,7 +337,17 @@ struct EventCreationView: View {
                         .padding(.top, getRelativeHeight(17.0))
                         .padding(.horizontal, getRelativeWidth(23.0))
                         VStack {
-                            Text(StringConstants.kLblDone)
+                            Button(action: {
+                                let specificDate = DateFormatter()
+                                specificDate.dateFormat = "yyyy/MM/dd HH:mm"
+                                
+                                let specificDateObject = specificDate.date(from: "2022/11/10 00:00")
+                                
+                                createEvent(name: "working on uFree", duration: 5, description: "we really love xcode man, can't you tell?", date: specificDateObject!)
+                                eventCreationViewModel.nextScreen = "HomePageView"
+                            }, label: {
+                                HStack(spacing: 0) {
+                                    Text(StringConstants.kLblDone)
                                 .font(FontScheme.kInterBlack(size: getRelativeHeight(15.0)))
                                 .fontWeight(.black)
                                 .foregroundColor(ColorConstants.Gray801)
@@ -346,7 +357,9 @@ struct EventCreationView: View {
                                        height: getRelativeHeight(17.0), alignment: .topLeading)
                                 .padding(.vertical, getRelativeHeight(14.0))
                                 .padding(.horizontal, getRelativeWidth(146.0))
-                        }
+                                }
+                            
+                        })
                         .frame(width: getRelativeWidth(339.0), height: getRelativeHeight(45.0),
                                alignment: .trailing)
                         .background(RoundedCorners(topLeft: 22.0, topRight: 22.0, bottomLeft: 22.0,
@@ -381,7 +394,62 @@ struct EventCreationView: View {
         .ignoresSafeArea()
         .hideNavigationBar()
     }
+        Group {
+            NavigationLink(destination: HomePageView(),
+                           tag: "HomePageView",
+                           selection: $eventCreationViewModel.nextScreen,
+                           label: {
+                               EmptyView()
+                           })
+        }
 }
+}
+
+func createEvent(name: String, duration: Int, description: String, date: Date) {
+    print("Reached in create event")
+    let ref = Database.database().reference()
+    ref.child("events/emails").observeSingleEvent(of: .value, with: { snapshot in
+          guard var emailArray = snapshot.value as? [String] else {
+              return
+          }
+          print("Old Email Values: \(emailArray)")
+        
+        let emailAddress = UserDefaults.standard.object(forKey: "email") as! String
+        // retrieving the events based on the email
+        let emailIndexValue = emailArray.firstIndex(of: emailAddress) ?? -1
+        
+        print("email index value \(emailIndexValue)")
+        
+        ref.child("events/events").observeSingleEvent(of: .value, with: { snapshot in
+            guard let allUserEvents = snapshot.value as? [[[String: String]]] else {
+                print("Error: All user events not found in database")
+                return
+            }
+            
+            print("All user events: \(allUserEvents)")
+            
+            var specificUserEvents = allUserEvents[emailIndexValue]
+            // [[String: String]]
+            
+            var dateString = ""
+            if #available(iOS 15.0, *) {
+                dateString = date.formatted(date: .numeric, time: .omitted) as String
+            } else {
+                // Fallback on earlier versions
+                print("Get a new phone")
+            }
+            let newEventDict: [String: String] = ["title": name, "duration": String(duration), "description": description, "date": dateString]
+            
+            specificUserEvents.append(newEventDict)
+            
+            ref.child("events/events").setValue(specificUserEvents)
+            
+            print("Event successfully created")
+        })
+        
+    })
+}
+
 
 struct EventCreationView_Previews: PreviewProvider {
     static var previews: some View {

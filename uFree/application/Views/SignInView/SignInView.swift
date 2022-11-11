@@ -44,7 +44,7 @@ struct SignInView: View {
                             .frame(width: getRelativeWidth(322.0), height: getRelativeHeight(375.0),
                                    alignment: .center)
                             .scaledToFit()
-                            .clipped()
+                            .clipped( )
                             .padding(.bottom, getRelativeHeight(237.0))
                             .padding(.leading, getRelativeWidth(6.0))
                         VStack(alignment: .leading, spacing: 0) {
@@ -163,9 +163,11 @@ struct SignInView: View {
                                 VStack {
                                     Button(action: {
                                         loginFunction()
+                                        
+                                        signInViewModel.nextScreen = "HomePageView"
                                     }, label: {
                                         HStack(spacing: 0) {
-                                            Text(StringConstants.kLblSignUp2)
+                                            Text("Log In")
                                                 .font(FontScheme
                                                     .kInterBlack(size: getRelativeHeight(15.0)))
                                                 .fontWeight(.black)
@@ -276,17 +278,17 @@ func loginFunction() {
         
     var testBackend = Backend()
     
-    
-     testBackend.login(email: "xcodesucks@gmail.com", password: "fuckyouxcode")
-    
-    
-    var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
-    var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
-    var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
-    
-    print("LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+    DispatchQueue.global(qos: .userInitiated).async {
+        testBackend.login(email: "ufree438s@gmail.com", password: "ToddSproull!")
         
-        
+        DispatchQueue.main.async {
+            var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
+            var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
+            var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
+            
+            print("SIGN IN LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+        }
+    }
     
 }
 
