@@ -201,6 +201,7 @@ struct OnboardAvailabilityScreenView: View {
                        alignment: .leading)
                 VStack(alignment: .trailing, spacing: 0) {
                     Button(action: {
+                        print("button")
 //                        createUser()
 //                        signUpViewModel.nextScreen = "OnboardAvailabilityScreenView"
                         sendCalendarToFirebase()
@@ -224,6 +225,11 @@ struct OnboardAvailabilityScreenView: View {
                                                            bottomLeft: 28.5,
                                                            bottomRight: 28.5)
                                         .fill(ColorConstants.Red400))
+//                                .onTapGesture {
+//                                    print("got here")
+//                                    sendCalendarToFirebase()
+//                                    onboardAvailabilityScreenViewModel.nextScreen = "HomePageView"
+//                                }
                         }
                     })
 //                    Text("TabBars")
@@ -234,16 +240,26 @@ struct OnboardAvailabilityScreenView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(96.0),
                        alignment: .leading)
+                Group {
+                    NavigationLink(destination: HomePageView(),
+                                   tag: "HomePageView",
+                                   selection: $onboardAvailabilityScreenViewModel.nextScreen,
+                                   label: {
+                                       EmptyView()
+                                   })
+                }
             }
             .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
             .background(ColorConstants.WhiteA700)
             .padding(.top, getRelativeHeight(30.0))
             .padding(.bottom, getRelativeHeight(10.0))
+            
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(ColorConstants.WhiteA700)
         .ignoresSafeArea()
         .hideNavigationBar()
+        
     }
 }
 
