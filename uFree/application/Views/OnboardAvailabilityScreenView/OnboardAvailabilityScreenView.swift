@@ -272,6 +272,7 @@ func sendCalendarToFirebase() {
           }
           print("Old Email Values: \(emailArray)")
         
+        print(UserDefaults.standard.object(forKey: "email") as? String)
         emailArray.append(UserDefaults.standard.object(forKey: "email") as! String)
         ref.child("calendar/emails").setValue(emailArray)
         

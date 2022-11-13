@@ -163,7 +163,6 @@ struct SignInView: View {
                                 VStack {
                                     Button(action: {
                                         loginFunction()
-                                        
                                         signInViewModel.nextScreen = "HomePageView"
                                     }, label: {
                                         HStack(spacing: 0) {
@@ -276,8 +275,17 @@ struct SignInView: View {
 
 func loginFunction() {
         
-    var testBackend = Backend()
+    let testBackend = Backend()
     
+    testBackend.login(email: "ufree438s@gmail.com", password: "ToddSproull!")
+    
+    var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
+    var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
+    var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
+    
+    print("SIGN IN LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+    
+    /*
     DispatchQueue.global(qos: .userInitiated).async {
         testBackend.login(email: "ufree438s@gmail.com", password: "ToddSproull!")
         
@@ -289,6 +297,7 @@ func loginFunction() {
             print("SIGN IN LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
         }
     }
+     */
     
 }
 

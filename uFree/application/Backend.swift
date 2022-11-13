@@ -14,7 +14,7 @@ class Backend {
     var email:String!
     var password: String!
     
-    let ref = Database.database().reference()
+//    let ref = Database.database().reference()
     
     
     required init() {
@@ -27,6 +27,7 @@ class Backend {
     
     
     func createUser(newEmail:String, newPassword: String) {
+        let ref = Database.database().reference()
         self.email = newEmail
         self.password = newPassword
         
@@ -43,9 +44,9 @@ class Backend {
             if (emailIndex == -1) {
                 emailArray.append(newEmail)
                 print("CREATE USER: new email array: \(emailArray)")
-                self.ref.child("loginInformation/emails").setValue(emailArray)
+                ref.child("loginInformation/emails").setValue(emailArray)
                 
-                self.ref.child("loginInformation/passwords").observeSingleEvent(of: .value, with: { snapshot in
+                ref.child("loginInformation/passwords").observeSingleEvent(of: .value, with: { snapshot in
                       guard var passwordArray = snapshot.value as? [String] else {
                           return
                       }
@@ -54,25 +55,31 @@ class Backend {
                     passwordArray.append(newPassword)
                     
                     print("CREATE USER: new password array: \(passwordArray)")
-                    self.ref.child("loginInformation/passwords").setValue(passwordArray)
+                    ref.child("loginInformation/passwords").setValue(passwordArray)
+                    ref.child("events/emails").observeSingleEvent(of: .value, with: { snapshot in
+                          guard var emailArray = snapshot.value as? [String] else {
+                              return
+                          }
+                          print("Old Email Values: \(emailArray)")
+                        print("NEW FUCKING EMAIL \(newEmail)")
+                        print("NEW FUCKING PASSWORD YOU PIECE OF SHIT SOFTWARE \(newPassword)")
+                        
+                        emailArray.append(newEmail)
+                        print("CREATE USER: new email array: \(emailArray)")
+                        ref.child("events/emails").setValue(emailArray)
+                        // user has logged in at this point
+                        UserDefaults.standard.set(newEmail, forKey: "email")
+                        UserDefaults.standard.set(newPassword, forKey: "password")
+                        
+                        print("RETRIEVED YOU MOFO EMAIL: \(UserDefaults.standard.object(forKey: "email") as! String)")
+                        print("RETRIEVED YOU MOFO PASSWORD: \(UserDefaults.standard.object(forKey: "password") as! String)")
+                        UserDefaults.standard.set(true, forKey: "loggedIn");
+                        UserDefaults.standard.set(emailArray.count - 1, forKey: "userIndexValue")
+                        
+                    })
                 })
                 
-                self.ref.child("events/emails").observeSingleEvent(of: .value, with: { snapshot in
-                      guard var emailArray = snapshot.value as? [String] else {
-                          return
-                      }
-                      print("Old Email Values: \(emailArray)")
-                    
-                    emailArray.append(newEmail)
-                    print("CREATE USER: new email array: \(emailArray)")
-                    self.ref.child("events/emails").setValue(emailArray)
-                    // user has logged in at this point
-                    UserDefaults.standard.set(self.email, forKey: "email")
-                    UserDefaults.standard.set(self.password, forKey: "password")
-                    UserDefaults.standard.set(true, forKey: "loggedIn");
-                    UserDefaults.standard.set(emailArray.count - 1, forKey: "userIndexValue")
-                    
-                })
+                
             }
             else {
                 print("ERROR: USER ALREADY EXISTS, CANNOT CREATE NEW EMAIL")
@@ -100,8 +107,12 @@ class Backend {
         var emailArray: [String] = []
         var canReturn = false
         
-        return ref.child("loginInformation/emails").observeSingleEvent(of: .value, with: { snapshot in
+        print("trying to log in")
+        let ref = Database.database().reference()
+        
+        ref.child("loginInformation/emails").observeSingleEvent(of: .value, with: { snapshot in
               guard let tempEmailArray = snapshot.value as? [String] else {
+                  print("YOU PIECE OF SHIT WHY YOU NOT GET THE LOGIN INFO PIECE OF TRASH")
                   return
               }
             
@@ -117,7 +128,7 @@ class Backend {
                 
                 emailIndexValue = emailArray.firstIndex(of: email) ?? -1
                 
-                self.ref.child("loginInformation/passwords").observeSingleEvent(of: .value, with: { snapshot in
+                ref.child("loginInformation/passwords").observeSingleEvent(of: .value, with: { snapshot in
                     guard let passwordArray = snapshot.value as? [String] else {
                         return
                     }
@@ -133,8 +144,30 @@ class Backend {
                         UserDefaults.standard.set(password, forKey: "password")
                         UserDefaults.standard.set(true, forKey: "loggedIn")
                         UserDefaults.standard.set(emailIndexValue, forKey: "userIndexValue")
-                    
                         
+                        print("NEW TO PRINT")
+                        let ref = Database.database().reference()
+                        let emailAddress = String(describing: UserDefaults.standard.object(forKey: "email")!)
+                        
+                        print ("Email address \(emailAddress)")
+                        // retrieving the events based on the email
+                        let emailIndexValue = UserDefaults.standard.integer(forKey: "userIndexValue")
+                        
+                        print("email index value \(emailIndexValue)")
+                        
+                        ref.child("events/events").observeSingleEvent(of: .value, with: { snapshot in
+                            guard let allEvents = snapshot.value as? [[[String: String]]] else {
+                                print("Error: All user events not found in database")
+                                return
+                            }
+                            
+                            UserDefaults.standard.set(allEvents[emailIndexValue], forKey: "specificUserEvents")
+                            print("NEW EVENTS: \(allEvents[emailIndexValue])")
+                      
+                        })
+                        
+                        print("END OF SETTING")
+                                
                         
                         let testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
                         let testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
@@ -146,7 +179,7 @@ class Backend {
                         
                         print("Success, user has logged in")
                         
-                        let homePageView = HomePageViewModel()
+//                        let homePageView = HomePageViewModel()
                         canReturn = true
                     }
                     else {
@@ -165,6 +198,9 @@ class Backend {
     }
     
     func createEvent(name: String, duration: Int, description: String, date: Date) {
+        
+        
+        let ref = Database.database().reference()
         ref.child("events/emails").observeSingleEvent(of: .value, with: { snapshot in
               guard var emailArray = snapshot.value as? [String] else {
                   return
@@ -174,7 +210,7 @@ class Backend {
             // retrieving the events based on the email
             let emailIndexValue = emailArray.firstIndex(of: self.email) ?? -1
             
-            self.ref.child("events/events").observeSingleEvent(of: .value, with: { snapshot in
+            ref.child("events/events").observeSingleEvent(of: .value, with: { snapshot in
                 guard let allUserEvents = snapshot.value as? [[[String: String]]] else {
                     return
                 }
@@ -192,7 +228,7 @@ class Backend {
                 
                 specificUserEvents.append(newEventDict)
                 
-                self.ref.child("events/events").setValue(specificUserEvents)
+                ref.child("events/events").setValue(specificUserEvents)
                 
             })
             

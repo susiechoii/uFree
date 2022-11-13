@@ -4,10 +4,9 @@ import Firebase
 struct HomePageView: View {
     @StateObject var homePageViewModel = HomePageViewModel()
     
-    var userEvents:[[String: String]] = []
     init() {
         print("Creating Home Page View")
-        homePageViewModel.refresh()
+//        homePageViewModel.refresh()
     }
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -79,14 +78,16 @@ struct HomePageView: View {
                                 .clipped()
                                 .padding(.top, getRelativeHeight(16.0))
                             VStack(spacing: 0) {
+                                let objectArray = UserDefaults.standard.array(forKey: "specificUserEvents") as! [[String: String]]
+
                                 ScrollView(.vertical, showsIndicators: false) {
                                     LazyVStack {
-                                        ForEach(0...homePageViewModel.userEvents.count, id: \.self) { index in
-                                            
-                                            let userTitle = homePageViewModel.userEvents[index]["title"]
-                                            let userDuration = homePageViewModel.userEvents[index]["duration"]
-                                            let userDate = homePageViewModel.userEvents[index]["date"]
-                                            let genericCell = GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
+                                        ForEach(0...objectArray.count-1, id: \.self) { index in
+                                            let userTitle = objectArray[index]["title"]
+                                            let userDuration = objectArray[index]["duration"]
+                                            let userDate = objectArray[index]["date"]
+
+                                            GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
                                                 .onTapGesture {
                                     
                                                     homePageViewModel.nextScreen = "EventView"
@@ -94,31 +95,6 @@ struct HomePageView: View {
                                         }
                                     }
                                 }
-                                Button(action: {
-                                    homePageViewModel.refresh()
-                                    homePageViewModel.nextScreen = "HomePageViewModel"
-
-                                }, label: {
-                                    HStack(spacing: 0) {
-                                        Text("Refresh")
-                                            .font(FontScheme
-                                                .kInterBlack(size: getRelativeHeight(15.0)))
-                                            .fontWeight(.black)
-                                            .padding(.horizontal, getRelativeWidth(30.0))
-                                            .padding(.vertical, getRelativeHeight(22.0))
-                                            .foregroundColor(ColorConstants.WhiteA700)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.center)
-                                            .frame(width: getRelativeWidth(295.0),
-                                                   height: getRelativeHeight(60.0),
-                                                   alignment: .center)
-                                            .background(RoundedCorners(topLeft: 28.5,
-                                                                       topRight: 28.5,
-                                                                       bottomLeft: 28.5,
-                                                                       bottomRight: 28.5)
-                                                    .fill(ColorConstants.Red400))
-                                    }
-                                })
                                 Button(action: {
                                     homePageViewModel.nextScreen = "EventCreationView"
 

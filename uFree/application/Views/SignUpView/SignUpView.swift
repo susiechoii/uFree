@@ -385,9 +385,9 @@ struct SignUpView_Previews: PreviewProvider {
 }
 
 func createUser() {
-    var testBackend = Backend()
+    let testBackend = Backend()
     
-    var listOfHours: [Int] = []
+    let listOfHours: [Int] = []
     
     UserDefaults.standard.set(listOfHours, forKey: "listOfHours")
     

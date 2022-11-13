@@ -416,7 +416,7 @@ func createEvent(name: String, duration: Int, description: String, date: Date) {
         
         let emailAddress = UserDefaults.standard.object(forKey: "email") as! String
         // retrieving the events based on the email
-        let emailIndexValue = emailArray.firstIndex(of: emailAddress) ?? -1
+        let emailIndexValue = UserDefaults.standard.integer(forKey: "userIndexValue")
         
         print("email index value \(emailIndexValue)")
         
@@ -427,6 +427,7 @@ func createEvent(name: String, duration: Int, description: String, date: Date) {
             }
             
             print("All user events: \(allUserEvents)")
+            print("EMAIL INDEX VALUE: \(emailIndexValue)")
             
             var specificUserEvents = allUserEvents[emailIndexValue]
             // [[String: String]]
@@ -443,6 +444,8 @@ func createEvent(name: String, duration: Int, description: String, date: Date) {
             specificUserEvents.append(newEventDict)
             
             ref.child("events/events").setValue(specificUserEvents)
+            
+            UserDefaults.standard.set(specificUserEvents, forKey: "specificUserEvents")
             
             print("Event successfully created")
         })

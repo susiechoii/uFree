@@ -8,7 +8,7 @@ class HomePageViewModel: ObservableObject {
     
     var userEvents:[[String: String]] = []
     
-    init() {
+    func refresh() {
         print("MADE TO HOME PAGE VIEW INIT")
         let ref = Database.database().reference()
         let emailIndexValue = UserDefaults.standard.integer(forKey: "userIndexValue")
@@ -30,10 +30,11 @@ class HomePageViewModel: ObservableObject {
             
         })
     }
-    
-    func refresh() {
-        print("MADE TO HOME PAGE REFRESH")
+
+    init() {
+        print("CALLING MODEL INIT")
         let ref = Database.database().reference()
+        print(UserDefaults.standard.object(forKey: "email"))
         let emailAddress = String(describing: UserDefaults.standard.object(forKey: "email")!)
         
         print ("Email address \(emailAddress)")
@@ -52,7 +53,14 @@ class HomePageViewModel: ObservableObject {
             
             print("Email index value \(emailIndexValue)")
             
-            self.userEvents = allEvents[emailIndexValue]
+            print("allEvents[emailIndexValue]: \(allEvents[emailIndexValue])")
+            print(type(of: allEvents[emailIndexValue]))
+            print("value of 0: \(allEvents[emailIndexValue][0]["date"])")
+            UserDefaults.standard.set(allEvents[emailIndexValue], forKey: "specificUserEvents")
+            print("TYPEEEEEE: \(type(of: UserDefaults.standard.set(allEvents[emailIndexValue], forKey: "specificUserEvents")))")
+            let objectArray = UserDefaults.standard.array(forKey: "specificUserEvents") as! [[String: String]]
+            print("objectArray: \(objectArray[0]["date"])")
+            print(type(of: objectArray))
             
         })
     }
