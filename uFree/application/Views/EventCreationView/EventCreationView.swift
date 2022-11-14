@@ -363,12 +363,13 @@ struct EventCreationView: View {
                         // Done Button
                         
                         VStack {
+//                            Text(StringConstants.kLblDone)
                             Button(action: {
                                 let specificDate = DateFormatter()
                                 specificDate.dateFormat = "yyyy/MM/dd HH:mm"
-                                
+
                                 let specificDateObject = specificDate.date(from: "2022/11/10 00:00")
-                                
+
                                 createEvent(name: "working on uFree", duration: selectedDuration, description: "we really love xcode man, can't you tell?", date: specificDateObject!)
                                 eventCreationViewModel.nextScreen = "HomePageView"
                             }, label: {
@@ -384,8 +385,9 @@ struct EventCreationView: View {
                                 .padding(.vertical, getRelativeHeight(14.0))
                                 .padding(.horizontal, getRelativeWidth(146.0))
                                 }
-                            
-                        })
+                            })
+
+                        }
                         .frame(width: getRelativeWidth(339.0), height: getRelativeHeight(45.0),
                                alignment: .trailing)
                         .background(RoundedCorners(topLeft: 22.0, topRight: 22.0, bottomLeft: 22.0,
@@ -396,7 +398,7 @@ struct EventCreationView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(746.0),
                            alignment: .leading)
-                    .background(ColorConstants.WhiteA700)
+//                    .background(ColorConstants.WhiteA700)
                 }
                 .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(746.0),
                        alignment: .leading)
@@ -423,15 +425,15 @@ struct EventCreationView: View {
         .ignoresSafeArea()
         .hideNavigationBar()
     }
-        Group {
-            NavigationLink(destination: HomePageView(),
-                           tag: "HomePageView",
-                           selection: $eventCreationViewModel.nextScreen,
-                           label: {
-                               EmptyView()
-                           })
-        }
-}
+//        Group {
+//            NavigationLink(destination: HomePageView(),
+//                           tag: "HomePageView",
+//                           selection: $eventCreationViewModel.nextScreen,
+//                           label: {
+//                               EmptyView()
+//                           })
+//        }
+//}
 }
 
 func createEvent(name: String, duration: Int, description: String, date: Date) {
