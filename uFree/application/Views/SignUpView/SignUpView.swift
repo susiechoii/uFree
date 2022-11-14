@@ -411,16 +411,20 @@ struct SignUpView_Previews: PreviewProvider {
     }
 }
 
+
 func createUser(emailInput: String, pwInput: String) {
     var testBackend = Backend()
+
     
-    var listOfHours: [Int] = []
+    let listOfHours: [Int] = []
     
     UserDefaults.standard.set(listOfHours, forKey: "listOfHours")
     
+
     print("YOUR EMAIL WAS \(emailInput)")
     print("YOUR PW WAS \(pwInput)")
     testBackend.createUser(newEmail: emailInput, newPassword: pwInput)
+
     
     var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
     var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
