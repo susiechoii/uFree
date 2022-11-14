@@ -4,6 +4,14 @@ import Firebase
 struct EventCreationView: View {
     @StateObject var eventCreationViewModel = EventCreationViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    //User input variables
+    @State var eventTitle = ""
+    @State var specificDates = ""
+    @State var selectedDuration: Int = 1
+    @State var invitees = ""
+    @State var description = ""
+    
     var body: some View {
         VStack {
             VStack(alignment: .trailing, spacing: 0) {
@@ -230,16 +238,22 @@ struct EventCreationView: View {
                                    alignment: .topLeading)
                             .padding(.top, getRelativeHeight(35.0))
                             .padding(.horizontal, getRelativeWidth(85.0))
+                        
+                        // Select Duration
+                        
                         Picker(StringConstants.kLbl2Hours,
-                               selection: $eventCreationViewModel.durationPicker1) {
-                            ForEach(eventCreationViewModel.durationPicker1Values,
+                               selection: $selectedDuration) {
+                            ForEach(0..<25,
                                     id: \.self) { value in
-                                Text(value)
+                                Text(String(value)).tag(value as Int?)
                             }
                         }
                         .foregroundColor(ColorConstants.Gray700)
                         .font(.system(size: getRelativeHeight(16)))
                         .pickerStyle(MenuPickerStyle())
+                        
+                        // Set your availability - SHOULD CALL CALENDAR PAGE
+                        
                         Button(action: {}, label: {
                             HStack(spacing: 0) {
                                 Text(StringConstants.kMsgYourAvailabili)
@@ -266,6 +280,8 @@ struct EventCreationView: View {
                                 .fill(ColorConstants.BlueA100))
                         .padding(.top, getRelativeHeight(8.0))
                         .padding(.horizontal, getRelativeWidth(21.0))
+                        
+                        // Invitee Text
                         Text(StringConstants.kLblInvitees)
                             .font(FontScheme.kInterMedium(size: getRelativeHeight(16.0)))
                             .fontWeight(.medium)
@@ -276,6 +292,9 @@ struct EventCreationView: View {
                                    alignment: .topLeading)
                             .padding(.top, getRelativeHeight(16.0))
                             .padding(.horizontal, getRelativeWidth(85.0))
+                        
+                        //Add Invitees Stack - NEEDS INPUT
+                        
                         VStack(spacing: 0) {
                             ScrollView(.vertical, showsIndicators: false) {
                                 LazyVStack {
@@ -311,6 +330,9 @@ struct EventCreationView: View {
                                alignment: .leading)
                         .padding(.top, getRelativeHeight(7.0))
                         .padding(.horizontal, getRelativeWidth(85.0))
+                        
+                        // Description Stack
+                        
                         VStack(alignment: .leading, spacing: 0) {
                             Text(StringConstants.kLblDescription)
                                 .font(FontScheme.kInterMedium(size: getRelativeHeight(16.0)))
@@ -336,6 +358,10 @@ struct EventCreationView: View {
                                                    bottomRight: 10.0))
                         .padding(.top, getRelativeHeight(17.0))
                         .padding(.horizontal, getRelativeWidth(23.0))
+                        
+                        
+                        // Done Button
+                        
                         VStack {
                             Button(action: {
                                 let specificDate = DateFormatter()
@@ -343,7 +369,7 @@ struct EventCreationView: View {
                                 
                                 let specificDateObject = specificDate.date(from: "2022/11/10 00:00")
                                 
-                                createEvent(name: "working on uFree", duration: 5, description: "we really love xcode man, can't you tell?", date: specificDateObject!)
+                                createEvent(name: "working on uFree", duration: selectedDuration, description: "we really love xcode man, can't you tell?", date: specificDateObject!)
                                 eventCreationViewModel.nextScreen = "HomePageView"
                             }, label: {
                                 HStack(spacing: 0) {
@@ -374,6 +400,9 @@ struct EventCreationView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(746.0),
                        alignment: .leading)
+                    
+//                Tab Bar Stack
+                    
                 VStack(alignment: .trailing, spacing: 0) {
                     Text("TabBars")
                         .minimumScaleFactor(0.5)
