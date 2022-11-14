@@ -20,8 +20,9 @@ class Backend {
     required init() {
         UserDefaults.standard.set("", forKey: "email")
         UserDefaults.standard.set("", forKey: "password")
+        UserDefaults.standard.set("", forKey: "userIndexValue")
+        UserDefaults.standard.set([["title":"null"]], forKey: "specificUserEvents")
         UserDefaults.standard.set(false, forKey: "loggedIn");
-        
     }
     
     
