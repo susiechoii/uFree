@@ -3,6 +3,13 @@ import SwiftUI
 struct SignUpView: View {
     @StateObject var signUpViewModel = SignUpViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    //User input variables
+    @State var userNameInput = ""
+    @State var userEmailInput = ""
+    @State var userPhoneInput = ""
+    @State var userPasswordInput = ""
+    @State var userConfirmedPasswordInput = ""
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -44,107 +51,101 @@ struct SignUpView: View {
                            alignment: .leading)
                     .padding(.top, getRelativeHeight(9.0))
                     .padding(.horizontal, getRelativeWidth(21.0))
+                    
+                    //the Name Vstack
+                    
                     VStack {
-                        ZStack(alignment: .topLeading) {
-                            VStack {
-                                VStack {
-                                    Text(StringConstants.kLblFullName)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(ColorConstants.Black900Cc)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(width: getRelativeWidth(54.0),
-                                               height: getRelativeHeight(12.0),
-                                               alignment: .topLeading)
-                                        .padding(.horizontal, getRelativeWidth(27.0))
-                                    Group {
-                                        HStack {
-                                            TextField(StringConstants.kLblEmail,
-                                                      text: $signUpViewModel.groupsevenText)
-                                                .font(FontScheme
-                                                    .kInterRegular(size: getRelativeHeight(12.0)))
-                                                .foregroundColor(ColorConstants.Black900Cc)
-                                                .padding()
-                                                .keyboardType(.emailAddress)
-                                        }
-                                        .onChange(of: signUpViewModel.groupsevenText) { newValue in
+                        Group {
+                            HStack {
+                                TextField(StringConstants.kLblFullName,
+                                          text: $signUpViewModel.groupNameText)
+                                    .font(FontScheme
+                                        .kInterRegular(size: getRelativeHeight(12.0)))
+                                    .foregroundColor(ColorConstants.Black900Cc)
+                                    .padding()
+                                    .keyboardType(.default)
+                            }
+                            .onChange(of: signUpViewModel.groupNameText) { newValue in
 
-                                            signUpViewModel.isValidGroupsevenText = newValue
-                                                .isValidEmail(isMandatory: true)
-                                        }
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(58.0), alignment: .leading)
-                                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                                bottomLeft: 29.0, bottomRight: 29.0)
-                                                .stroke(ColorConstants.Gray700,
-                                                        lineWidth: 1))
-                                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                                   bottomLeft: 29.0,
-                                                                   bottomRight: 29.0)
-                                                .fill(ColorConstants.WhiteA700))
-                                        .padding(.top, getRelativeHeight(43.0))
-                                        if !signUpViewModel.isValidGroupsevenText {
-                                            Text("Please enter valid email.")
-                                                .foregroundColor(Color.red)
-                                                .font(FontScheme
-                                                    .kInterRegular(size: getRelativeHeight(12.0)))
-                                                .frame(width: getRelativeWidth(295.0),
-                                                       height: getRelativeHeight(58.0),
-                                                       alignment: .leading)
-                                        }
-                                    }
-                                }
-                                .frame(width: getRelativeWidth(295.0),
-                                       height: getRelativeHeight(113.0), alignment: .leading)
-                                .clipShape(Capsule())
+                                signUpViewModel.groupNameText = newValue
+                                print($signUpViewModel.groupNameText.wrappedValue)
+                                userNameInput = $signUpViewModel.groupNameText.wrappedValue
                             }
-                            .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(116.0),
-                                   alignment: .bottomLeading)
-                            .clipShape(Capsule())
-                            .padding(.top, getRelativeHeight(29.0))
-                            ZStack(alignment: .topLeading) {
-                                VStack {
-                                    ZStack {}
-                                        .hideNavigationBar()
-                                        .frame(width: getRelativeWidth(49.0),
-                                               height: getRelativeHeight(1.0), alignment: .leading)
-                                        .background(ColorConstants.WhiteA700)
-                                        .padding(.bottom, getRelativeHeight(57.0))
-                                        .padding(.horizontal, getRelativeWidth(20.0))
-                                }
-                                .frame(width: getRelativeWidth(295.0),
-                                       height: getRelativeHeight(58.0), alignment: .bottomLeading)
-                                .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                        bottomLeft: 29.0, bottomRight: 29.0)
-                                        .stroke(ColorConstants.BlueA200,
-                                                lineWidth: 1))
-                                .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                           bottomLeft: 29.0, bottomRight: 29.0)
-                                        .fill(Color.clear.opacity(0.7)))
-                                .padding(.top, getRelativeHeight(9.0))
-                                Text(StringConstants.kLblName)
-                                    .font(FontScheme.kInterRegular(size: getRelativeHeight(12.0)))
-                                    .fontWeight(.regular)
-                                    .foregroundColor(ColorConstants.Black900)
-                                    .minimumScaleFactor(0.5)
-                                    .multilineTextAlignment(.leading)
-                                    .frame(width: getRelativeWidth(34.0),
-                                           height: getRelativeHeight(18.0), alignment: .topLeading)
-                                    .shadow(color: ColorConstants.Black9003f, radius: 4, x: 0, y: 4)
-                                    .padding(.bottom, getRelativeHeight(49.0))
-                                    .padding(.trailing, getRelativeWidth(233.0))
-                            }
-                            .hideNavigationBar()
-                            .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(67.0),
-                                   alignment: .topLeading)
-                            .padding(.bottom, getRelativeHeight(78.0))
+                            .frame(width: getRelativeWidth(295.0),
+                                   height: getRelativeHeight(58.0), alignment: .leading)
+                            .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                    bottomLeft: 29.0, bottomRight: 29.0)
+                                    .stroke(ColorConstants.Gray700,
+                                            lineWidth: 1))
+                            .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                       bottomLeft: 29.0, bottomRight: 29.0)
+                                    .fill(ColorConstants.WhiteA700))
                         }
-                        .hideNavigationBar()
-                        .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(145.0),
-                               alignment: .center)
-                        .padding(.leading, getRelativeWidth(18.0))
+                    }
+                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
+                           alignment: .center)
+                    .clipShape(Capsule())
+                    .padding(.top, getRelativeHeight(20.0))
+                    .padding(.leading, getRelativeWidth(18.0))
+                    
+                    //the email Vstack
+                    
+                    VStack {
+                        Group {
+                            HStack {
+                                TextField(StringConstants.kLblEmail,
+                                          text: $signUpViewModel.groupsevenText)
+                                    .font(FontScheme
+                                        .kInterRegular(size: getRelativeHeight(12.0)))
+                                    .foregroundColor(ColorConstants.Black900Cc)
+                                    .padding()
+                                    .keyboardType(.emailAddress)
+                            }
+                            .onChange(of: signUpViewModel.groupsevenText) { newValue in
+
+                                signUpViewModel.isValidGroupsevenText = newValue
+                                    .isValidEmail(isMandatory: true)
+                                
+                                print($signUpViewModel.groupsevenText.wrappedValue)
+                                userEmailInput = $signUpViewModel.groupsevenText.wrappedValue
+                                
+                            }
+                            .frame(width: getRelativeWidth(295.0),
+                                   height: getRelativeHeight(58.0), alignment: .leading)
+                            .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                    bottomLeft: 29.0, bottomRight: 29.0)
+                                    .stroke(ColorConstants.Gray700,
+                                            lineWidth: 1))
+                            .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                       bottomLeft: 29.0, bottomRight: 29.0)
+                                    .fill(ColorConstants.WhiteA700))
+                            if !signUpViewModel.isValidGroupsevenText {
+                                
+                                //FIX ME
+                                //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
+                                /*
+                                Text("Please enter valid email.")
+                                    .foregroundColor(Color.red)
+                                    .font(FontScheme
+                                        .kInterRegular(size: getRelativeHeight(12.0)))
+                                    .frame(width: getRelativeWidth(295.0),
+                                           height: getRelativeHeight(58.0), alignment: .leading)
+                                */
+                            }
+                        }
+                    }
+                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
+                           alignment: .center)
+                    .clipShape(Capsule())
+                    .padding(.top, getRelativeHeight(20.0))
+                    .padding(.leading, getRelativeWidth(18.0))
+                    
+                    
+                    
+                    
+                        
+                        //the phone number Vstack
+                        
                         VStack {
                             Group {
                                 HStack {
@@ -160,6 +161,10 @@ struct SignUpView: View {
 
                                     signUpViewModel.isValidInputtextnoneText = newValue
                                         .isValidPhone(isMandatory: false)
+                                    
+                                    print($signUpViewModel.inputtextnoneText.wrappedValue)
+                                    
+                                    userPhoneInput = $signUpViewModel.inputtextnoneText.wrappedValue
                                 }
                                 .frame(width: getRelativeWidth(295.0),
                                        height: getRelativeHeight(58.0), alignment: .leading)
@@ -171,12 +176,16 @@ struct SignUpView: View {
                                                            bottomLeft: 29.0, bottomRight: 29.0)
                                         .fill(ColorConstants.WhiteA700))
                                 if !signUpViewModel.isValidInputtextnoneText {
+                                    //FIX ME
+                                    //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
+                                    /*
                                     Text("Please enter valid phone number.")
                                         .foregroundColor(Color.red)
                                         .font(FontScheme
                                             .kInterRegular(size: getRelativeHeight(12.0)))
                                         .frame(width: getRelativeWidth(295.0),
                                                height: getRelativeHeight(58.0), alignment: .leading)
+                                     */
                                 }
                             }
                         }
@@ -185,6 +194,9 @@ struct SignUpView: View {
                         .clipShape(Capsule())
                         .padding(.top, getRelativeHeight(20.0))
                         .padding(.leading, getRelativeWidth(18.0))
+                        
+                        //the password Vstack
+                        
                         VStack {
                             Group {
                                 HStack {
@@ -210,6 +222,11 @@ struct SignUpView: View {
 
                                     signUpViewModel.isValidInputtextnoneoneText = newValue
                                         .isValidPassword(isMandatory: true)
+                                    
+                                    print($signUpViewModel.inputtextnoneoneText.wrappedValue)
+                                    
+                                    userPasswordInput = $signUpViewModel.inputtextnoneoneText.wrappedValue
+                                    
                                 }
                                 .frame(width: getRelativeWidth(295.0),
                                        height: getRelativeHeight(58.0), alignment: .leading)
@@ -221,12 +238,16 @@ struct SignUpView: View {
                                                            bottomLeft: 29.0, bottomRight: 29.0)
                                         .fill(ColorConstants.WhiteA700))
                                 if !signUpViewModel.isValidInputtextnoneoneText {
+                                    //FIX ME
+                                    //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
+                                    /*
                                     Text("Please enter valid password.")
                                         .foregroundColor(Color.red)
                                         .font(FontScheme
                                             .kInterRegular(size: getRelativeHeight(12.0)))
                                         .frame(width: getRelativeWidth(295.0),
                                                height: getRelativeHeight(58.0), alignment: .leading)
+                                    */
                                 }
                             }
                         }
@@ -235,6 +256,9 @@ struct SignUpView: View {
                         .clipShape(Capsule())
                         .padding(.top, getRelativeHeight(20.0))
                         .padding(.leading, getRelativeWidth(18.0))
+                        
+                        //the confirm password Vstack
+                        
                         VStack {
                             Group {
                                 HStack {
@@ -260,6 +284,9 @@ struct SignUpView: View {
 
                                     signUpViewModel.isValidInputtextnonetwoText = newValue
                                         .isValidPassword(isMandatory: true)
+                                    print($signUpViewModel.inputtextnonetwoText.wrappedValue)
+                                    userConfirmedPasswordInput = $signUpViewModel.inputtextnonetwoText.wrappedValue
+                                    
                                 }
                                 .frame(width: getRelativeWidth(295.0),
                                        height: getRelativeHeight(58.0), alignment: .leading)
@@ -271,12 +298,17 @@ struct SignUpView: View {
                                                            bottomLeft: 29.0, bottomRight: 29.0)
                                         .fill(ColorConstants.WhiteA700))
                                 if !signUpViewModel.isValidInputtextnonetwoText {
+                                    
+                                    //FIX ME
+                                    //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
+                                    /*
                                     Text("Please enter valid password.")
                                         .foregroundColor(Color.red)
                                         .font(FontScheme
                                             .kInterRegular(size: getRelativeHeight(12.0)))
                                         .frame(width: getRelativeWidth(295.0),
                                                height: getRelativeHeight(58.0), alignment: .leading)
+                                    */
                                 }
                             }
                         }
@@ -288,7 +320,7 @@ struct SignUpView: View {
                         VStack {
                             VStack {
                                 Button(action: {
-                                    createUser()
+                                    createUser(emailInput: userEmailInput, pwInput: userPasswordInput)
                                     signUpViewModel.nextScreen = "OnboardAvailabilityScreenView"
 
                                 }, label: {
@@ -342,11 +374,6 @@ struct SignUpView: View {
                                     signUpViewModel.nextScreen = "SignInView"
                                 }
                         
-                    }
-                    .frame(width: getRelativeWidth(313.0), height: getRelativeHeight(497.0),
-                           alignment: .leading)
-                    .padding(.vertical, getRelativeHeight(25.0))
-                    .padding(.horizontal, getRelativeWidth(21.0))
                 }
                 .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
                 .background(ColorConstants.WhiteA700)
@@ -384,14 +411,16 @@ struct SignUpView_Previews: PreviewProvider {
     }
 }
 
-func createUser() {
+func createUser(emailInput: String, pwInput: String) {
     var testBackend = Backend()
     
     var listOfHours: [Int] = []
     
     UserDefaults.standard.set(listOfHours, forKey: "listOfHours")
     
-    testBackend.createUser(newEmail: "ufree438s@gmail.com", newPassword: "ToddSproull!")
+    print("YOUR EMAIL WAS \(emailInput)")
+    print("YOUR PW WAS \(pwInput)")
+    testBackend.createUser(newEmail: emailInput, newPassword: pwInput)
     
     var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
     var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)

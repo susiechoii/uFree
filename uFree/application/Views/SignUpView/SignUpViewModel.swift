@@ -3,6 +3,7 @@ import SwiftUI
 
 class SignUpViewModel: ObservableObject {
     @Published var nextScreen: String? = nil
+    @Published var groupNameText: String = ""
     @Published var groupsevenText: String = ""
     @Published var isValidGroupsevenText: Bool = true
     @Published var inputtextnoneText: String = ""

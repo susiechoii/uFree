@@ -14,6 +14,3 @@ struct applicationApp: App {
         }
     }
 }
-
-
-//test nico front end branch
