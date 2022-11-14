@@ -443,7 +443,8 @@ func createEvent(name: String, duration: Int, description: String, date: Date) {
             
             specificUserEvents.append(newEventDict)
             
-            ref.child("events/events").setValue(specificUserEvents)
+            let path = "events/events/" + String(emailIndexValue)
+            ref.child(path).setValue(specificUserEvents)
             
             UserDefaults.standard.set(specificUserEvents, forKey: "specificUserEvents")
             

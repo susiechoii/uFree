@@ -63,7 +63,7 @@ class Backend {
                           print("Old Email Values: \(emailArray)")
                         print("NEW FUCKING EMAIL \(newEmail)")
                         print("NEW FUCKING PASSWORD YOU PIECE OF SHIT SOFTWARE \(newPassword)")
-                        
+                                                
                         emailArray.append(newEmail)
                         print("CREATE USER: new email array: \(emailArray)")
                         ref.child("events/emails").setValue(emailArray)
@@ -71,6 +71,26 @@ class Backend {
                         UserDefaults.standard.set(newEmail, forKey: "email")
                         UserDefaults.standard.set(newPassword, forKey: "password")
                         
+                        // let objectArray = UserDefaults.standard.array(forKey: "specificUserEvents") as! [[String: String]]
+                
+                        ref.child("events/events").observeSingleEvent(of: .value, with: { snapshot in
+                            guard var allUserEvents = snapshot.value as? [[[String: String]]] else {
+                                print("Error: All user events not found in database")
+                                return
+                            }
+                         
+
+                            var newEventDict: [String: String] = ["title":"null"]
+                            var newUserArray: [[String:String]] = [newEventDict]
+                            allUserEvents.append(newUserArray)
+                            
+                            print("All user events NEWEWWWWWW: \(allUserEvents)")
+                            
+                            ref.child("events/events").setValue(allUserEvents)
+                            
+                            UserDefaults.standard.set(newUserArray, forKey: "specificUserEvents")
+                            
+                        })
                         print("RETRIEVED YOU MOFO EMAIL: \(UserDefaults.standard.object(forKey: "email") as! String)")
                         print("RETRIEVED YOU MOFO PASSWORD: \(UserDefaults.standard.object(forKey: "password") as! String)")
                         UserDefaults.standard.set(true, forKey: "loggedIn");

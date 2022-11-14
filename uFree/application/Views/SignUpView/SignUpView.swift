@@ -391,7 +391,7 @@ func createUser() {
     
     UserDefaults.standard.set(listOfHours, forKey: "listOfHours")
     
-    testBackend.createUser(newEmail: "ufree438s@gmail.com", newPassword: "ToddSproull!")
+    testBackend.createUser(newEmail: "ufree438s2@gmail.com", newPassword: "ToddSproull!2")
     
     var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
     var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)

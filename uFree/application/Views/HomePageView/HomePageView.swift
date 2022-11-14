@@ -82,17 +82,27 @@ struct HomePageView: View {
 
                                 ScrollView(.vertical, showsIndicators: false) {
                                     LazyVStack {
-                                        ForEach(0...objectArray.count-1, id: \.self) { index in
-                                            let userTitle = objectArray[index]["title"]
-                                            let userDuration = objectArray[index]["duration"]
-                                            let userDate = objectArray[index]["date"]
+                                        if (objectArray.count > 0) {
+                                            ForEach(0...objectArray.count-1, id: \.self) { index in
+                                                
+                                                let _ = print("What is this backassery - btw index: \(index)")
+                                                let userTitle = objectArray[index]["title"]
+                                                
+                                                if (userTitle != "null") {
+                                                    let userDuration = objectArray[index]["duration"]
+                                                    let userDate = objectArray[index]["date"]
+                                                    
 
-                                            GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
-                                                .onTapGesture {
-                                    
-                                                    homePageViewModel.nextScreen = "EventView"
+                                                    GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
+                                                        .onTapGesture {
+                                            
+                                                            homePageViewModel.nextScreen = "EventView"
+                                                        }
                                                 }
+                                                
+                                            }
                                         }
+                                        
                                     }
                                 }
                                 Button(action: {

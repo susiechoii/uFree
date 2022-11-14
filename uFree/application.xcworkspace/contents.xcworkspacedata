@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:uFree Beta Recording 1.mov">
+   </FileRef>
+   <FileRef
       location = "group:..">
    </FileRef>
    <FileRef
