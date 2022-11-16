@@ -26,7 +26,7 @@ struct DaysTimeSele1Cell: View {
     @State private var didTapRow1:Bool = false
     @State private var didTapRow2:Bool = false
     @State private var didTapRow3:Bool = false
-    
+    //COLORs
     
     var index: Int!
 
