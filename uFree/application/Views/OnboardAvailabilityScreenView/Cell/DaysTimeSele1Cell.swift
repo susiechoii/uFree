@@ -1,20 +1,5 @@
 import SwiftUI
 
-// Working on highlighting buttons
-//struct ButtonPressableStyle: ButtonStyle {
-//
-//    func makeBody(configuration: Configuration) -> some View {
-//        configuration.label.background(configuration.isPressed ? "test" : "fuck you")
-////        configuration.label(configuration.isPressed ? configuration.label = "test" : ColorConstants.Gray101)
-//    }
-//}
-//
-//extension View {
-//    func withPressableStyle() -> some View {
-//        buttonStyle(ButtonPressableStyle())
-//    }
-//}
-
 struct DaysTimeSele1Cell: View {
     
     @State private var change8am = false

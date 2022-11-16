@@ -83,9 +83,9 @@ struct HomePageView: View {
                                 ScrollView(.vertical, showsIndicators: false) {
                                     LazyVStack {
                                         if (objectArray.count > 0) {
-                                            ForEach(0...objectArray.count-1, id: \.self) { index in
+                                          ForEach(0...objectArray.count-1, id: \.self) { index in
                                                 
-                                                let _ = print("What is this backassery - btw index: \(index)")
+                                                let _ = print("Event index: \(index)")
                                                 let userTitle = objectArray[index]["title"]
                                                 
                                                 if (userTitle != "null") {

@@ -31,8 +31,7 @@ class Backend {
         let ref = Database.database().reference()
         self.email = newEmail
         self.password = newPassword
-        
-        // sorry susie
+
         // getting emails, appending, overwritng
         ref.child("loginInformation/emails").observeSingleEvent(of: .value, with: { snapshot in
               guard var emailArray = snapshot.value as? [String] else {
@@ -62,8 +61,8 @@ class Backend {
                               return
                           }
                           print("Old Email Values: \(emailArray)")
-                        print("NEW FUCKING EMAIL \(newEmail)")
-                        print("NEW FUCKING PASSWORD YOU PIECE OF SHIT SOFTWARE \(newPassword)")
+                        print("NEW EMAIL \(newEmail)")
+                        print("NEW PASSWORD \(newPassword)")
                                                 
                         emailArray.append(newEmail)
                         print("CREATE USER: new email array: \(emailArray)")
@@ -92,8 +91,8 @@ class Backend {
                             UserDefaults.standard.set(newUserArray, forKey: "specificUserEvents")
                             
                         })
-                        print("RETRIEVED YOU MOFO EMAIL: \(UserDefaults.standard.object(forKey: "email") as! String)")
-                        print("RETRIEVED YOU MOFO PASSWORD: \(UserDefaults.standard.object(forKey: "password") as! String)")
+                        print("RETRIEVED EMAIL: \(UserDefaults.standard.object(forKey: "email") as! String)")
+                        print("RETRIEVED PASSWORD: \(UserDefaults.standard.object(forKey: "password") as! String)")
                         UserDefaults.standard.set(true, forKey: "loggedIn");
                         UserDefaults.standard.set(emailArray.count - 1, forKey: "userIndexValue")
                         
@@ -133,7 +132,7 @@ class Backend {
         
         ref.child("loginInformation/emails").observeSingleEvent(of: .value, with: { snapshot in
               guard let tempEmailArray = snapshot.value as? [String] else {
-                  print("YOU PIECE OF SHIT WHY YOU NOT GET THE LOGIN INFO PIECE OF TRASH")
+                  print("Error: Email array not found")
                   return
               }
             

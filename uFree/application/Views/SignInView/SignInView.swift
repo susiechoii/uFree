@@ -277,7 +277,7 @@ func loginFunction() {
         
     let testBackend = Backend()
     
-    testBackend.login(email: "ufree438s@gmail.com", password: "ToddSproull!")
+    testBackend.login(email: "test@example.com", password: "testemail")
     
     var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
     var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
@@ -287,7 +287,7 @@ func loginFunction() {
     
     /*
     DispatchQueue.global(qos: .userInitiated).async {
-        testBackend.login(email: "ufree438s@gmail.com", password: "ToddSproull!")
+        testBackend.login(email: "test@example.com", password: "testemail")
         
         DispatchQueue.main.async {
             var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)

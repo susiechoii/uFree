@@ -286,7 +286,7 @@ func sendCalendarToFirebase() {
             
             preferencesArray.append(myNewArray)
             ref.child("calendar/preferences").setValue(preferencesArray)
-            print("FUCK YEAH BOOM")
+            print("Success")
         })
         
     })

@@ -26,7 +26,7 @@ class ViewController: UIViewController {
     @IBAction func createUser() {
         var testBackend = Backend()
         
-        testBackend.createUser(newEmail: "xcodesucks@gmail.com", newPassword: "fuckyouxcode")
+        testBackend.createUser(newEmail: "test@example.com", newPassword: "testemail")
         
         var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
         var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         var testBackend = Backend()
         
         
-         testBackend.login(email: "xcodesucks@gmail.com", password: "fuckyouxcode")
+         testBackend.login(email: "test@example.com", password: "testemail")
         
         
         var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
