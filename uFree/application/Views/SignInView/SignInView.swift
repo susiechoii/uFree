@@ -2,6 +2,8 @@ import SwiftUI
 
 struct SignInView: View {
     @StateObject var signInViewModel = SignInViewModel()
+    @State var userEmailInput = ""
+    @State var userPasswordInput = ""
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         NavigationView {
@@ -28,6 +30,7 @@ struct SignInView: View {
                         .padding(.top, getRelativeHeight(420.54))
                         .padding(.leading, getRelativeWidth(275.29))
                         Button(action: {
+                            
                             self.presentationMode.wrappedValue.dismiss()
                         }, label: {
                             Image("img_arrowleft")
@@ -87,6 +90,9 @@ struct SignInView: View {
 
                                                 signInViewModel.isValidInputtextnoneText = newValue
                                                     .isValidEmail(isMandatory: true)
+                                                
+                                                print($signInViewModel.inputtextnoneText.wrappedValue)
+                                                userEmailInput = $signInViewModel.inputtextnoneText.wrappedValue
                                         }
                                         .frame(width: getRelativeWidth(295.0),
                                                height: getRelativeHeight(58.0), alignment: .leading)
@@ -99,6 +105,10 @@ struct SignInView: View {
                                                                    bottomRight: 29.0)
                                                 .fill(ColorConstants.WhiteA700))
                                         if !signInViewModel.isValidInputtextnoneText {
+                                            
+                                            //FIX ME
+                                            //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
+                                            /*
                                             Text("Please enter valid email.")
                                                 .foregroundColor(Color.red)
                                                 .font(FontScheme
@@ -106,6 +116,7 @@ struct SignInView: View {
                                                 .frame(width: getRelativeWidth(295.0),
                                                        height: getRelativeHeight(58.0),
                                                        alignment: .leading)
+                                             */
                                         }
                                     }
                                 }
@@ -130,6 +141,9 @@ struct SignInView: View {
                                                 signInViewModel
                                                     .isValidInputtextnoneoneText = newValue
                                                     .isValidPassword(isMandatory: true)
+                                                
+                                                print($signInViewModel.inputtextnoneoneText.wrappedValue)
+                                                userEmailInput = $signInViewModel.inputtextnoneoneText.wrappedValue
                                         }
                                         .frame(width: getRelativeWidth(295.0),
                                                height: getRelativeHeight(58.0), alignment: .leading)
@@ -142,6 +156,10 @@ struct SignInView: View {
                                                                    bottomRight: 29.0)
                                                 .fill(ColorConstants.WhiteA700))
                                         if !signInViewModel.isValidInputtextnoneoneText {
+                                            
+                                            //FIX ME
+                                            //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
+                                            /*
                                             Text("Please enter valid password.")
                                                 .foregroundColor(Color.red)
                                                 .font(FontScheme
@@ -149,6 +167,7 @@ struct SignInView: View {
                                                 .frame(width: getRelativeWidth(295.0),
                                                        height: getRelativeHeight(58.0),
                                                        alignment: .leading)
+                                             */
                                         }
                                     }
                                 }
@@ -162,7 +181,7 @@ struct SignInView: View {
                             VStack {
                                 VStack {
                                     Button(action: {
-                                        loginFunction()
+                                        loginFunction(emailInput: userEmailInput, pwInput: userPasswordInput)
                                         signInViewModel.nextScreen = "HomePageView"
                                     }, label: {
                                         HStack(spacing: 0) {
@@ -273,17 +292,17 @@ struct SignInView: View {
     }
 }
 
-func loginFunction() {
+func loginFunction(emailInput: String, pwInput: String) {
         
     let testBackend = Backend()
     
-    testBackend.login(email: "ufree438s@gmail.com", password: "ToddSproull!")
+    testBackend.login(email: emailInput, password: pwInput)
     
     var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
     var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
     var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
     
-    print("SIGN IN LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
+    print("SIGN IN LOGGING IN email: \(emailInput), password: \(pwInput), LOGGED IN WOOO: \(testLoggedIn)")
     
     /*
     DispatchQueue.global(qos: .userInitiated).async {
