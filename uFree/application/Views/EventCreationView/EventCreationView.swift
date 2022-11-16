@@ -80,39 +80,73 @@ struct EventCreationView: View {
                         .frame(width: 143, height: 12, alignment: .leading)
                         .lineSpacing(26).padding(.top, 25)
 
-                        ZStack {
-                            ZStack {
-                                Text(StringConstants.kMsgYourAvailabili)
-                                .fontWeight(.bold)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.center)
-                                .lineSpacing(36)
-                            }
-                            .frame(width: 350, height: 35)
-                            .background(Color(red: 0.46, green: 0.66, blue: 1))
-                            .cornerRadius(10)
-                            .offset(x: 0, y: 42)
-                            .frame(width: 350, height: 35)
+//                        ZStack {
+//                            ZStack {
+//                                Text(StringConstants.kMsgYourAvailabili)
+//                                .fontWeight(.bold)
+//                                .font(.subheadline)
+//                                .multilineTextAlignment(.center)
+//                                .lineSpacing(36)
+//                            }
+//                            .frame(width: 350, height: 35)
+//                            .background(Color(red: 0.46, green: 0.66, blue: 1))
+//                            .cornerRadius(10)
+//                            .offset(x: 0, y: 42)
+//                            .frame(width: 350, height: 35)
 
-                            ZStack {
-                                Text(StringConstants.kLbl2Hours)
-                                .font(.callout)
-                                .frame(alignment: .leading)
-                                .lineSpacing(24)
-
-                                RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(red: 0.50, green: 0.23, blue: 0.27, opacity: 0.50))
-                                .offset(x: 141.36, y: 0)
-                                .frame(width: 23.14, height: 17)
+//                            ZStack {
+//                                Text(StringConstants.kLbl2Hours)
+//                                .font(.callout)
+//                                .frame(alignment: .leading)
+//                                .lineSpacing(24)
+//
+//                                RoundedRectangle(cornerRadius: 8)
+//                                .fill(Color(red: 0.50, green: 0.23, blue: 0.27, opacity: 0.50))
+//                                .offset(x: 141.36, y: 0)
+//                                .frame(width: 23.14, height: 17)
+//                            }
+                            // Select Duration
+                                                    
+                            Picker(StringConstants.kLbl2Hours,
+                                   selection: $selectedDuration) {
+                                ForEach(0..<25,
+                                        id: \.self) { value in
+                                    Text(String(value)).tag(value as Int?)
+                                }
                             }
+                            .foregroundColor(ColorConstants.Gray700)
+                            .font(.system(size: getRelativeHeight(16)))
+                            .pickerStyle(MenuPickerStyle())
+                            
+                            // Set your availability - SHOULD CALL CALENDAR PAGE
+                                                    
+                            Button(action: {}, label: {
+                                HStack(spacing: 0) {
+                                    Text(StringConstants.kMsgYourAvailabili)
+                                        .font(FontScheme.kInterBold(size: getRelativeHeight(14.0)))
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, getRelativeWidth(30.0))
+                                        .padding(.vertical, getRelativeHeight(10.0))
+                                        .foregroundColor(ColorConstants.Gray101)
+                                        .minimumScaleFactor(0.5)
+                                        .multilineTextAlignment(.center)
+                                        .frame(width: getRelativeWidth(330.0),
+                                               height: getRelativeHeight(35.0), alignment: .center)
+                                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0,
+                                                                   bottomLeft: 10.0, bottomRight: 10.0)
+                                                .fill(ColorConstants.BlueA100))
+                                        .padding(.top, getRelativeHeight(8.0))
+                                        .padding(.horizontal, getRelativeWidth(21.0))
+                                }
+                            })
                             .frame(width: 350, height: 35)
                             .background(Color(red: 0.95, green: 0.96, blue: 0.98))
                             .cornerRadius(10)
                             .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.12), radius: 4)
                             .offset(x: 0, y: 0)
                             .frame(width: 350, height: 35)
-                        }
-                        .frame(width: 350, height: 50)
+//                        }
+//                        .frame(width: 350, height: 50)
                     Text(StringConstants.kLblInvitees)
                         .fontWeight(.medium)
                         .font(.callout)
