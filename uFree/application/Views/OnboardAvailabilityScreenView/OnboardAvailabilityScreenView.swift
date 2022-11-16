@@ -193,17 +193,18 @@ struct OnboardAvailabilityScreenView: View {
                         .padding(.top, getRelativeHeight(27.0))
                         .padding(.horizontal, getRelativeWidth(39.0))
                     }
-                    .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(745.0),
+                    .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(780.0),
                            alignment: .leading)
                     .background(ColorConstants.WhiteA700)
                 }
-                .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(745.0),
+                .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(725.0),
                        alignment: .leading)
                 VStack(alignment: .trailing, spacing: 0) {
                     Button(action: {
                         print("button")
 //                        createUser()
 //                        signUpViewModel.nextScreen = "OnboardAvailabilityScreenView"
+                        print("clicked BUTTON!!")
                         sendCalendarToFirebase()
                         onboardAvailabilityScreenViewModel.nextScreen = "HomePageView"
                     }, label: {
@@ -225,6 +226,10 @@ struct OnboardAvailabilityScreenView: View {
                                                            bottomLeft: 28.5,
                                                            bottomRight: 28.5)
                                         .fill(ColorConstants.Red400))
+                                .frame(width: getRelativeWidth(295.0),
+                                       height: getRelativeHeight(60.0),
+                                       alignment: .center)
+                                
 //                                .onTapGesture {
 //                                    print("got here")
 //                                    sendCalendarToFirebase()
@@ -239,7 +244,7 @@ struct OnboardAvailabilityScreenView: View {
 //                               alignment: .trailing)
                 }
                 .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(96.0),
-                       alignment: .leading)
+                       alignment: .center)
                 Group {
                     NavigationLink(destination: HomePageView(),
                                    tag: "HomePageView",
