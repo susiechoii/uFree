@@ -185,6 +185,14 @@ struct EventCreationView: View {
                     .background(RoundedCorners(topLeft: 22.0, topRight: 22.0, bottomLeft: 22.0, bottomRight: 22.0).fill(ColorConstants.IndigoA70077))
                     .padding(.top, getRelativeHeight(18.0)).padding(.horizontal, getRelativeWidth(0.0))
                 }.padding(.top, 20).padding(.leading, 20)
+                Group {
+                    NavigationLink(destination: HomePageView(),
+                                   tag: "HomePageView",
+                                   selection: $eventCreationViewModel.nextScreen,
+                                   label: {
+                                       EmptyView()
+                                   })
+                }
             }.navigationBarTitle(StringConstants.kMsgLetSMakeANe)
         }
     }
