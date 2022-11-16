@@ -28,6 +28,8 @@ struct DaysTimeSele1Cell: View {
     @State private var didTapRow3:Bool = false
     //COLORs
     //NSCHANGES
+    
+    
     var index: Int!
 
     init(index: Int) {
