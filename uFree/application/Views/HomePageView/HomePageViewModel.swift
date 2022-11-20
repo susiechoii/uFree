@@ -3,8 +3,7 @@ import SwiftUI
 import Firebase
 
 class HomePageViewModel: ObservableObject {
-    @Published var nextScreen: String? = nil
-    @Published var input: String = ""
+    @Published var nextScreen: String? = nil    
     
     var userEvents:[[String: String]] = []
     
@@ -30,12 +29,40 @@ class HomePageViewModel: ObservableObject {
             
         })
     }
+    
+    func refreshSpecificUserEvents() -> [[String:String]] {
+        print("Refreshing Specific User Events")
+        
+        let ref = Database.database().reference()
+        let emailIndexValue = UserDefaults.standard.integer(forKey: "userIndexValue")
+        var specificUserEventsObjectArray = [["title" : "null"]]
+        print("email index value \(emailIndexValue)")
+        
+        
+        ref.child("events/events").observeSingleEvent(of: .value, with: { snapshot in
+            guard let allEvents = snapshot.value as? [[[String: String]]] else {
+                print("Error: All user events not found in database")
+                return
+            }
+            
+            print("ALL EVENTS: \(allEvents)")
+            
+            print("Email index value \(emailIndexValue)")
+            
+            specificUserEventsObjectArray = allEvents[emailIndexValue]
+            
+        })
+        
+        return specificUserEventsObjectArray
+        
+    }
 
     init() {
         print("CALLING MODEL INIT")
         let ref = Database.database().reference()
         print(UserDefaults.standard.object(forKey: "email"))
-        let emailAddress = String(describing: UserDefaults.standard.object(forKey: "email")!)
+        let emailAddressObject = UserDefaults.standard.object(forKey: "email") as? String
+        let emailAddress = String(describing: emailAddressObject)
         
         print ("Email address \(emailAddress)")
         // retrieving the events based on the email

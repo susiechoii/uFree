@@ -1,9 +1,11 @@
 import SwiftUI
 import Firebase
 
+
 struct HomePageView: View {
     @StateObject var homePageViewModel = HomePageViewModel()
-    
+    //@ObservedObject var objectArray = ObservedObjectArrayModel()
+    //@State var refresh: Bool = false;
     init() {
         print("Creating Home Page View")
 //        homePageViewModel.refresh()
@@ -15,52 +17,8 @@ struct HomePageView: View {
             VStack {
                 VStack(alignment: .leading, spacing: 0) {
                     VStack {
-                        HStack {
-                            HStack {
-                                HStack {
-                                    Spacer()
-                                    Image("img_search")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(11.0),
-                                               height: getRelativeWidth(11.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.vertical, getRelativeHeight(14.0))
-                                        .padding(.leading, getRelativeWidth(14.0))
-                                        .padding(.trailing, getRelativeWidth(10.0))
-                                    TextField(StringConstants.kLblSearch,
-                                              text: $homePageViewModel.input)
-                                        .font(FontScheme
-                                            .kNunitoRegular(size: getRelativeHeight(14.0)))
-                                        .foregroundColor(ColorConstants.Bluegray600)
-                                        .padding()
-                                }
-                                .frame(width: getRelativeWidth(295.0),
-                                       height: getRelativeHeight(40.0), alignment: .center)
-                                .overlay(RoundedCorners(topLeft: 4.0, topRight: 4.0,
-                                                        bottomLeft: 4.0,
-                                                        bottomRight: 4.0)
-                                        .stroke(ColorConstants.Bluegray200,
-                                                lineWidth: 1))
-                                .background(RoundedCorners(topLeft: 4.0, topRight: 4.0,
-                                                           bottomLeft: 4.0, bottomRight: 4.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                Spacer()
-                                Image("img_nomadsavatar")
-                                    .resizable()
-                                    .frame(width: getRelativeWidth(32.0),
-                                           height: getRelativeWidth(32.0), alignment: .center)
-                                    .scaledToFit()
-                                    .clipped()
-                                    .padding(.vertical, getRelativeHeight(4.0))
-                            }
-                            .frame(width: getRelativeWidth(343.0), height: getRelativeHeight(40.0),
-                                   alignment: .leading)
-                        }
-                        .frame(width: getRelativeWidth(343.0), height: getRelativeHeight(40.0),
-                               alignment: .leading)
-                        .padding(.horizontal, getRelativeWidth(16.0))
                         VStack(alignment: .leading, spacing: 0) {
+                            HStack {
                             Text(StringConstants.kLblUpcomingEvents)
                                 .font(FontScheme.kInterSemiBold(size: getRelativeHeight(32.0)))
                                 .fontWeight(.semibold)
@@ -70,6 +28,14 @@ struct HomePageView: View {
                                 .frame(width: getRelativeWidth(255.0),
                                        height: getRelativeHeight(33.0), alignment: .topLeading)
                                 .padding(.trailing)
+                                Button {
+                                    homePageViewModel.nextScreen = "HomePageView"
+                
+                                } label: {
+                                    Text("Refresh")
+                                }
+
+                            }
                             Image("img_items")
                                 .resizable()
                                 .frame(width: getRelativeWidth(343.0),
@@ -78,12 +44,14 @@ struct HomePageView: View {
                                 .clipped()
                                 .padding(.top, getRelativeHeight(16.0))
                             VStack(spacing: 0) {
-                                let objectArray = UserDefaults.standard.array(forKey: "specificUserEvents") as! [[String: String]]
+                                
+                           let objectArray = UserDefaults.standard.array(forKey: "specificUserEvents") as? [[String: String]] ?? [["title": "null"]]
 
+                                
                                 ScrollView(.vertical, showsIndicators: false) {
                                     LazyVStack {
                                         if (objectArray.count > 0) {
-                                          ForEach(0...objectArray.count-1, id: \.self) { index in
+                                            ForEach(0...objectArray.count-1, id: \.self) { index in
                                                 
                                                 let _ = print("Event index: \(index)")
                                                 let userTitle = objectArray[index]["title"]
@@ -182,12 +150,17 @@ struct HomePageView: View {
                 }
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .padding(.top, getRelativeHeight(70.0))
             .background(ColorConstants.WhiteA700)
             .ignoresSafeArea()
             .hideNavigationBar()
         }
         .hideNavigationBar()
     }
+}
+
+class ObservedObjectArrayModel: ObservableObject {
+    @Published var objectArrayDict: [[String: String]] = [["title" : "null"]]
 }
 
 struct HomePageView_Previews: PreviewProvider {

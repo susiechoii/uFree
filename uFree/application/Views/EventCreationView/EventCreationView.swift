@@ -4,6 +4,7 @@ import Firebase
 struct EventCreationView: View {
     @StateObject var eventCreationViewModel = EventCreationViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State var userEmailInput = ""
     
     //User input variables
     @State var eventTitle = ""
@@ -153,34 +154,35 @@ struct EventCreationView: View {
                         .frame(width: 85, height: 11.42, alignment: .leading)
                         .lineSpacing(26).padding(.top, 45)
                     ZStack(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 10) .fill(Color(red: 0.95, green: 0.96, blue: 0.98)) .frame(width: 350, height: 22.85)
+                        HStack {
+                            TextField(StringConstants.kLblEmail,
+                                      text: $eventCreationViewModel.stringOfEmails)
+                                .font(FontScheme
+                                    .kInterRegular(size: getRelativeHeight(12.0)))
+                                .foregroundColor(ColorConstants.Black900Cc)
+                                .padding()
+                                .keyboardType(.emailAddress)
+                        }
+                        .onChange(of: eventCreationViewModel
+                            .stringOfEmails) { newValue in
+
+                                eventCreationViewModel.stringOfEmails = newValue
+                                
+                                print($eventCreationViewModel.stringOfEmails.wrappedValue)
+                                userEmailInput = $eventCreationViewModel.stringOfEmails.wrappedValue
+                        }
+                        .frame(width: getRelativeWidth(295.0),
+                               height: getRelativeHeight(58.0), alignment: .leading)
+                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                bottomLeft: 29.0, bottomRight: 29.0)
+                                .stroke(ColorConstants.Gray700,
+                                        lineWidth: 1))
+                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                   bottomLeft: 29.0,
+                                                   bottomRight: 29.0)
+                                .fill(ColorConstants.WhiteA700))
                         
-                        HStack(spacing: 11) {
-                            RoundedRectangle(cornerRadius: 8) .fill(Color(red: 0.50, green: 0.23, blue: 0.27, opacity: 0.50)) .frame(width: 24, height: 24)
-                            Text(StringConstants.kMsgEnterInviteeE).fontWeight(.thin)
-                                .font(.caption)
-                                .lineSpacing(18)
-                        }.frame(width: 343)
                         
-                        RoundedRectangle(cornerRadius: 10) .fill(Color(red: 0.95, green: 0.96, blue: 0.98)).offset(x: 0, y: 30) .frame(width: 350, height: 22.85)
-                        
-                        HStack(spacing: 11) {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color(red: 0.50, green: 0.23, blue: 0.27, opacity: 0.50))
-                                .frame(width: 24, height: 24)
-                            Text(StringConstants.kMsgEnterInviteeE2) .fontWeight(.thin)
-                                .font(.caption)
-                                .lineSpacing(18)
-                        }.offset(x: 1, y: 30) .frame(width: 343)
-                        
-                        HStack(spacing: 11) {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.black)
-                                .frame(width: 24, height: 24)
-                            Text(StringConstants.kLblAddNewInvitee) .fontWeight(.thin)
-                                .font(.caption)
-                                .lineSpacing(18)
-                        }.offset(x: 0, y: 60) .frame(width: 343)
                     }.frame(width: 343, height: 30)
                     
                     Text(StringConstants.kLblDescription)
@@ -199,7 +201,7 @@ struct EventCreationView: View {
                             let specificDate = DateFormatter()
                             specificDate.dateFormat = "yyyy/MM/dd HH:mm"
                             let specificDateObject = specificDate.date(from: "2022/11/10 00:00")
-                            createEvent(name: "working on uFree", duration: selectedDuration, description: "we really love xcode man, can't you tell?", date: specificDateObject!)
+                            createEvent(name: "working on uFree", duration: selectedDuration, description: "we really love xcode man, can't you tell?", date: specificDateObject!, emails: String(describing: userEmailInput))
                             eventCreationViewModel.nextScreen = "HomePageView"
                         }, label: {
                             HStack(spacing: 0) {
@@ -228,11 +230,11 @@ struct EventCreationView: View {
                                    })
                 }
             }.navigationBarTitle(StringConstants.kMsgLetSMakeANe)
-        }
+        }.hideNavigationBar()
     }
 }
 
-func createEvent(name: String, duration: Int, description: String, date: Date) {
+func createEvent(name: String, duration: Int, description: String, date: Date, emails: String) {
     print("Reached in create event")
     let ref = Database.database().reference()
     ref.child("events/emails").observeSingleEvent(of: .value, with: { snapshot in
@@ -258,7 +260,7 @@ func createEvent(name: String, duration: Int, description: String, date: Date) {
             
             var specificUserEvents = allUserEvents[emailIndexValue]
             // [[String: String]]
-            
+    
             var dateString = ""
             if #available(iOS 15.0, *) {
                 dateString = date.formatted(date: .numeric, time: .omitted) as String
@@ -266,9 +268,34 @@ func createEvent(name: String, duration: Int, description: String, date: Date) {
                 // Fallback on earlier versions
                 print("Get a new phone")
             }
-            let newEventDict: [String: String] = ["title": name, "duration": String(duration), "description": description, "date": dateString]
             
-            specificUserEvents.append(newEventDict)
+            var newEventDictForOriginalUser: [String:String] = [:]
+            
+            if (emails != "") {
+                print("EMAILS STRING \(emails)")
+                let inviteeEmailIndex = emailArray.firstIndex(of: emails) ?? -1
+                
+                if (inviteeEmailIndex != -1) {
+                    let newEventDictForInvitee: [String: String] = ["title": name, "duration": String(duration), "description": description, "date": dateString, "waiting": "true"]
+                    
+                    var specificUserEventsForInvitee = allUserEvents[inviteeEmailIndex]
+                    
+                    specificUserEventsForInvitee.append(newEventDictForInvitee)
+                    
+                    let path = "events/events/" + String(inviteeEmailIndex)
+                    ref.child(path).setValue(specificUserEvents)
+                    
+                    print("Added user event for invitee")
+                } else {
+                
+                newEventDictForOriginalUser = ["title": name, "duration": String(duration), "description": description, "date": dateString, "waiting": "true"]
+                }
+                // for the original inviter
+                
+            }
+            newEventDictForOriginalUser = ["title": name, "duration": String(duration), "description": description, "date": dateString, "waiting": "false"]
+            
+            specificUserEvents.append(newEventDictForOriginalUser)
             
             let path = "events/events/" + String(emailIndexValue)
             ref.child(path).setValue(specificUserEvents)
