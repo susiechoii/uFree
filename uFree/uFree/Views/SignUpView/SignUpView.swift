@@ -1,14 +1,38 @@
+// SignUpView.swift
+// uFree
+
 import SwiftUI
+import Combine
+import FirebaseAnalyticsSwift
+
+private enum FocusableField: Hashable {
+    case name
+    case email
+    case password
+    case confirmPassword
+}
 
 struct SignUpView: View {
+    // State object for the sign up view model
     @StateObject var signUpViewModel = SignUpViewModel()
+    
+    // Environment objects for the back buttons
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    //User input variables
-    @State var userNameInput = ""
-    @State var userEmailInput = ""
-    @State var userPhoneInput = ""
-    @State var userPasswordInput = ""
-    @State var userConfirmedPasswordInput = ""
+    
+    // Environment object for the view model
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    @FocusState private var focus: FocusableField?
+    
+    // Function for to sign in
+    private func signUpWithEmailPassword() {
+        Task {
+            if await viewModel.signUpWithEmailPassword() == true {
+                dismiss()
+            }
+        }
+    }
     
     var body: some View {
         NavigationView {
@@ -24,7 +48,7 @@ struct SignUpView: View {
                                alignment: .center)
                         .background(RoundedCorners(topLeft: 15.0, topRight: 15.0, bottomLeft: 15.0,
                                                    bottomRight: 15.0)
-                                .fill(ColorConstants.Blue100))
+                            .fill(ColorConstants.Blue100))
                         .padding(.trailing)
                         Text(StringConstants.kLblSignUp)
                             .font(FontScheme.kInterExtraBold(size: getRelativeHeight(36.4127)))
@@ -52,87 +76,32 @@ struct SignUpView: View {
                     .padding(.top, getRelativeHeight(9.0))
                     .padding(.horizontal, getRelativeWidth(21.0))
                     
-                    //the Name Vstack
                     
+                    // ENTER NAME VSTACK
                     VStack {
-                        Group {
-                            HStack {
-                                TextField(StringConstants.kLblFullName,
-                                          text: $signUpViewModel.groupNameText)
-                                    .font(FontScheme
-                                        .kInterRegular(size: getRelativeHeight(12.0)))
-                                    .foregroundColor(ColorConstants.Black900Cc)
-                                    .padding()
-                                    .keyboardType(.default)
-                            }
-                            .onChange(of: signUpViewModel.groupNameText) { newValue in
-
-                                signUpViewModel.groupNameText = newValue
-                                print($signUpViewModel.groupNameText.wrappedValue)
-                                userNameInput = $signUpViewModel.groupNameText.wrappedValue
-                            }
-                            .frame(width: getRelativeWidth(295.0),
-                                   height: getRelativeHeight(58.0), alignment: .leading)
-                            .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                    bottomLeft: 29.0, bottomRight: 29.0)
-                                    .stroke(ColorConstants.Gray700,
-                                            lineWidth: 1))
-                            .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                       bottomLeft: 29.0, bottomRight: 29.0)
-                                    .fill(ColorConstants.WhiteA700))
-                        }
-                    }
-                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                           alignment: .center)
-                    .clipShape(Capsule())
-                    .padding(.top, getRelativeHeight(20.0))
-                    .padding(.leading, getRelativeWidth(18.0))
-                    
-                    //the email Vstack
-                    
-                    VStack {
-                        Group {
-                            HStack {
-                                TextField(StringConstants.kLblEmail,
-                                          text: $signUpViewModel.groupsevenText)
-                                    .font(FontScheme
-                                        .kInterRegular(size: getRelativeHeight(12.0)))
-                                    .foregroundColor(ColorConstants.Black900Cc)
-                                    .padding()
-                                    .keyboardType(.emailAddress)
-                            }
-                            .onChange(of: signUpViewModel.groupsevenText) { newValue in
-
-                                signUpViewModel.isValidGroupsevenText = newValue
-                                    .isValidEmail(isMandatory: true)
-                                
-                                print($signUpViewModel.groupsevenText.wrappedValue)
-                                userEmailInput = $signUpViewModel.groupsevenText.wrappedValue
-                                
-                            }
-                            .frame(width: getRelativeWidth(295.0),
-                                   height: getRelativeHeight(58.0), alignment: .leading)
-                            .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                    bottomLeft: 29.0, bottomRight: 29.0)
-                                    .stroke(ColorConstants.Gray700,
-                                            lineWidth: 1))
-                            .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                       bottomLeft: 29.0, bottomRight: 29.0)
-                                    .fill(ColorConstants.WhiteA700))
-                            if !signUpViewModel.isValidGroupsevenText {
-                                
-                                //FIX ME
-                                //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
-                                /*
-                                Text("Please enter valid email.")
-                                    .foregroundColor(Color.red)
-                                    .font(FontScheme
-                                        .kInterRegular(size: getRelativeHeight(12.0)))
-                                    .frame(width: getRelativeWidth(295.0),
-                                           height: getRelativeHeight(58.0), alignment: .leading)
-                                */
+                        HStack {
+                            TextField("Enter Name",
+                                      text: $viewModel.name)
+                            .font(FontScheme
+                                .kInterRegular(size: getRelativeHeight(12.0)))
+                            .foregroundColor(ColorConstants.Black900Cc)
+                            .padding()
+                            .keyboardType(.default)
+                            .focused($focus, equals: .name)
+                            .submitLabel(.next)
+                            .onSubmit {
+                                self.focus = .password
                             }
                         }
+                        .frame(width: getRelativeWidth(295.0),
+                               height: getRelativeHeight(58.0), alignment: .leading)
+                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                bottomLeft: 29.0, bottomRight: 29.0)
+                            .stroke(ColorConstants.Gray700,
+                                    lineWidth: 1))
+                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                   bottomLeft: 29.0, bottomRight: 29.0)
+                            .fill(ColorConstants.WhiteA700))
                     }
                     .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
                            alignment: .center)
@@ -141,239 +110,186 @@ struct SignUpView: View {
                     .padding(.leading, getRelativeWidth(18.0))
                     
                     
+                    // ENTER EMAIL VSTACK
+                    VStack {
+                        HStack {
+                            TextField("Enter Email",
+                                      text: $viewModel.email)
+                            .font(FontScheme
+                                .kInterRegular(size: getRelativeHeight(12.0)))
+                            .foregroundColor(ColorConstants.Black900Cc)
+                            .padding()
+                            .keyboardType(.emailAddress)
+                            .focused($focus, equals: .email)
+                            .submitLabel(.next)
+                            .onSubmit {
+                                self.focus = .password
+                            }
+                        }
+                        .frame(width: getRelativeWidth(295.0),
+                               height: getRelativeHeight(58.0), alignment: .leading)
+                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                bottomLeft: 29.0, bottomRight: 29.0)
+                            .stroke(ColorConstants.Gray700,
+                                    lineWidth: 1))
+                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                   bottomLeft: 29.0, bottomRight: 29.0)
+                            .fill(ColorConstants.WhiteA700))
+                    }
+                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
+                           alignment: .center)
+                    .clipShape(Capsule())
+                    .padding(.top, getRelativeHeight(20.0))
+                    .padding(.leading, getRelativeWidth(18.0))
                     
                     
-                        
-                        //the phone number Vstack
-                        
-                        VStack {
-                            Group {
-                                HStack {
-                                    TextField(StringConstants.kLblPhoneNumber,
-                                              text: $signUpViewModel.inputtextnoneText)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .foregroundColor(ColorConstants.Black900Cc)
-                                        .padding()
-                                        .keyboardType(.phonePad)
-                                }
-                                .onChange(of: signUpViewModel.inputtextnoneText) { newValue in
-
-                                    signUpViewModel.isValidInputtextnoneText = newValue
-                                        .isValidPhone(isMandatory: false)
-                                    
-                                    print($signUpViewModel.inputtextnoneText.wrappedValue)
-                                    
-                                    userPhoneInput = $signUpViewModel.inputtextnoneText.wrappedValue
-                                }
-                                .frame(width: getRelativeWidth(295.0),
-                                       height: getRelativeHeight(58.0), alignment: .leading)
-                                .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                        bottomLeft: 29.0, bottomRight: 29.0)
-                                        .stroke(ColorConstants.Gray700,
-                                                lineWidth: 1))
-                                .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                           bottomLeft: 29.0, bottomRight: 29.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                if !signUpViewModel.isValidInputtextnoneText {
-                                    //FIX ME
-                                    //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
-                                    /*
-                                    Text("Please enter valid phone number.")
-                                        .foregroundColor(Color.red)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(58.0), alignment: .leading)
-                                     */
-                                }
+                    // ENTER PASSWORD VSTACK
+                    VStack {
+                        HStack {
+                            SecureField("Enter Password",
+                                        text: $viewModel.password)
+                            .font(FontScheme
+                                .kInterRegular(size: getRelativeHeight(12.0)))
+                            .foregroundColor(ColorConstants.Black900Cc)
+                            .padding()
+                            .keyboardType(.default)
+                            .focused($focus, equals: .password)
+                            .submitLabel(.next)
+                            .onSubmit {
+                                self.focus = .confirmPassword
                             }
                         }
-                        .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                               alignment: .center)
-                        .clipShape(Capsule())
-                        .padding(.top, getRelativeHeight(20.0))
-                        .padding(.leading, getRelativeWidth(18.0))
+                        .frame(width: getRelativeWidth(295.0),
+                               height: getRelativeHeight(58.0), alignment: .leading)
+                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                bottomLeft: 29.0, bottomRight: 29.0)
+                            .stroke(ColorConstants.Gray700,
+                                    lineWidth: 1))
+                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                   bottomLeft: 29.0, bottomRight: 29.0)
+                            .fill(ColorConstants.WhiteA700))
                         
-                        //the password Vstack
-                        
+                    }
+                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
+                           alignment: .center)
+                    .clipShape(Capsule())
+                    .padding(.top, getRelativeHeight(20.0))
+                    .padding(.leading, getRelativeWidth(18.0))
+                    
+                    
+                    // CONFIRM PASSWORD VSTACK
+                    VStack {
+                        Group {
+                            HStack {
+                                SecureField("Confirm Password",
+                                            text: $viewModel.confirmPassword)
+                                .font(FontScheme
+                                    .kInterRegular(size: getRelativeHeight(12.0)))
+                                .foregroundColor(ColorConstants.Black900Cc)
+                                .padding()
+                                .keyboardType(.default)
+                                .focused($focus, equals: .confirmPassword)
+                                .submitLabel(.go)
+                                .onSubmit {
+                                    signUpWithEmailPassword()
+                                }
+                            }
+                            .frame(width: getRelativeWidth(295.0),
+                                   height: getRelativeHeight(58.0), alignment: .leading)
+                            .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                    bottomLeft: 29.0, bottomRight: 29.0)
+                                .stroke(ColorConstants.Gray700,
+                                        lineWidth: 1))
+                            .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                       bottomLeft: 29.0, bottomRight: 29.0)
+                                .fill(ColorConstants.WhiteA700))
+                        }
+                    }
+                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
+                           alignment: .center)
+                    .clipShape(Capsule())
+                    .padding(.top, getRelativeHeight(20.0))
+                    .padding(.leading, getRelativeWidth(18.0))
+                    
+                    // print warning message if can't sign up
+                    if !viewModel.errorMessage.isEmpty {
                         VStack {
-                            Group {
-                                HStack {
-                                    SecureField(StringConstants.kLblPassword,
-                                                text: $signUpViewModel.inputtextnoneoneText)
+                            Text(viewModel.errorMessage)
+                                .foregroundColor(Color(UIColor.systemRed))
+                        }
+                    }
+                    
+                    
+                    VStack {
+                        VStack {
+                            Button(action: signUpWithEmailPassword) {
+                                if viewModel.authenticationState != .authenticating {
+                                    Text("Sign Up")
                                         .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .foregroundColor(ColorConstants.Black900Cc)
-                                        .padding()
-                                        .keyboardType(.default)
-                                    Image("img_hide")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(15.0),
-                                               height: getRelativeHeight(13.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
+                                            .kInterBlack(size: getRelativeHeight(15.0)))
+                                        .fontWeight(.black)
+                                        .padding(.horizontal, getRelativeWidth(30.0))
                                         .padding(.vertical, getRelativeHeight(22.0))
-                                        .padding(.leading, getRelativeWidth(30.0))
-                                        .padding(.trailing, getRelativeWidth(21.0))
-                                    Spacer()
-                                }
-                                .onChange(of: signUpViewModel.inputtextnoneoneText) { newValue in
-
-                                    signUpViewModel.isValidInputtextnoneoneText = newValue
-                                        .isValidPassword(isMandatory: true)
-                                    
-                                    print($signUpViewModel.inputtextnoneoneText.wrappedValue)
-                                    
-                                    userPasswordInput = $signUpViewModel.inputtextnoneoneText.wrappedValue
-                                    
-                                }
-                                .frame(width: getRelativeWidth(295.0),
-                                       height: getRelativeHeight(58.0), alignment: .leading)
-                                .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                        bottomLeft: 29.0, bottomRight: 29.0)
-                                        .stroke(ColorConstants.Gray700,
-                                                lineWidth: 1))
-                                .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                           bottomLeft: 29.0, bottomRight: 29.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                if !signUpViewModel.isValidInputtextnoneoneText {
-                                    //FIX ME
-                                    //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
-                                    /*
-                                    Text("Please enter valid password.")
-                                        .foregroundColor(Color.red)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
+                                        .foregroundColor(ColorConstants.WhiteA700)
+                                        .minimumScaleFactor(0.5)
+                                        .multilineTextAlignment(.center)
                                         .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(58.0), alignment: .leading)
-                                    */
+                                               height: getRelativeHeight(60.0),
+                                               alignment: .center)
+                                        .background(RoundedCorners(topLeft: 28.5,
+                                                                   topRight: 28.5,
+                                                                   bottomLeft: 28.5,
+                                                                   bottomRight: 28.5)
+                                            .fill(ColorConstants.Red400))
                                 }
-                            }
-                        }
-                        .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                               alignment: .center)
-                        .clipShape(Capsule())
-                        .padding(.top, getRelativeHeight(20.0))
-                        .padding(.leading, getRelativeWidth(18.0))
-                        
-                        //the confirm password Vstack
-                        
-                        VStack {
-                            Group {
-                                HStack {
-                                    SecureField(StringConstants.kMsgConfirmPasswor,
-                                                text: $signUpViewModel.inputtextnonetwoText)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .foregroundColor(ColorConstants.Black900Cc)
-                                        .padding()
-                                        .keyboardType(.default)
-                                    Image("img_hide")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(15.0),
-                                               height: getRelativeHeight(13.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
+                                else {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                        .padding(.horizontal, getRelativeWidth(30.0))
                                         .padding(.vertical, getRelativeHeight(22.0))
-                                        .padding(.leading, getRelativeWidth(30.0))
-                                        .padding(.trailing, getRelativeWidth(21.0))
-                                    Spacer()
-                                }
-                                .onChange(of: signUpViewModel.inputtextnonetwoText) { newValue in
-
-                                    signUpViewModel.isValidInputtextnonetwoText = newValue
-                                        .isValidPassword(isMandatory: true)
-                                    print($signUpViewModel.inputtextnonetwoText.wrappedValue)
-                                    userConfirmedPasswordInput = $signUpViewModel.inputtextnonetwoText.wrappedValue
-                                    
-                                }
-                                .frame(width: getRelativeWidth(295.0),
-                                       height: getRelativeHeight(58.0), alignment: .leading)
-                                .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                        bottomLeft: 29.0, bottomRight: 29.0)
-                                        .stroke(ColorConstants.Gray700,
-                                                lineWidth: 1))
-                                .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                           bottomLeft: 29.0, bottomRight: 29.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                if !signUpViewModel.isValidInputtextnonetwoText {
-                                    
-                                    //FIX ME
-                                    //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
-                                    /*
-                                    Text("Please enter valid password.")
-                                        .foregroundColor(Color.red)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
+                                        .foregroundColor(ColorConstants.WhiteA700)
+                                        .minimumScaleFactor(0.5)
+                                        .multilineTextAlignment(.center)
                                         .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(58.0), alignment: .leading)
-                                    */
+                                               height: getRelativeHeight(60.0),
+                                               alignment: .center)
+                                        .background(RoundedCorners(topLeft: 28.5,
+                                                                   topRight: 28.5,
+                                                                   bottomLeft: 28.5,
+                                                                   bottomRight: 28.5)
+                                            .fill(ColorConstants.Red400))
                                 }
                             }
-                        }
-                        .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                               alignment: .center)
-                        .clipShape(Capsule())
-                        .padding(.top, getRelativeHeight(20.0))
-                        .padding(.leading, getRelativeWidth(18.0))
-                        VStack {
-                            VStack {
-                                Button(action: {
-                                    createUser(emailInput: userEmailInput, pwInput: userPasswordInput)
-                                    signUpViewModel.nextScreen = "OnboardAvailabilityScreenView"
-
-                                }, label: {
-                                    HStack(spacing: 0) {
-                                        Text(StringConstants.kLblSignUp2)
-                                            .font(FontScheme
-                                                .kInterBlack(size: getRelativeHeight(15.0)))
-                                            .fontWeight(.black)
-                                            .padding(.horizontal, getRelativeWidth(30.0))
-                                            .padding(.vertical, getRelativeHeight(22.0))
-                                            .foregroundColor(ColorConstants.WhiteA700)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.center)
-                                            .frame(width: getRelativeWidth(295.0),
-                                                   height: getRelativeHeight(60.0),
-                                                   alignment: .center)
-                                            .background(RoundedCorners(topLeft: 28.5,
-                                                                       topRight: 28.5,
-                                                                       bottomLeft: 28.5,
-                                                                       bottomRight: 28.5)
-                                                    .fill(ColorConstants.Red400))
-                                    }
-                                })
-                                .frame(width: getRelativeWidth(295.0),
-                                       height: getRelativeHeight(60.0), alignment: .center)
-                                .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                                           bottomLeft: 28.5, bottomRight: 28.5)
-                                        .fill(ColorConstants.Red400))
-                            }
-                            .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0),
-                                   alignment: .leading)
+                            .frame(width: getRelativeWidth(295.0),
+                                   height: getRelativeHeight(60.0), alignment: .center)
                             .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                                       bottomLeft: 28.5, bottomRight: 28.5))
+                                                       bottomLeft: 28.5, bottomRight: 28.5)
+                                .fill(ColorConstants.Red400))
                         }
                         .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0),
-                               alignment: .center)
-                        .shadow(color: ColorConstants.Indigo30028, radius: 40, x: 0, y: 10)
-                        .padding(.top, getRelativeHeight(29.0))
-                        .padding(.leading, getRelativeWidth(18.0))
-                        Text(StringConstants.kMsgHaveAnAccount)
-                                .font(FontScheme.kNotoSans(size: getRelativeHeight(13.0)))
-                                .fontWeight(.regular)
-                                .foregroundColor(ColorConstants.Black900)
-                                .minimumScaleFactor(0.5)
-                                .multilineTextAlignment(.leading)
-                                .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(14.0),
-                                       alignment: .topLeading)
-                                .padding(.top, getRelativeHeight(14.0))
-                                .padding(.horizontal, getRelativeWidth(18.0))
-                                .onTapGesture {
-                                    signUpViewModel.nextScreen = "SignInView"
-                                }
-                        
+                               alignment: .leading)
+                        .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
+                                                   bottomLeft: 28.5, bottomRight: 28.5))
+                    }
+                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0),
+                           alignment: .center)
+                    .shadow(color: ColorConstants.Indigo30028, radius: 40, x: 0, y: 10)
+                    .padding(.top, getRelativeHeight(29.0))
+                    .padding(.leading, getRelativeWidth(18.0))
+                    Text(StringConstants.kMsgHaveAnAccount)
+                        .font(FontScheme.kNotoSans(size: getRelativeHeight(13.0)))
+                        .fontWeight(.regular)
+                        .foregroundColor(ColorConstants.Black900)
+                        .minimumScaleFactor(0.5)
+                        .multilineTextAlignment(.leading)
+                        .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(14.0),
+                               alignment: .topLeading)
+                        .padding(.top, getRelativeHeight(14.0))
+                        .padding(.horizontal, getRelativeWidth(18.0))
+                        .onTapGesture {
+                            signUpViewModel.nextScreen = "SignInView"
+                        }
+                    
                 }
                 .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
                 .background(ColorConstants.WhiteA700)
@@ -384,14 +300,14 @@ struct SignUpView: View {
                                    tag: "OnboardAvailabilityScreenView",
                                    selection: $signUpViewModel.nextScreen,
                                    label: {
-                                       EmptyView()
-                                   })
-                    NavigationLink(destination: SignInView(),
+                        EmptyView()
+                    })
+                    NavigationLink(destination: SignInView().environmentObject(AuthenticationViewModel()),
                                    tag: "SignInView",
                                    selection: $signUpViewModel.nextScreen,
                                    label: {
-                                       EmptyView()
-                                   })
+                        EmptyView()
+                    })
                 }
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -403,34 +319,9 @@ struct SignUpView: View {
     }
 }
 
-
-
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        SignUpView().environmentObject(AuthenticationViewModel())
     }
 }
 
-
-func createUser(emailInput: String, pwInput: String) {
-    var testBackend = Backend()
-
-    
-    let listOfHours: [Int] = []
-    
-    UserDefaults.standard.set(listOfHours, forKey: "listOfHours")
-    
-
-    print("YOUR EMAIL WAS \(emailInput)")
-    print("YOUR PW WAS \(pwInput)")
-    testBackend.createUser(newEmail: emailInput, newPassword: pwInput)
-
-    
-    var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
-    var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
-    var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
-    
-    print("SIGN UP LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
-    
-
-}

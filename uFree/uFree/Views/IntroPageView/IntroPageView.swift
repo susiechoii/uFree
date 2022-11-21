@@ -2,13 +2,18 @@ import SwiftUI
 
 struct IntroPageView: View {
     @StateObject var introPageViewModel = IntroPageViewModel()
+    
+    // For the button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     var body: some View {
         NavigationView {
             VStack {
-                VStack(alignment: .leading, spacing: 0) {
+                
+                // SLOGAN
+                VStack(alignment: .leading) {
                     VStack {
-                        Text(StringConstants.kMsgCleanInterface)
+                        Text("Clean interface. Intuitive planning.")
                             .font(FontScheme.kMontserratExtraBold(size: getRelativeHeight(30.0)))
                             .fontWeight(.heavy)
                             .foregroundColor(ColorConstants.Black900)
@@ -22,20 +27,34 @@ struct IntroPageView: View {
                            alignment: .center)
                     .padding(.top, getRelativeHeight(64.0))
                     .padding(.horizontal, getRelativeWidth(36.0))
+                    
+                    // logo
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(StringConstants.kLblUfree)
-                            .font(FontScheme.kMontserratExtraBold(size: getRelativeHeight(45.0)))
-                            .fontWeight(.heavy)
-                            .foregroundColor(ColorConstants.Black900)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(162.0), height: getRelativeHeight(45.0),
-                                   alignment: .topLeading)
-                            .padding(.trailing)
+                        HStack {
+                            Text("u")
+                                .font(FontScheme.kMontserratExtraBold(size: getRelativeHeight(45.0)))
+                                .fontWeight(.heavy)
+                                .foregroundColor(ColorConstants.Black900)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: getRelativeWidth(25), height: getRelativeHeight(45),
+                                       alignment: .topLeading)
+                            
+                            Text("Free?")
+                                .font(FontScheme.kMontserratExtraBold(size: getRelativeHeight(45.0)))
+                                .fontWeight(.heavy)
+                                .foregroundColor(ColorConstants.Red400)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: getRelativeWidth(268.0), height: getRelativeHeight(45),
+                                       alignment: .topLeading)
+                                .padding(.trailing, getRelativeWidth(5.0))
+                                .padding(.leading, getRelativeWidth(-8))
+                        }
                     }
-                    .frame(width: getRelativeWidth(299.0), height: getRelativeHeight(45.0),
+                    .frame(width: getRelativeWidth(299.0), height: getRelativeHeight(40.0),
                            alignment: .center)
-                    .padding(.top, getRelativeHeight(36.0))
+                    .padding(.top, getRelativeHeight(25.0))
                     .padding(.horizontal, getRelativeWidth(36.0))
                     VStack {
                         Image("img_tuttoriccopin")
@@ -52,18 +71,17 @@ struct IntroPageView: View {
                                     introPageViewModel.nextScreen = "SignUpView"
                                 }, label: {
                                     HStack(spacing: 0) {
-                                        Text(StringConstants.kLblStartPlanning)
+                                        Text("START PLANNING")
                                             .font(FontScheme
-                                                .kInterBlack(size: getRelativeHeight(15.0)))
-                                            .fontWeight(.black)
+                                                .kInterExtraBold(size: getRelativeHeight(35.0)))
+                                            .fontWeight(.heavy)
                                             .padding(.horizontal, getRelativeWidth(30.0))
                                             .padding(.vertical, getRelativeHeight(22.0))
                                             .foregroundColor(ColorConstants.WhiteA700)
                                             .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
                                             .frame(width: getRelativeWidth(295.0),
                                                    height: getRelativeHeight(60.0),
-                                                   alignment: .topLeading)
+                                                   alignment: .center)
                                             .background(RoundedCorners(topLeft: 28.5,
                                                                        topRight: 28.5,
                                                                        bottomLeft: 28.5,
@@ -100,7 +118,7 @@ struct IntroPageView: View {
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 Group {
-                    NavigationLink(destination: SignUpView(),
+                    NavigationLink(destination: SignUpView().environmentObject(AuthenticationViewModel()),
                                    tag: "SignUpView",
                                    selection: $introPageViewModel.nextScreen,
                                    label: {

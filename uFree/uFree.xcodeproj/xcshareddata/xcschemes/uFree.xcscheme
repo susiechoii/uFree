@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "88ED74E3272FFE6E0088E3EF"
-               BuildableName = "application.app"
+               BuildableName = "uFree.app"
                BlueprintName = "uFree"
                ReferencedContainer = "container:uFree.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "88ED74E3272FFE6E0088E3EF"
-            BuildableName = "application.app"
+            BuildableName = "uFree.app"
             BlueprintName = "uFree"
             ReferencedContainer = "container:uFree.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "88ED74E3272FFE6E0088E3EF"
-            BuildableName = "application.app"
+            BuildableName = "uFree.app"
             BlueprintName = "uFree"
             ReferencedContainer = "container:uFree.xcodeproj">
          </BuildableReference>

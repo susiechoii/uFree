@@ -1,10 +1,44 @@
+// SignUpView.swift
+// uFree
+
 import SwiftUI
+import Combine
+import FirebaseAnalyticsSwift
+
+// to prepare the email and password field to hash
+private enum FocusableField: Hashable {
+    case email
+    case password
+}
 
 struct SignInView: View {
+    // State object for sign in view model
     @StateObject var signInViewModel = SignInViewModel()
+    
+    // Environment objects for the Authentication View Model
+    @EnvironmentObject var viewModel:AuthenticationViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    // State variables for email and user input
     @State var userEmailInput = ""
     @State var userPasswordInput = ""
+    
+    // Variable for the back button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
+    // Focus state for the text fields
+    @FocusState private var focus: FocusableField?
+    
+    // Function to sign in with email and password
+    private func signInWithEmailPassword() {
+        Task {
+            if await viewModel.signInWithEmailPassword() == true {
+                dismiss()
+            }
+        }
+    }
+    
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -39,7 +73,7 @@ struct SignInView: View {
                                alignment: .center)
                         .background(RoundedCorners(topLeft: 15.0, topRight: 15.0, bottomLeft: 15.0,
                                                    bottomRight: 15.0)
-                                .fill(ColorConstants.Blue100))
+                            .fill(ColorConstants.Blue100))
                         .padding(.bottom, getRelativeHeight(570.0))
                         .padding(.trailing, getRelativeWidth(283.0))
                         Image("img_tuttoriccopin_375X322")
@@ -50,6 +84,8 @@ struct SignInView: View {
                             .clipped( )
                             .padding(.bottom, getRelativeHeight(237.0))
                             .padding(.leading, getRelativeWidth(6.0))
+                        
+                        
                         VStack(alignment: .leading, spacing: 0) {
                             VStack(alignment: .leading, spacing: 0) {
                                 Text(StringConstants.kMsgAlreadyHaveAn)
@@ -74,102 +110,67 @@ struct SignInView: View {
                                     .padding(.top, getRelativeHeight(11.0))
                                     .padding(.leading, getRelativeWidth(5.0))
                                     .padding(.trailing, getRelativeWidth(10.0))
+                                
+                                
+                                // LOGIN EMAIL VSTACK
                                 VStack {
-                                    Group {
-                                        HStack {
-                                            TextField(StringConstants.kLblEmail,
-                                                      text: $signInViewModel.inputtextnoneText)
-                                                .font(FontScheme
-                                                    .kInterRegular(size: getRelativeHeight(12.0)))
-                                                .foregroundColor(ColorConstants.Black900Cc)
-                                                .padding()
-                                                .keyboardType(.emailAddress)
-                                        }
-                                        .onChange(of: signInViewModel
-                                            .inputtextnoneText) { newValue in
-
-                                                signInViewModel.isValidInputtextnoneText = newValue
-                                                    .isValidEmail(isMandatory: true)
-                                                
-                                                print($signInViewModel.inputtextnoneText.wrappedValue)
-                                                userEmailInput = $signInViewModel.inputtextnoneText.wrappedValue
-                                        }
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(58.0), alignment: .leading)
-                                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                                bottomLeft: 29.0, bottomRight: 29.0)
-                                                .stroke(ColorConstants.Gray700,
-                                                        lineWidth: 1))
-                                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                                   bottomLeft: 29.0,
-                                                                   bottomRight: 29.0)
-                                                .fill(ColorConstants.WhiteA700))
-                                        if !signInViewModel.isValidInputtextnoneText {
-                                            
-                                            //FIX ME
-                                            //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
-                                            /*
-                                            Text("Please enter valid email.")
-                                                .foregroundColor(Color.red)
-                                                .font(FontScheme
-                                                    .kInterRegular(size: getRelativeHeight(12.0)))
-                                                .frame(width: getRelativeWidth(295.0),
-                                                       height: getRelativeHeight(58.0),
-                                                       alignment: .leading)
-                                             */
-                                        }
+                                    HStack {
+                                        TextField("Email",
+                                                  text: $viewModel.email)
+                                        .font(FontScheme
+                                            .kInterRegular(size: getRelativeHeight(12.0)))
+                                        .foregroundColor(ColorConstants.Black900Cc)
+                                        .padding()
+                                        .keyboardType(.emailAddress)
+                                        .submitLabel(.next)
+                                        .disableAutocorrection(true)
+                                        .textInputAutocapitalization(.never)
+                                        .focused($focus, equals: .email)
+                                        
                                     }
+                                    .frame(width: getRelativeWidth(295.0),
+                                           height: getRelativeHeight(58.0), alignment: .leading)
+                                    .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                            bottomLeft: 29.0, bottomRight: 29.0)
+                                        .stroke(ColorConstants.Gray700,
+                                                lineWidth: 1))
+                                    .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                               bottomLeft: 29.0,
+                                                               bottomRight: 29.0)
+                                        .fill(ColorConstants.WhiteA700))
                                 }
+                                
                                 .frame(width: getRelativeWidth(295.0),
                                        height: getRelativeHeight(58.0), alignment: .leading)
                                 .clipShape(Capsule())
                                 .padding(.top, getRelativeHeight(14.0))
+                                
+                                
+                                // LOGIN PASSWORD VSTACK
                                 VStack {
-                                    Group {
-                                        HStack {
-                                            SecureField(StringConstants.kLblPassword,
-                                                        text: $signInViewModel.inputtextnoneoneText)
-                                                .font(FontScheme
-                                                    .kInterRegular(size: getRelativeHeight(12.0)))
-                                                .foregroundColor(ColorConstants.Black900Cc)
-                                                .padding()
-                                                .keyboardType(.default)
-                                        }
-                                        .onChange(of: signInViewModel
-                                            .inputtextnoneoneText) { newValue in
-
-                                                signInViewModel
-                                                    .isValidInputtextnoneoneText = newValue
-                                                    .isValidPassword(isMandatory: true)
-                                                
-                                                print($signInViewModel.inputtextnoneoneText.wrappedValue)
-                                                userEmailInput = $signInViewModel.inputtextnoneoneText.wrappedValue
-                                        }
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(58.0), alignment: .leading)
-                                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                                bottomLeft: 29.0, bottomRight: 29.0)
-                                                .stroke(ColorConstants.Gray700,
-                                                        lineWidth: 1))
-                                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                                   bottomLeft: 29.0,
-                                                                   bottomRight: 29.0)
-                                                .fill(ColorConstants.WhiteA700))
-                                        if !signInViewModel.isValidInputtextnoneoneText {
-                                            
-                                            //FIX ME
-                                            //THIS SHOULD BE IF: THE USER CLICKS SIGN UP AND THE INPUT IS NOT VALID!
-                                            /*
-                                            Text("Please enter valid password.")
-                                                .foregroundColor(Color.red)
-                                                .font(FontScheme
-                                                    .kInterRegular(size: getRelativeHeight(12.0)))
-                                                .frame(width: getRelativeWidth(295.0),
-                                                       height: getRelativeHeight(58.0),
-                                                       alignment: .leading)
-                                             */
+                                    HStack {
+                                        SecureField("Password",
+                                                    text: $viewModel.password)
+                                        .font(FontScheme
+                                            .kInterRegular(size: getRelativeHeight(12.0)))
+                                        .foregroundColor(ColorConstants.Black900Cc)
+                                        .padding()
+                                        .focused($focus, equals: .password)
+                                        .submitLabel(.go)
+                                        .onSubmit {
+                                            signInWithEmailPassword()
                                         }
                                     }
+                                    .frame(width: getRelativeWidth(295.0),
+                                           height: getRelativeHeight(58.0), alignment: .leading)
+                                    .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                            bottomLeft: 29.0, bottomRight: 29.0)
+                                        .stroke(ColorConstants.Gray700,
+                                                lineWidth: 1))
+                                    .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                                               bottomLeft: 29.0,
+                                                               bottomRight: 29.0)
+                                        .fill(ColorConstants.WhiteA700))
                                 }
                                 .frame(width: getRelativeWidth(295.0),
                                        height: getRelativeHeight(58.0), alignment: .leading)
@@ -178,14 +179,21 @@ struct SignInView: View {
                             }
                             .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(217.0),
                                    alignment: .leading)
+                            
+                            // Print error message if unable to log in
+                            if !viewModel.errorMessage.isEmpty {
+                                VStack {
+                                    Text(viewModel.errorMessage)
+                                        .foregroundColor(Color(UIColor.systemRed))
+                                }
+                            }
+                            
+                            // Log In button
                             VStack {
                                 VStack {
-                                    Button(action: {
-                                        loginFunction(emailInput: userEmailInput, pwInput: userPasswordInput)
-                                        signInViewModel.nextScreen = "HomePageView"
-                                    }, label: {
-                                        HStack(spacing: 0) {
-                                            Text("Log In")
+                                    Button(action: signInWithEmailPassword) {
+                                        if viewModel.authenticationState != .authenticating {
+                                            Text("Login")
                                                 .font(FontScheme
                                                     .kInterBlack(size: getRelativeHeight(15.0)))
                                                 .fontWeight(.black)
@@ -201,14 +209,28 @@ struct SignInView: View {
                                                                            topRight: 28.5,
                                                                            bottomLeft: 28.5,
                                                                            bottomRight: 28.5)
-                                                        .fill(ColorConstants.Red400))
+                                                    .fill(ColorConstants.Red400))
                                         }
-                                    })
-                                    .frame(width: getRelativeWidth(295.0),
-                                           height: getRelativeHeight(60.0), alignment: .center)
-                                    .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                                               bottomLeft: 28.5, bottomRight: 28.5)
-                                            .fill(ColorConstants.Red400))
+                                        else {
+                                            ProgressView()
+                                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                                .padding(.horizontal, getRelativeWidth(30.0))
+                                                .padding(.vertical, getRelativeHeight(22.0))
+                                                .foregroundColor(ColorConstants.WhiteA700)
+                                                .minimumScaleFactor(0.5)
+                                                .multilineTextAlignment(.center)
+                                                .frame(width: getRelativeWidth(295.0),
+                                                       height: getRelativeHeight(60.0),
+                                                       alignment: .center)
+                                                .background(RoundedCorners(topLeft: 28.5,
+                                                                           topRight: 28.5,
+                                                                           bottomLeft: 28.5,
+                                                                           bottomRight: 28.5))
+                                            
+                                        }
+                                    }
+                                    .disabled(!viewModel.isValid)
+                                    
                                 }
                                 .frame(width: getRelativeWidth(295.0),
                                        height: getRelativeHeight(60.0), alignment: .leading)
@@ -267,20 +289,20 @@ struct SignInView: View {
                                    tag: "SignUpView",
                                    selection: $signInViewModel.nextScreen,
                                    label: {
-                                       EmptyView()
-                                   })
+                        EmptyView()
+                    })
                     NavigationLink(destination: ResetCodeView(),
                                    tag: "ResetCodeView",
                                    selection: $signInViewModel.nextScreen,
                                    label: {
-                                       EmptyView()
-                                   })
+                        EmptyView()
+                    })
                     NavigationLink(destination: HomePageView(),
                                    tag: "HomePageView",
                                    selection: $signInViewModel.nextScreen,
                                    label: {
-                                       EmptyView()
-                                   })
+                        EmptyView()
+                    })
                 }
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -292,38 +314,8 @@ struct SignInView: View {
     }
 }
 
-func loginFunction(emailInput: String, pwInput: String) {
-        
-    let testBackend = Backend()
-    
-
-    testBackend.login(email: emailInput, password: pwInput)
-
-    
-    var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
-    var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
-    var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
-    
-    print("SIGN IN LOGGING IN email: \(emailInput), password: \(pwInput), LOGGED IN WOOO: \(testLoggedIn)")
-    
-    /*
-    DispatchQueue.global(qos: .userInitiated).async {
-        testBackend.login(email: "test@example.com", password: "testemail")
-        
-        DispatchQueue.main.async {
-            var testUserDefaultEmail = String(describing: UserDefaults.standard.object(forKey: "email")!)
-            var testUserDefaultPassword = String(describing: UserDefaults.standard.object(forKey: "password")!)
-            var testLoggedIn = String(describing: UserDefaults.standard.object(forKey: "loggedIn")!)
-            
-            print("SIGN IN LOGGING IN email: \(testUserDefaultEmail), password: \(testUserDefaultPassword), LOGGED IN WOOO: \(testLoggedIn)")
-        }
-    }
-     */
-    
-}
-
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView()
+        SignInView().environmentObject(AuthenticationViewModel())
     }
 }
