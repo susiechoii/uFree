@@ -16,6 +16,8 @@ struct SignUpView: View {
     // State object for the sign up view model
     @StateObject var signUpViewModel = SignUpViewModel()
     
+    @State var presentSignInView: Bool = false
+    
     // Environment objects for the back buttons
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -36,288 +38,272 @@ struct SignUpView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                VStack {
-                    VStack(alignment: .leading, spacing: 0) {
-                        Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
-                        }, label: {
-                            Image("img_arrowleft")
-                        })
-                        .frame(width: getRelativeWidth(45.0), height: getRelativeWidth(45.0),
-                               alignment: .center)
-                        .background(RoundedCorners(topLeft: 15.0, topRight: 15.0, bottomLeft: 15.0,
-                                                   bottomRight: 15.0)
-                            .fill(ColorConstants.Blue100))
-                        .padding(.trailing)
-                        Text(StringConstants.kLblSignUp)
-                            .font(FontScheme.kInterExtraBold(size: getRelativeHeight(36.4127)))
-                            .fontWeight(.heavy)
-                            .foregroundColor(ColorConstants.Black900)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(137.0), height: getRelativeHeight(36.0),
-                                   alignment: .topLeading)
-                            .padding(.top, getRelativeHeight(48.0))
-                            .padding(.horizontal, getRelativeWidth(20.0))
-                        Text(StringConstants.kMsgCreateANewAc)
-                            .font(FontScheme.kInterMedium(size: getRelativeHeight(16.0)))
-                            .fontWeight(.medium)
-                            .foregroundColor(ColorConstants.Black90099)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(172.0), height: getRelativeHeight(16.0),
-                                   alignment: .topLeading)
-                            .padding(.top, getRelativeHeight(12.0))
-                            .padding(.horizontal, getRelativeWidth(20.0))
-                    }
-                    .frame(width: getRelativeWidth(313.0), height: getRelativeHeight(158.0),
-                           alignment: .leading)
-                    .padding(.top, getRelativeHeight(9.0))
-                    .padding(.horizontal, getRelativeWidth(21.0))
-                    
-                    
-                    // ENTER NAME VSTACK
-                    VStack {
-                        HStack {
-                            TextField("Enter Name",
-                                      text: $viewModel.name)
-                            .font(FontScheme
-                                .kInterRegular(size: getRelativeHeight(12.0)))
-                            .foregroundColor(ColorConstants.Black900Cc)
-                            .padding()
-                            .keyboardType(.default)
-                            .focused($focus, equals: .name)
-                            .submitLabel(.next)
-                            .onSubmit {
-                                self.focus = .password
-                            }
-                        }
-                        .frame(width: getRelativeWidth(295.0),
-                               height: getRelativeHeight(58.0), alignment: .leading)
-                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                bottomLeft: 29.0, bottomRight: 29.0)
-                            .stroke(ColorConstants.Gray700,
-                                    lineWidth: 1))
-                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                   bottomLeft: 29.0, bottomRight: 29.0)
-                            .fill(ColorConstants.WhiteA700))
-                    }
-                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                           alignment: .center)
-                    .clipShape(Capsule())
-                    .padding(.top, getRelativeHeight(20.0))
-                    .padding(.leading, getRelativeWidth(18.0))
-                    
-                    
-                    // ENTER EMAIL VSTACK
-                    VStack {
-                        HStack {
-                            TextField("Enter Email",
-                                      text: $viewModel.email)
-                            .font(FontScheme
-                                .kInterRegular(size: getRelativeHeight(12.0)))
-                            .foregroundColor(ColorConstants.Black900Cc)
-                            .padding()
-                            .keyboardType(.emailAddress)
-                            .focused($focus, equals: .email)
-                            .submitLabel(.next)
-                            .onSubmit {
-                                self.focus = .password
-                            }
-                        }
-                        .frame(width: getRelativeWidth(295.0),
-                               height: getRelativeHeight(58.0), alignment: .leading)
-                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                bottomLeft: 29.0, bottomRight: 29.0)
-                            .stroke(ColorConstants.Gray700,
-                                    lineWidth: 1))
-                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                   bottomLeft: 29.0, bottomRight: 29.0)
-                            .fill(ColorConstants.WhiteA700))
-                    }
-                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                           alignment: .center)
-                    .clipShape(Capsule())
-                    .padding(.top, getRelativeHeight(20.0))
-                    .padding(.leading, getRelativeWidth(18.0))
-                    
-                    
-                    // ENTER PASSWORD VSTACK
-                    VStack {
-                        HStack {
-                            SecureField("Enter Password",
-                                        text: $viewModel.password)
-                            .font(FontScheme
-                                .kInterRegular(size: getRelativeHeight(12.0)))
-                            .foregroundColor(ColorConstants.Black900Cc)
-                            .padding()
-                            .keyboardType(.default)
-                            .focused($focus, equals: .password)
-                            .submitLabel(.next)
-                            .onSubmit {
-                                self.focus = .confirmPassword
-                            }
-                        }
-                        .frame(width: getRelativeWidth(295.0),
-                               height: getRelativeHeight(58.0), alignment: .leading)
-                        .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                bottomLeft: 29.0, bottomRight: 29.0)
-                            .stroke(ColorConstants.Gray700,
-                                    lineWidth: 1))
-                        .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                   bottomLeft: 29.0, bottomRight: 29.0)
-                            .fill(ColorConstants.WhiteA700))
-                        
-                    }
-                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                           alignment: .center)
-                    .clipShape(Capsule())
-                    .padding(.top, getRelativeHeight(20.0))
-                    .padding(.leading, getRelativeWidth(18.0))
-                    
-                    
-                    // CONFIRM PASSWORD VSTACK
-                    VStack {
-                        Group {
-                            HStack {
-                                SecureField("Confirm Password",
-                                            text: $viewModel.confirmPassword)
-                                .font(FontScheme
-                                    .kInterRegular(size: getRelativeHeight(12.0)))
-                                .foregroundColor(ColorConstants.Black900Cc)
-                                .padding()
-                                .keyboardType(.default)
-                                .focused($focus, equals: .confirmPassword)
-                                .submitLabel(.go)
-                                .onSubmit {
-                                    signUpWithEmailPassword()
-                                }
-                            }
-                            .frame(width: getRelativeWidth(295.0),
-                                   height: getRelativeHeight(58.0), alignment: .leading)
-                            .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                    bottomLeft: 29.0, bottomRight: 29.0)
-                                .stroke(ColorConstants.Gray700,
-                                        lineWidth: 1))
-                            .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                                                       bottomLeft: 29.0, bottomRight: 29.0)
-                                .fill(ColorConstants.WhiteA700))
-                        }
-                    }
-                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(58.0),
-                           alignment: .center)
-                    .clipShape(Capsule())
-                    .padding(.top, getRelativeHeight(20.0))
-                    .padding(.leading, getRelativeWidth(18.0))
-                    
-                    // print warning message if can't sign up
-                    if !viewModel.errorMessage.isEmpty {
-                        VStack {
-                            Text(viewModel.errorMessage)
-                                .foregroundColor(Color(UIColor.systemRed))
-                        }
-                    }
-                    
-                    
-                    VStack {
-                        VStack {
-                            Button(action: signUpWithEmailPassword) {
-                                if viewModel.authenticationState != .authenticating {
-                                    Text("Sign Up")
-                                        .font(FontScheme
-                                            .kInterBlack(size: getRelativeHeight(15.0)))
-                                        .fontWeight(.black)
-                                        .padding(.horizontal, getRelativeWidth(30.0))
-                                        .padding(.vertical, getRelativeHeight(22.0))
-                                        .foregroundColor(ColorConstants.WhiteA700)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.center)
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(60.0),
-                                               alignment: .center)
-                                        .background(RoundedCorners(topLeft: 28.5,
-                                                                   topRight: 28.5,
-                                                                   bottomLeft: 28.5,
-                                                                   bottomRight: 28.5)
-                                            .fill(ColorConstants.Red400))
-                                }
-                                else {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                        .padding(.horizontal, getRelativeWidth(30.0))
-                                        .padding(.vertical, getRelativeHeight(22.0))
-                                        .foregroundColor(ColorConstants.WhiteA700)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.center)
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(60.0),
-                                               alignment: .center)
-                                        .background(RoundedCorners(topLeft: 28.5,
-                                                                   topRight: 28.5,
-                                                                   bottomLeft: 28.5,
-                                                                   bottomRight: 28.5)
-                                            .fill(ColorConstants.Red400))
-                                }
-                            }
-                            .frame(width: getRelativeWidth(295.0),
-                                   height: getRelativeHeight(60.0), alignment: .center)
-                            .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                                       bottomLeft: 28.5, bottomRight: 28.5)
-                                .fill(ColorConstants.Red400))
-                        }
-                        .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0),
-                               alignment: .leading)
-                        .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                                   bottomLeft: 28.5, bottomRight: 28.5))
-                    }
-                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0),
-                           alignment: .center)
-                    .shadow(color: ColorConstants.Indigo30028, radius: 40, x: 0, y: 10)
-                    .padding(.top, getRelativeHeight(29.0))
-                    .padding(.leading, getRelativeWidth(18.0))
-                    Text(StringConstants.kMsgHaveAnAccount)
-                        .font(FontScheme.kNotoSans(size: getRelativeHeight(13.0)))
-                        .fontWeight(.regular)
+            VStack(alignment: .leading, spacing: 0) {
+                // BACK BUTTON
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }, label: {
+                    Image("img_arrowleft")
+                })
+                .frame(width: getRelativeWidth(45.0), height: getRelativeWidth(45.0),
+                       alignment: .center)
+                .background(RoundedCorners(topLeft: 15.0, topRight: 15.0, bottomLeft: 15.0,
+                                           bottomRight: 15.0)
+                    .fill(ColorConstants.Blue100))
+                .padding(.top, getRelativeHeight(70))
+                .padding(.leading, getRelativeWidth(20))
+                .navigationBarHidden(true)
+                
+                // VSTACK FOR THE SIGN UP HEADING
+                VStack(alignment: .leading, spacing: 0) {
+                    // SIGN UP HEADINGp
+                    Text("Sign Up")
+                        .font(FontScheme.kInterExtraBold(size: getRelativeHeight(45)))
+                        .fontWeight(.heavy)
                         .foregroundColor(ColorConstants.Black900)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
-                        .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(14.0),
+                        .frame(width: getRelativeWidth(137.0), height: getRelativeHeight(45.0),
                                alignment: .topLeading)
-                        .padding(.top, getRelativeHeight(14.0))
-                        .padding(.horizontal, getRelativeWidth(18.0))
-                        .onTapGesture {
-                            signUpViewModel.nextScreen = "SignInView"
-                        }
+                        .padding(.top, getRelativeHeight(30))
+                        .padding(.horizontal, getRelativeWidth(20.0))
                     
+                    // SIGN UP CAPTION
+                    Text("Create a new account!")
+                        .font(FontScheme.kInterMedium(size: getRelativeHeight(20.0)))
+                        .fontWeight(.medium)
+                        .foregroundColor(ColorConstants.Black90099)
+                        .minimumScaleFactor(0.5)
+                        .multilineTextAlignment(.leading)
+                        .frame(width: getRelativeWidth(172.0), height: getRelativeHeight(20.0),
+                               alignment: .topLeading)
+                        .padding(.top, getRelativeHeight(5))
+                        .padding(.horizontal, getRelativeWidth(20.0))
                 }
-                .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
-                .background(ColorConstants.WhiteA700)
-                .padding(.top, getRelativeHeight(30.0))
-                .padding(.bottom, getRelativeHeight(10.0))
-                Group {
-                    NavigationLink(destination: OnboardAvailabilityScreenView(),
-                                   tag: "OnboardAvailabilityScreenView",
-                                   selection: $signUpViewModel.nextScreen,
-                                   label: {
-                        EmptyView()
-                    })
-                    NavigationLink(destination: SignInView().environmentObject(AuthenticationViewModel()),
-                                   tag: "SignInView",
-                                   selection: $signUpViewModel.nextScreen,
-                                   label: {
-                        EmptyView()
-                    })
+                .frame(width: getRelativeWidth(313.0), height: getRelativeHeight(158.0),
+                       alignment: .leading)
+                .padding(.leading, getRelativeWidth(20.0))
+                
+                
+                //VStack to center everything else
+                VStack (alignment: .center, spacing: 0){
+ 
+                    // ENTER NAME VSTACK
+                    HStack {
+                        TextField("Enter Name",
+                                  text: $viewModel.name)
+                        .font(FontScheme
+                            .kInterRegular(size: getRelativeHeight(14.0)))
+                        .foregroundColor(ColorConstants.Black900Cc)
+                        .padding(.leading, 25)
+                        .keyboardType(.default)
+                        .focused($focus, equals: .name)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            self.focus = .email
+                        }
+                    }
+                    .frame(width: getRelativeWidth(295.0),
+                           height: getRelativeHeight(58.0), alignment: .leading)
+                    .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                            bottomLeft: 29.0, bottomRight: 29.0)
+                        .stroke(ColorConstants.Gray700,
+                                lineWidth: 1))
+                    .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                               bottomLeft: 29.0, bottomRight: 29.0)
+                        .fill(ColorConstants.WhiteA700))
+                    .padding(.leading, getRelativeWidth(36))
+                    
+                    
+                    // ENTER EMAIL VSTACK
+                    HStack {
+                        TextField("Enter Email",
+                                  text: $viewModel.email)
+                        .font(FontScheme
+                            .kInterRegular(size: getRelativeHeight(14.0)))
+                        .foregroundColor(ColorConstants.Black900Cc)
+                        .padding(.leading, 25)
+                        .keyboardType(.emailAddress)
+                        .focused($focus, equals: .email)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            self.focus = .password
+                        }
+                    }
+                    .frame(width: getRelativeWidth(295.0),
+                           height: getRelativeHeight(58.0), alignment: .leading)
+                    .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                            bottomLeft: 29.0, bottomRight: 29.0)
+                        .stroke(ColorConstants.Gray700,
+                                lineWidth: 1))
+                    .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                               bottomLeft: 29.0, bottomRight: 29.0)
+                        .fill(ColorConstants.WhiteA700))
+                    .padding(.top, getRelativeWidth(15))
+                    .padding(.leading, getRelativeWidth(36))
+                    
+                    // ENTER PASSWORD VSTACK
+                    HStack {
+                        SecureField("Enter Password",
+                                    text: $viewModel.password)
+                        .font(FontScheme
+                            .kInterRegular(size: getRelativeHeight(14.0)))
+                        .foregroundColor(ColorConstants.Black900Cc)
+                        .padding(.leading, 25)
+                        .keyboardType(.default)
+                        .focused($focus, equals: .password)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            self.focus = .confirmPassword
+                        }
+                    }
+                    .frame(width: getRelativeWidth(295.0),
+                           height: getRelativeHeight(58.0), alignment: .leading)
+                    .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                            bottomLeft: 29.0, bottomRight: 29.0)
+                        .stroke(ColorConstants.Gray700,
+                                lineWidth: 1))
+                    .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                               bottomLeft: 29.0, bottomRight: 29.0)
+                        .fill(ColorConstants.WhiteA700))
+                    .padding(.top, getRelativeWidth(15))
+                    .padding(.leading, getRelativeWidth(36))
+                    
+                    
+                    // CONFIRM PASSWORD VSTACK
+                    HStack {
+                        SecureField("Confirm Password",
+                                    text: $viewModel.confirmPassword)
+                        .font(FontScheme
+                            .kInterRegular(size: getRelativeHeight(14.0)))
+                        .foregroundColor(ColorConstants.Black900Cc)
+                        .padding(.leading, 25)
+                        .keyboardType(.default)
+                        .focused($focus, equals: .confirmPassword)
+                        .submitLabel(.go)
+                        .onSubmit {
+                            signUpWithEmailPassword()
+                        }
+                    }
+                    .frame(width: getRelativeWidth(295.0),
+                           height: getRelativeHeight(58.0), alignment: .leading)
+                    .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                            bottomLeft: 29.0, bottomRight: 29.0)
+                        .stroke(ColorConstants.Gray700,
+                                lineWidth: 1))
+                    .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
+                                               bottomLeft: 29.0, bottomRight: 29.0)
+                        .fill(ColorConstants.WhiteA700))
+                    .padding(.top, getRelativeWidth(15))
+                    .padding(.leading, getRelativeWidth(36))
+                    
+                    
+                    // print warning message if can't sign up
+                    if !viewModel.errorMessage.isEmpty {
+                        HStack {
+                            Text(viewModel.errorMessage)
+                                .foregroundColor(Color(UIColor.systemRed))
+                                .font(FontScheme.kInterExtraLight(size: getRelativeHeight(12)))
+                                
+                        }
+                        .frame(width: getRelativeWidth(295.0),
+                               height: getRelativeHeight(20.0), alignment: .center)
+                        .padding(.top, getRelativeWidth(5))
+                        .padding(.leading, getRelativeWidth(36))
+                        
+                    }
+                    
+                    
+                    // SIGN UP BUTTON
+                    VStack {
+                        Button(action: signUpWithEmailPassword) {
+                            Text("SIGN UP")
+                                .font(FontScheme
+                                    .kInterExtraBold(size: getRelativeHeight(35.0)))
+                                .fontWeight(.heavy)
+                                .padding(.horizontal, getRelativeWidth(30.0))
+                                .padding(.vertical, getRelativeHeight(22.0))
+                                .foregroundColor(ColorConstants.WhiteA700)
+                                .minimumScaleFactor(0.5)
+                                .frame(width: getRelativeWidth(295.0),
+                                       height: getRelativeHeight(60.0),
+                                       alignment: .center)
+                                .background(RoundedCorners(topLeft: 28.5,
+                                                           topRight: 28.5,
+                                                           bottomLeft: 28.5,
+                                                           bottomRight: 28.5)
+                                    .fill(ColorConstants.Red400))
+                        }
+                        .frame(width: getRelativeWidth(295.0),
+                               height: getRelativeHeight(60.0), alignment: .center)
+                        .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
+                                                   bottomLeft: 28.5, bottomRight: 28.5)
+                            .fill(ColorConstants.Red400))
+                    }
+                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0),
+                           alignment: .leading)
+                    .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
+                                               bottomLeft: 28.5, bottomRight: 28.5))
+                    .padding(.top, getRelativeWidth(25))
+                    .padding(.leading, getRelativeWidth(36))
+                    
+                    
+                    // SIGN IN MESSAGE
+                    HStack{
+                        Text("Have an account?")
+                            .font(FontScheme.kInterExtraLight(size: getRelativeHeight(25.0)))
+                            .fontWeight(.regular)
+                            .foregroundColor(ColorConstants.Black900)
+                            .minimumScaleFactor(0.5)
+                            .multilineTextAlignment(.trailing)
+                            .frame(width: getRelativeWidth(130.0), height: getRelativeHeight(18.0),
+                                   alignment: .topLeading)
+                            .padding(.trailing, getRelativeWidth(-10))
+                        
+                        // HYPERLINK THAT LEADS TO PAGE
+                        Text("Sign in")
+                            .font(FontScheme.kInterBold(size: getRelativeHeight(25.0)))
+                            .fontWeight(.bold)
+                            .foregroundColor(ColorConstants.BlueA400)
+                            .minimumScaleFactor(0.5)
+                            .multilineTextAlignment(.trailing)
+                            .frame(width: getRelativeWidth(50), height: getRelativeHeight(18.0),
+                                   alignment: .topLeading)
+                            .onTapGesture {
+                                signUpViewModel.nextScreen = "SignInView"
+                            }
+                    }
+                    .padding(.top, getRelativeHeight(10))
+                    .padding(.leading, getRelativeWidth(36))
+                    
+                    
+                    
+                    
+                    Group {
+                        NavigationLink(destination: SignInView().environmentObject(AuthenticationViewModel()),
+                                       tag: "SignInView",
+                                       selection: $signUpViewModel.nextScreen,
+                                       label: {
+                            EmptyView()
+                        })
+                        NavigationLink(destination: OnboardAvailabilityScreenView(),
+                                       tag: "OnboardAvailabilityScreenView",
+                                       selection: $signUpViewModel.nextScreen,
+                                       label: {
+                            EmptyView()
+                        })
+                    }
                 }
+                
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topLeading)
             .background(ColorConstants.WhiteA700)
-            .ignoresSafeArea()
-            .hideNavigationBar()
+            .padding(.top, 0)
         }
-        .hideNavigationBar()
+        .navigationBarHidden(true)
     }
 }
+
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {

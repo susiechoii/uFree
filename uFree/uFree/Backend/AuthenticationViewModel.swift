@@ -50,7 +50,16 @@ class AuthenticationViewModel: ObservableObject {
             .assign(to: &$isValid)
     }
     
+    private var authStateHandle: AuthStateDidChangeListenerHandle?
+    
     func registerAuthStateHandler() {
+        if authStateHandle == nil {
+            authStateHandle = Auth.auth().addStateDidChangeListener{ auth, user in
+                self.user = user
+                self.authenticationState = user == nil ? .unauthenticated : .authenticated
+                self.displayName = user?.email ?? "(unknown)"
+            }
+        }
     }
     
     func switchFlow() {
@@ -84,31 +93,51 @@ extension AuthenticationViewModel {
             let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
             user = authResult.user
             print("User \(authResult.user.uid) signed in")
-            authenticationState = .authenticated
-            displayName = user?.email ?? "(unknown)"
             return true
             
         }
         catch {
-            print("ERROR: User not authenticated")
-            authenticationState = .unauthenticated
+            print(error)
+            errorMessage = error.localizedDescription
             return false
         }
     }
     
     func signUpWithEmailPassword() async -> Bool {
         authenticationState = .authenticating
-        await wait()
-        authenticationState = .authenticated
-        return true
+        
+        do {
+            let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+            user = authResult.user
+            print("User \(authResult.user.uid) signed in")
+            return true
+            
+        }
+        catch {
+            print(error)
+            errorMessage = error.localizedDescription
+            return false
+        }
     }
     
     func signOut() {
-        authenticationState = .unauthenticated
+        do {
+            try Auth.auth().signOut()
+        }
+        catch {
+            errorMessage = error.localizedDescription
+        }
     }
     
     func deleteAccount() async -> Bool {
-        authenticationState = .unauthenticated
+        do {
+            try await user?.delete()
+        }
+        catch {
+            errorMessage = error.localizedDescription
+            return false
+        }
         return true
     }
+    
 }
