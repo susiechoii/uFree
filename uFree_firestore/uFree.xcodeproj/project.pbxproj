@@ -82,10 +82,10 @@
 		AD6FEEFEF667639E0F488C8C /* AppnavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5529F3DA16F4C0899FFF6363 /* AppnavigationViewModel.swift */; };
 		AFA19CEC5B76CB385EC95ADD /* MonthlyCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9985A360CF3F64DDC9BD93C1 /* MonthlyCalendarViewModel.swift */; };
 		B0AFAB36F580A65883AA698C /* WeeklyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE1BE820826924313D5E382 /* WeeklyView.swift */; };
-		B26CAFF2D9B8B63490423207 /* Pods_uFree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 289A7A0D2DFD2CACD07B8DEA /* Pods_uFree.framework */; };
 		B3A7C50586BA100152A4E580 /* AppnavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24715C3D1E77265F4F41E98C /* AppnavigationView.swift */; };
 		B3F2A6F65907E83E012AC13E /* WeeklyView1ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ACB40289D76E51365C5EA3 /* WeeklyView1ViewModel.swift */; };
 		C40AB9F82754D79E006BC5D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40AB9F72754D79E006BC5D7 /* AppDelegate.swift */; };
+		C7005FF465FC69DA811D08C3 /* Pods_uFree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B3F00F772CDB5CEFE9979C /* Pods_uFree.framework */; };
 		C778C9DE95B9AF9B37349897 /* HomeViewFourViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E3055475E6A2FE9699E33 /* HomeViewFourViewModel.swift */; };
 		CF6151CB6C97ED64F5E5739E /* WeeklyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4DD4ED35ADF232C62E09E36 /* WeeklyViewModel.swift */; };
 		D0C589B072A7800F9B22FF18 /* EventEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752AAA305C1F5C8D91BE12E /* EventEditViewModel.swift */; };
@@ -126,6 +126,7 @@
 		1090072EEB5CCFF4E0914D33 /* DaysTimeSele1Cell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DaysTimeSele1Cell.swift; sourceTree = "<group>"; };
 		12ED355F5668AFADA86D23CA /* InterExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = InterExtraBold.ttf; sourceTree = "<group>"; };
 		13499CDB254E33937094786A /* IntroPageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntroPageView.swift; sourceTree = "<group>"; };
+		14B3F00F772CDB5CEFE9979C /* Pods_uFree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uFree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17513D7CCF82DCB465E0A41A /* HomeViewTwoViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewTwoViewModel.swift; sourceTree = "<group>"; };
 		19EB68457336764D4A206D89 /* InterExtraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = InterExtraLight.ttf; sourceTree = "<group>"; };
 		1AAD45B6DC1B67DC86B16B49 /* FriendsPageViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsPageViewModel.swift; sourceTree = "<group>"; };
@@ -136,7 +137,6 @@
 		23DF446F30F1E89837E28BD4 /* SignUpViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		24715C3D1E77265F4F41E98C /* AppnavigationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppnavigationView.swift; sourceTree = "<group>"; };
 		26FBF13C1AEA646897CF26F6 /* OnboardAvailabilityScreenView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardAvailabilityScreenView.swift; sourceTree = "<group>"; };
-		289A7A0D2DFD2CACD07B8DEA /* Pods_uFree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uFree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CD10706AE24BBA5781F3F8D /* BubbleContentsCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BubbleContentsCell.swift; sourceTree = "<group>"; };
 		2E26F38B41134AFEC07B7CF5 /* ResetCodeViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResetCodeViewModel.swift; sourceTree = "<group>"; };
 		3112AAF7FB4AB2956BC15235 /* EventCreationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EventCreationView.swift; sourceTree = "<group>"; };
@@ -163,7 +163,6 @@
 		66D6AA09BA141D7FA585AEAC /* PagerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		6DC9E3D8A536E567565FA7ED /* NunitoExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = NunitoExtraBold.ttf; sourceTree = "<group>"; };
 		6F3D0CD38615EA5B03736C9E /* NunitoRegular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = NunitoRegular.ttf; sourceTree = "<group>"; };
-		722B1E062921BB7C00553194 /* SignInViewStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = SignInViewStoryboard.storyboard; path = "/Users/nicostuart/Desktop/NicoStuart-438s/uFree/uFree/application/Utilities/SignInViewStoryboard.storyboard"; sourceTree = "<absolute>"; };
 		76A3B02F73D8CA5F3CFCDC52 /* ProfileView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		77B722934010E0D6525EF81E /* SignInView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		78AE37BD33992DECDA0FBB96 /* EventEditView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
@@ -190,13 +189,13 @@
 		950CB3FB5960D3EA609D4962 /* SignInViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		9985A360CF3F64DDC9BD93C1 /* MonthlyCalendarViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewModel.swift; sourceTree = "<group>"; };
 		9B2C37D73D9CB338D8E42323 /* ListCardCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ListCardCell.swift; sourceTree = "<group>"; };
-		A5FFB3FE67C19D0695C3CA2C /* Pods-uFree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.debug.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.debug.xcconfig"; sourceTree = "<group>"; };
+		A0166272963882AD609BED21 /* Pods-uFree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.release.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.release.xcconfig"; sourceTree = "<group>"; };
 		A698BFC5DC1BFE86A90D10C3 /* IBMPlexSans.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = IBMPlexSans.ttf; sourceTree = "<group>"; };
 		A6C951DE70A9B99874D5EF42 /* HomeViewThreeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewThreeView.swift; sourceTree = "<group>"; };
 		AB2DF481020F3921BC2632C5 /* RobotoRomanRegular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = RobotoRomanRegular.ttf; sourceTree = "<group>"; };
+		ADADC620BB4B40BCF83E9590 /* Pods-uFree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.debug.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.debug.xcconfig"; sourceTree = "<group>"; };
 		B474F5BDC87B966FDA7E95E3 /* ColorConstants.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
 		B69D9C62544E7C43709E3A93 /* ResetPasswordView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
-		B6E28FE37C02B02CAAD11B2B /* Pods-uFree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.release.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.release.xcconfig"; sourceTree = "<group>"; };
 		B78468C92A3E65C228788447 /* EventCreationViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EventCreationViewModel.swift; sourceTree = "<group>"; };
 		BB61E59CBAD5FC5E24F738F2 /* SignUpView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C219C12A77E9C526ADDD7175 /* IntroPageViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntroPageViewModel.swift; sourceTree = "<group>"; };
@@ -236,7 +235,7 @@
 				5132C3D0292AF17E0050D887 /* FirebaseAnalyticsSwift in Frameworks */,
 				5198EB8D292AF9B5003BD2AD /* FirebaseAuth in Frameworks */,
 				5132C3CE292AF17E0050D887 /* FirebaseAnalytics in Frameworks */,
-				B26CAFF2D9B8B63490423207 /* Pods_uFree.framework in Frameworks */,
+				C7005FF465FC69DA811D08C3 /* Pods_uFree.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,11 +323,12 @@
 				CFFE5F457B63828F5FA8DE6D /* IntroPageView */,
 				776FC4BEFDD2ECE8BE3745AD /* SignUpView */,
 				9548037FED94F2972D2D2472 /* SignInView */,
+				719AA333F5237665D8B3D380 /* OnboardAvailabilityScreenView */,
 				29434A1779A32D44E546E2E5 /* HomePageView */,
+				2220BE66224F7F9772B5BCFC /* EventCreationView */,
 				0563A4E473E37D5303C84B31 /* MonthlyCalendarView */,
 				F7AADA805683CDA3C0F816BE /* WeeklyView */,
 				AFFF46C140018E666EB31054 /* WeeklyView1View */,
-				2220BE66224F7F9772B5BCFC /* EventCreationView */,
 				83A090F01A3D3531E1DA7DC3 /* FriendsPageView */,
 				BCB69671167C497D6CEAE976 /* ProfileView */,
 				718C5F34A865C410E8F1BBF1 /* ResetCodeView */,
@@ -336,7 +336,6 @@
 				F3DB1926EB69CDC0B6C07E50 /* HomeViewTwoView */,
 				E46803C4EA0F6D53323B1FE3 /* EventView */,
 				A5E99AA8B992240685376016 /* EditDefaultforEventScreenView */,
-				719AA333F5237665D8B3D380 /* OnboardAvailabilityScreenView */,
 				3068EE7E361BC3DD809CC9B4 /* HomeViewThreeView */,
 				8DFEA416017EA64806A7DE60 /* EventEditView */,
 				A6195AEF36A8F76B323C387C /* OptimalTimeView */,
@@ -400,8 +399,8 @@
 		6F608FE24A7ED711BB129FFD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A5FFB3FE67C19D0695C3CA2C /* Pods-uFree.debug.xcconfig */,
-				B6E28FE37C02B02CAAD11B2B /* Pods-uFree.release.xcconfig */,
+				ADADC620BB4B40BCF83E9590 /* Pods-uFree.debug.xcconfig */,
+				A0166272963882AD609BED21 /* Pods-uFree.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -432,6 +431,14 @@
 				00633671FB723CE104AC6CEE /* TabAndPager */,
 			);
 			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		73F267C56EE1090A1C5908FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				14B3F00F772CDB5CEFE9979C /* Pods_uFree.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		766E4703ECA0B97925C63513 /* AppnavigationView */ = {
@@ -511,7 +518,7 @@
 				88ED74E6272FFE6E0088E3EF /* uFree */,
 				88ED74E5272FFE6E0088E3EF /* Products */,
 				6F608FE24A7ED711BB129FFD /* Pods */,
-				C7B9A19900D789A63A94D798 /* Frameworks */,
+				73F267C56EE1090A1C5908FC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -526,11 +533,11 @@
 		88ED74E6272FFE6E0088E3EF /* uFree */ = {
 			isa = PBXGroup;
 			children = (
+				88ED74FE272FFECA0088E3EF /* Application */,
 				5198EB90292AFD3E003BD2AD /* Backend */,
 				3977BC6504A937B4821C515A /* Views */,
-				88ED74FC272FFECA0088E3EF /* Services */,
-				88ED74FE272FFECA0088E3EF /* Application */,
 				88ED74F8272FFECA0088E3EF /* Constants */,
+				88ED74FC272FFECA0088E3EF /* Services */,
 				88ED74FA272FFECA0088E3EF /* Extensions */,
 				88ED74F6272FFECA0088E3EF /* Utilities */,
 				7F44DB9E27422A4200171570 /* Helper */,
@@ -554,7 +561,6 @@
 		88ED74F6272FFECA0088E3EF /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				722B1E062921BB7C00553194 /* SignInViewStoryboard.storyboard */,
 				88ED74F7272FFECA0088E3EF /* Utilities.swift */,
 				7E915332D916E3DB981E508F /* Validation.swift */,
 			);
@@ -708,14 +714,6 @@
 			path = ProfileView;
 			sourceTree = "<group>";
 		};
-		C7B9A19900D789A63A94D798 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				289A7A0D2DFD2CACD07B8DEA /* Pods_uFree.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		CFFE5F457B63828F5FA8DE6D /* IntroPageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -786,11 +784,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 88ED74F3272FFE6F0088E3EF /* Build configuration list for PBXNativeTarget "uFree" */;
 			buildPhases = (
-				5F9BE97E00FAAD3EF392E54F /* [CP] Check Pods Manifest.lock */,
+				20B9EB06A8F29F5DE231C501 /* [CP] Check Pods Manifest.lock */,
 				88ED74E0272FFE6E0088E3EF /* Sources */,
 				88ED74E1272FFE6E0088E3EF /* Frameworks */,
 				88ED74E2272FFE6E0088E3EF /* Resources */,
-				E17B7D3C281162E73F615051 /* [CP] Embed Pods Frameworks */,
+				D6A7FB115B7F5967FC1FEDDF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -879,7 +877,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5F9BE97E00FAAD3EF392E54F /* [CP] Check Pods Manifest.lock */ = {
+		20B9EB06A8F29F5DE231C501 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -901,7 +899,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E17B7D3C281162E73F615051 /* [CP] Embed Pods Frameworks */ = {
+		D6A7FB115B7F5967FC1FEDDF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1127,7 +1125,7 @@
 		};
 		88ED74F4272FFE6F0088E3EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A5FFB3FE67C19D0695C3CA2C /* Pods-uFree.debug.xcconfig */;
+			baseConfigurationReference = ADADC620BB4B40BCF83E9590 /* Pods-uFree.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "uFree-AppIcon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1151,7 +1149,7 @@
 		};
 		88ED74F5272FFE6F0088E3EF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B6E28FE37C02B02CAAD11B2B /* Pods-uFree.release.xcconfig */;
+			baseConfigurationReference = A0166272963882AD609BED21 /* Pods-uFree.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "uFree-AppIcon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

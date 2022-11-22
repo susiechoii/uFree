@@ -1,6 +1,6 @@
 //
 //  applicationApp.swift
-//  application
+//  uFree
 
 import SwiftUI
 

@@ -87,7 +87,7 @@ struct SignUpView: View {
                 
                 //VStack to center everything else
                 VStack (alignment: .center, spacing: 0){
- 
+                    
                     // ENTER NAME VSTACK
                     HStack {
                         TextField("Enter Name",
@@ -124,6 +124,8 @@ struct SignUpView: View {
                         .foregroundColor(ColorConstants.Black900Cc)
                         .padding(.leading, 25)
                         .keyboardType(.emailAddress)
+                        .disableAutocorrection(true)
+                        .textInputAutocapitalization(.never)
                         .focused($focus, equals: .email)
                         .submitLabel(.next)
                         .onSubmit {
@@ -204,7 +206,7 @@ struct SignUpView: View {
                             Text(viewModel.errorMessage)
                                 .foregroundColor(Color(UIColor.systemRed))
                                 .font(FontScheme.kInterExtraLight(size: getRelativeHeight(12)))
-                                
+                            
                         }
                         .frame(width: getRelativeWidth(295.0),
                                height: getRelativeHeight(20.0), alignment: .center)
@@ -277,8 +279,7 @@ struct SignUpView: View {
                     .padding(.leading, getRelativeWidth(36))
                     
                     
-                    
-                    
+                    // GROUP OF NAVIGATION LINK
                     Group {
                         NavigationLink(destination: SignInView().environmentObject(AuthenticationViewModel()),
                                        tag: "SignInView",
