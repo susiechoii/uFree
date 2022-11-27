@@ -125,7 +125,7 @@ struct AppnavigationView: View {
                                         .padding(.top, getRelativeHeight(5.0))
                                 }
                                 .onTapGesture {
-                                    appnavigationViewModel.nextScreen = "HomePageView"
+                                    appnavigationViewModel.nextScreen = "PrimaryView"
                                 }
                                 .frame(width: UIScreen.main.bounds.width,
                                        height: getRelativeHeight(48.0))
@@ -510,8 +510,8 @@ struct AppnavigationView: View {
                                    label: {
                                        EmptyView()
                                    })
-                    NavigationLink(destination: HomePageView(),
-                                   tag: "HomePageView",
+                    NavigationLink(destination: PrimaryView(),
+                                   tag: "PrimaryView",
                                    selection: $appnavigationViewModel.nextScreen,
                                    label: {
                                        EmptyView()

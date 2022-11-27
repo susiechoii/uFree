@@ -71,6 +71,7 @@
 		6ED3FD82C028CC705581F531 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950CB3FB5960D3EA609D4962 /* SignInViewModel.swift */; };
 		71FC687B88B20269A1F70E2C /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F425F1291266C8715DA0776A /* MonthlyCalendarView.swift */; };
 		7280E176CA4B72D700B1CA4E /* DaycellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50A36B2EE4E407DA7E68005 /* DaycellCell.swift */; };
+		72BC983C2931BBB000BC45C6 /* PrimaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BC983B2931BBB000BC45C6 /* PrimaryView.swift */; };
 		72D5CA8E4EF75D9DE30FE01D /* InterSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43234A4EF321475411DE9184 /* InterSemiBold.ttf */; };
 		7425B81BF6EBDE236FBD8706 /* OnboardAvailabilityScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0237132CA5D0E9E3B4D47CFA /* OnboardAvailabilityScreenViewModel.swift */; };
 		7BB3FFDB2DDDF37D208AF9E3 /* HomeViewFiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F577301E5EBCE59A05F6417 /* HomeViewFiveView.swift */; };
@@ -183,6 +184,7 @@
 		6DC9E3D8A536E567565FA7ED /* NunitoExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = NunitoExtraBold.ttf; sourceTree = "<group>"; };
 		6F3D0CD38615EA5B03736C9E /* NunitoRegular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = NunitoRegular.ttf; sourceTree = "<group>"; };
 		722B1E062921BB7C00553194 /* SignInViewStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = SignInViewStoryboard.storyboard; path = "/Users/nicostuart/Desktop/NicoStuart-438s/uFree/uFree/application/Utilities/SignInViewStoryboard.storyboard"; sourceTree = "<absolute>"; };
+		72BC983B2931BBB000BC45C6 /* PrimaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		76A3B02F73D8CA5F3CFCDC52 /* ProfileView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		77B722934010E0D6525EF81E /* SignInView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		78AE37BD33992DECDA0FBB96 /* EventEditView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				02F01A134E54B20C459B42EC /* HomeViewFourView */,
 				479364D9AB277613B6799035 /* HomeViewFiveView */,
 				766E4703ECA0B97925C63513 /* AppnavigationView */,
+				72BC983B2931BBB000BC45C6 /* PrimaryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1008,6 +1011,7 @@
 				E0D51FA5A276554D0A116723 /* SmallCardCell.swift in Sources */,
 				DCD61D2E291B57D7009878FE /* Backend.swift in Sources */,
 				1EDCA53B7E96C2710666757A /* ProfileView.swift in Sources */,
+				72BC983C2931BBB000BC45C6 /* PrimaryView.swift in Sources */,
 				44695177B9BA1AC39C5417DF /* ResetCodeView.swift in Sources */,
 				0E0772394EBE22E9A8F1999E /* ResetPasswordView.swift in Sources */,
 				465873C45CDBB80798F7ABE7 /* HomeViewTwoView.swift in Sources */,
