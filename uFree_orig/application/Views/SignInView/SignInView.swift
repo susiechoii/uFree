@@ -182,7 +182,7 @@ struct SignInView: View {
                                 VStack {
                                     Button(action: {
                                         loginFunction(emailInput: userEmailInput, pwInput: userPasswordInput)
-                                        signInViewModel.nextScreen = "HomePageView"
+                                        signInViewModel.nextScreen = "PrimaryView"
                                     }, label: {
                                         HStack(spacing: 0) {
                                             Text("Log In")
@@ -275,8 +275,8 @@ struct SignInView: View {
                                    label: {
                                        EmptyView()
                                    })
-                    NavigationLink(destination: HomePageView(),
-                                   tag: "HomePageView",
+                    NavigationLink(destination: PrimaryView(),
+                                   tag: "PrimaryView",
                                    selection: $signInViewModel.nextScreen,
                                    label: {
                                        EmptyView()
