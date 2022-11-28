@@ -99,7 +99,6 @@
 		D8203D43D29C392ABD1083F2 /* ListCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2C37D73D9CB338D8E42323 /* ListCardCell.swift */; };
 		D84D46574B665AFAEC310047 /* BubbleContentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD10706AE24BBA5781F3F8D /* BubbleContentsCell.swift */; };
 		DAEE72DEFA4C1DDFC0C8652A /* StackrectanglenineoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE09D3DCE22DA913DB40BBB0 /* StackrectanglenineoneCell.swift */; };
-		DCD61D2E291B57D7009878FE /* Backend.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD61D2D291B57D7009878FE /* Backend.swift */; };
 		E0D51FA5A276554D0A116723 /* SmallCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF5D9112AC72A8B3C56A3785 /* SmallCardCell.swift */; };
 		E22D0FB016A0B36DBE59C396 /* HomeViewThreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C951DE70A9B99874D5EF42 /* HomeViewThreeView.swift */; };
 		E5320ED0CA7B13516F6B99CC /* InterExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19EB68457336764D4A206D89 /* InterExtraLight.ttf */; };
@@ -209,7 +208,6 @@
 		C7903E250E08969D57535C3D /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
 		C9B68355BB1A2D22C140EF6F /* NunitoSemiBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = NunitoSemiBold.ttf; sourceTree = "<group>"; };
 		D7EE11CE7E8B7B44214AD637 /* MontserratExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = MontserratExtraBold.ttf; sourceTree = "<group>"; };
-		DCD61D2D291B57D7009878FE /* Backend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backend.swift; sourceTree = "<group>"; };
 		E0D4D0E6C3CAF2C5B54FF9B3 /* RobotoRomanThin.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = RobotoRomanThin.ttf; sourceTree = "<group>"; };
 		E1CF91695C31A22EFE6A8AC3 /* StringScheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringScheme.swift; sourceTree = "<group>"; };
 		E66148BD457076FDD322E579 /* Pods-uFree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.release.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.release.xcconfig"; sourceTree = "<group>"; };
@@ -386,14 +384,6 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		5198EB90292AFD3E003BD2AD /* Backend */ = {
-			isa = PBXGroup;
-			children = (
-				DCD61D2D291B57D7009878FE /* Backend.swift */,
-			);
-			path = Backend;
-			sourceTree = "<group>";
-		};
 		519D43892934AA1200FCE23B /* PrimaryView */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,7 +531,6 @@
 			isa = PBXGroup;
 			children = (
 				88ED74FE272FFECA0088E3EF /* Application */,
-				5198EB90292AFD3E003BD2AD /* Backend */,
 				3977BC6504A937B4821C515A /* Views */,
 				88ED74F8272FFECA0088E3EF /* Constants */,
 				88ED74FC272FFECA0088E3EF /* Services */,
@@ -972,7 +961,6 @@
 				13B733DE360D38683776D684 /* FriendsPageView.swift in Sources */,
 				E71C4F1858E44D5ADC9B4191 /* CellsCell.swift in Sources */,
 				E0D51FA5A276554D0A116723 /* SmallCardCell.swift in Sources */,
-				DCD61D2E291B57D7009878FE /* Backend.swift in Sources */,
 				1EDCA53B7E96C2710666757A /* ProfileView.swift in Sources */,
 				44695177B9BA1AC39C5417DF /* ResetCodeView.swift in Sources */,
 				0E0772394EBE22E9A8F1999E /* ResetPasswordView.swift in Sources */,
