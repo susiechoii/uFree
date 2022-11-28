@@ -31,29 +31,36 @@ struct TabButtonStyle: ButtonStyle {
 
 struct PrimaryView: View {
     @State private var selectedTab: Tab = .homePage
+    @EnvironmentObject var viewModel:AuthenticationViewModel
     
+    init() {
+        print("Creating primary view")
+    }
     var body: some View {
-        VStack {
-            switch selectedTab {
-            case .homePage:
-                NavigationView {
-                    HomePageView()
+        NavigationView {
+            VStack {
+                switch selectedTab {
+                case .homePage:
+                    NavigationView {
+                        HomePageView()
+                    }.hideNavigationBar()
+                case .calendarPage:
+                    NavigationView {
+                        MonthlyCalendarView()
+                    }
+                case .friendsPage:
+                    NavigationView {
+                        FriendsPageView()
+                    }
+                case.profilePage:
+                    NavigationView {
+                        ProfileView()
+                    }
                 }
-            case .calendarPage:
-                NavigationView {
-                    MonthlyCalendarView()
-                }
-            case .friendsPage:
-                NavigationView {
-                    FriendsPageView()
-                }
-            case.profilePage:
-                NavigationView {
-                    ProfileView()
-                }
+                CustomTabView(selectedTab: $selectedTab)
+                    .frame(height: 50)
             }
-            CustomTabView(selectedTab: $selectedTab)
-                .frame(height: 50)
+            .hideNavigationBar()
         }
     }
 }

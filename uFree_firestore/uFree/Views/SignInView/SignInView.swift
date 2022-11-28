@@ -33,7 +33,7 @@ struct SignInView: View {
     private func signInWithEmailPassword() {
         Task {
             if await viewModel.signInWithEmailPassword() == true {
-                dismiss()
+                print("DEBUG: Back at sign in view, sign in true with email:")
             }
         }
     }
@@ -99,7 +99,7 @@ struct SignInView: View {
                         // LOGIN EMAIL VSTACK
                         HStack {
                             TextField("Email",
-                                      text: $viewModel.email)
+                                      text: $viewModel.inputEmail)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(14.0)))
                             .foregroundColor(ColorConstants.Black900Cc)
@@ -127,7 +127,7 @@ struct SignInView: View {
                         // LOGIN PASSWORD VSTACK
                         HStack {
                             SecureField("Password",
-                                        text: $viewModel.password)
+                                        text: $viewModel.inputPassword)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(14)))
                             .foregroundColor(ColorConstants.Black900Cc)
@@ -187,7 +187,6 @@ struct SignInView: View {
                                                                bottomRight: 28.5)
                                         .fill(ColorConstants.Red400))
                             }
-                            .disabled(!viewModel.isValid)
                             
                         }
                         .frame(width: getRelativeWidth(295.0),
@@ -232,21 +231,15 @@ struct SignInView: View {
                         .frame(width: getRelativeWidth(50), height: getRelativeHeight(18.0),
                                alignment: .topLeading)
                         .onTapGesture {
-                            signInViewModel.nextScreen = "SignUpView"
+                            presentationMode.wrappedValue.dismiss()
                         }
                 }
                 .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(25), alignment: .center)
                 .padding(.top, getRelativeHeight(10))
                 
                 Group {
-                    NavigationLink(destination: SignUpView(),
-                                   tag: "SignUpView",
-                                   selection: $signInViewModel.nextScreen,
-                                   label: {
-                        EmptyView()
-                    })
-                    NavigationLink(destination: HomePageView(),
-                                   tag: "HomePageView",
+                    NavigationLink(destination: PrimaryView().environmentObject(viewModel),
+                                   tag: "PrimaryView",
                                    selection: $signInViewModel.nextScreen,
                                    label: {
                         EmptyView()

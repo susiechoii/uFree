@@ -16,8 +16,6 @@ struct SignUpView: View {
     // State object for the sign up view model
     @StateObject var signUpViewModel = SignUpViewModel()
     
-    @State var presentSignInView: Bool = false
-    
     // Environment objects for the back buttons
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -28,10 +26,10 @@ struct SignUpView: View {
     @FocusState private var focus: FocusableField?
     
     // Function for to sign in
-    private func signUpWithEmailPassword() {
+    private func addUserToFireStore() {
         Task {
-            if await viewModel.signUpWithEmailPassword() == true {
-                dismiss()
+            if await viewModel.addUserToFirestore() == true {
+                signUpViewModel.nextScreen = "OnboardAvailabilityScreenView"
             }
         }
     }
@@ -91,7 +89,7 @@ struct SignUpView: View {
                     // ENTER NAME VSTACK
                     HStack {
                         TextField("Enter Name",
-                                  text: $viewModel.name)
+                                  text: $viewModel.inputName)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
@@ -118,7 +116,7 @@ struct SignUpView: View {
                     // ENTER EMAIL VSTACK
                     HStack {
                         TextField("Enter Email",
-                                  text: $viewModel.email)
+                                  text: $viewModel.inputEmail)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
@@ -147,7 +145,7 @@ struct SignUpView: View {
                     // ENTER PASSWORD VSTACK
                     HStack {
                         SecureField("Enter Password",
-                                    text: $viewModel.password)
+                                    text: $viewModel.inputPassword)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
@@ -175,7 +173,7 @@ struct SignUpView: View {
                     // CONFIRM PASSWORD VSTACK
                     HStack {
                         SecureField("Confirm Password",
-                                    text: $viewModel.confirmPassword)
+                                    text: $viewModel.inputConfirmPassword)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
@@ -184,7 +182,7 @@ struct SignUpView: View {
                         .focused($focus, equals: .confirmPassword)
                         .submitLabel(.go)
                         .onSubmit {
-                            signUpWithEmailPassword()
+                            addUserToFireStore()
                         }
                     }
                     .frame(width: getRelativeWidth(295.0),
@@ -218,7 +216,7 @@ struct SignUpView: View {
                     
                     // SIGN UP BUTTON
                     VStack {
-                        Button(action: signUpWithEmailPassword) {
+                        Button(action: addUserToFireStore) {
                             Text("SIGN UP")
                                 .font(FontScheme
                                     .kInterExtraBold(size: getRelativeHeight(35.0)))
@@ -281,13 +279,13 @@ struct SignUpView: View {
                     
                     // GROUP OF NAVIGATION LINK
                     Group {
-                        NavigationLink(destination: SignInView().environmentObject(AuthenticationViewModel()),
+                        NavigationLink(destination: SignInView().environmentObject(viewModel),
                                        tag: "SignInView",
                                        selection: $signUpViewModel.nextScreen,
                                        label: {
                             EmptyView()
                         })
-                        NavigationLink(destination: OnboardAvailabilityScreenView(),
+                        NavigationLink(destination: OnboardAvailabilityScreenView().environmentObject(viewModel),
                                        tag: "OnboardAvailabilityScreenView",
                                        selection: $signUpViewModel.nextScreen,
                                        label: {

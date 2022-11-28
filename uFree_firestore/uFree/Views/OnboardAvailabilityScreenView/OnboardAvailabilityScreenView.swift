@@ -5,6 +5,17 @@ struct OnboardAvailabilityScreenView: View {
     @StateObject var onboardAvailabilityScreenViewModel = OnboardAvailabilityScreenViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @Environment(\.dismiss) var dismiss
+    
+    private func registerUserInfoInFirebase() {
+        Task {
+            if await viewModel.registerUserInfoToFirestore() == true {
+            }
+        }
+    }
+    
+
     var body: some View {
         VStack (alignment: .center, spacing: 0){
             
@@ -66,15 +77,14 @@ struct OnboardAvailabilityScreenView: View {
                     }
                 }
                 .padding(.horizontal, getRelativeWidth(25))
-                .padding(.top, getRelativeHeight(-25))
+                .padding(.top, getRelativeHeight(-15))
             }
             .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(580))
             
             
             // SAVE AND CONTINUE BUTTON
             Button(action: {
-                sendCalendarToFirebase()
-                onboardAvailabilityScreenViewModel.nextScreen = "HomePageView"
+                registerUserInfoInFirebase()
             }, label: {
                 Text("SAVE AND CONTINUE")
                     .font(FontScheme
@@ -92,7 +102,7 @@ struct OnboardAvailabilityScreenView: View {
                                                bottomLeft: 28.5,
                                                bottomRight: 28.5)
                         .fill(ColorConstants.Red400))
-
+                
             })
             .frame(width: getRelativeWidth(295.0),
                    height: getRelativeHeight(60.0), alignment: .center)
@@ -103,8 +113,8 @@ struct OnboardAvailabilityScreenView: View {
             
             // NAVIGATION LINK GROUP
             Group {
-                NavigationLink(destination: HomePageView(),
-                               tag: "HomePageView",
+                NavigationLink(destination: PrimaryView().environmentObject(viewModel),
+                               tag: "PrimaryView",
                                selection: $onboardAvailabilityScreenViewModel.nextScreen,
                                label: {
                     EmptyView()
@@ -122,34 +132,6 @@ struct OnboardAvailabilityScreenView: View {
     }
 }
 
-func sendCalendarToFirebase() {
-    
-    let ref = Database.database().reference()
-    ref.child("calendar/emails").observeSingleEvent(of: .value, with: { snapshot in
-        guard var emailArray = snapshot.value as? [String] else {
-            return
-        }
-        print("Old Email Values: \(emailArray)")
-        
-        print(UserDefaults.standard.object(forKey: "email") as? String)
-        emailArray.append(UserDefaults.standard.object(forKey: "email") as! String)
-        ref.child("calendar/emails").setValue(emailArray)
-        
-        ref.child("calendar/preferences").observeSingleEvent(of: .value, with: { snapshot in
-            guard var preferencesArray = snapshot.value as? [[Int]] else {
-                return
-            }
-            
-            var myNewArray = UserDefaults.standard.object(forKey: "listOfHours") as! [Int]
-            myNewArray.sort()
-            
-            preferencesArray.append(myNewArray)
-            ref.child("calendar/preferences").setValue(preferencesArray)
-            print("Success")
-        })
-        
-    })
-}
 
 struct OnboardAvailabilityScreenView_Previews: PreviewProvider {
     static var previews: some View {

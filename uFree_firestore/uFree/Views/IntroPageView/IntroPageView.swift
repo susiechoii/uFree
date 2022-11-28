@@ -6,8 +6,11 @@ import SwiftUI
 struct IntroPageView: View {
     @StateObject var introPageViewModel = IntroPageViewModel()
     
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    
     // For the button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     
     var body: some View {
         NavigationView {
@@ -121,7 +124,7 @@ struct IntroPageView: View {
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 Group {
-                    NavigationLink(destination: SignUpView().environmentObject(AuthenticationViewModel()),
+                    NavigationLink(destination: SignUpView().environmentObject(viewModel),
                                    tag: "SignUpView",
                                    selection: $introPageViewModel.nextScreen,
                                    label: {
@@ -140,6 +143,6 @@ struct IntroPageView: View {
 
 struct IntroPageView_Previews: PreviewProvider {
     static var previews: some View {
-        IntroPageView()
+        IntroPageView().environmentObject(AuthenticationViewModel())
     }
 }
