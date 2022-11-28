@@ -4,6 +4,8 @@ import Firebase
 struct EventCreationView: View {
     @StateObject var eventCreationViewModel = EventCreationViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    
     @State var userEmailInput = ""
     
     //User input variables
@@ -311,6 +313,6 @@ func createEvent(name: String, duration: Int, description: String, date: Date, e
 
 struct EventCreationView_Previews: PreviewProvider {
     static var previews: some View {
-        EventCreationView()
+        EventCreationView().environmentObject(AuthenticationViewModel())
     }
 }

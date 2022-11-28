@@ -34,7 +34,7 @@ struct PrimaryView: View {
     @EnvironmentObject var viewModel:AuthenticationViewModel
     
     init() {
-        print("Creating primary view")
+        print("Created Primary View")
     }
     var body: some View {
         NavigationView {
@@ -42,25 +42,25 @@ struct PrimaryView: View {
                 switch selectedTab {
                 case .homePage:
                     NavigationView {
-                        HomePageView()
+                        HomePageView().environmentObject(viewModel)
                     }.hideNavigationBar()
                 case .calendarPage:
                     NavigationView {
-                        MonthlyCalendarView()
+                        MonthlyCalendarView().environmentObject(viewModel)
                     }
                 case .friendsPage:
                     NavigationView {
-                        FriendsPageView()
+                        FriendsPageView().environmentObject(viewModel)
                     }
                 case.profilePage:
                     NavigationView {
-                        ProfileView()
+                        ProfileView().environmentObject(viewModel)
                     }
                 }
                 CustomTabView(selectedTab: $selectedTab)
+                    .environmentObject(viewModel)
                     .frame(height: 50)
             }
-            .hideNavigationBar()
         }
     }
 }
@@ -68,16 +68,18 @@ struct PrimaryView: View {
 //Sheet for the event creation (modal)
 @available(iOS 15.0, *)
 struct SheetView: View {
+    @EnvironmentObject var viewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        EventCreationView()
+        EventCreationView().environmentObject(viewModel)
     }
 }
 
 struct CustomTabView: View {
     @Binding var selectedTab: Tab
     @State private var eventCreationModal = false
+    @EnvironmentObject var viewModel: AuthenticationViewModel
     
     var body: some View {
         HStack {
@@ -106,24 +108,24 @@ struct CustomTabView: View {
             }
             
             
-            Button {
-                selectedTab = .calendarPage
-            } label: {
-                VStack {
-                    if (selectedTab != .calendarPage) {
-                    Image("img_combinedshape")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 25, height: 25)
-                    }
-                    else {
-                        Image("img_vector_24X23")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 25)
-                    }
-                }
-            }
+//            Button {
+//                selectedTab = .calendarPage
+//            } label: {
+//                VStack {
+//                    if (selectedTab != .calendarPage) {
+//                    Image("img_combinedshape")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 25, height: 25)
+//                    }
+//                    else {
+//                        Image("img_vector_24X23")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 25, height: 25)
+//                    }
+//                }
+//            }
                 
             }
             
@@ -148,7 +150,7 @@ struct CustomTabView: View {
             .buttonStyle(TabButtonStyle())
             .sheet(isPresented: $eventCreationModal) {
                 if #available(iOS 15.0, *) {
-                    SheetView()
+                    SheetView().environmentObject(viewModel)
                 } else {
                     // Fallback on earlier versions
                 }
@@ -160,24 +162,24 @@ struct CustomTabView: View {
             
             HStack(spacing: 40) {
                 
-            Button {
-                selectedTab = .friendsPage
-            } label: {
-                VStack {
-                    if (selectedTab != .friendsPage) {
-                    Image("img_combinedshape_23X27")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 25, height: 25)
-                    }
-                    else {
-                        Image("img_3friends")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 25, height: 25)
-                    }
-                }
-            }
+//            Button {
+//                selectedTab = .friendsPage
+//            } label: {
+//                VStack {
+//                    if (selectedTab != .friendsPage) {
+//                    Image("img_combinedshape_23X27")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(width: 25, height: 25)
+//                    }
+//                    else {
+//                        Image("img_3friends")
+//                            .resizable()
+//                            .scaledToFit()
+//                            .frame(width: 25, height: 25)
+//                    }
+//                }
+//            }
             
             
             Button {
@@ -214,6 +216,6 @@ struct CustomTabView: View {
 
 struct PrimaryView_Previews: PreviewProvider{
     static var previews: some View {
-        PrimaryView()
+        PrimaryView().environmentObject(AuthenticationViewModel())
     }
 }

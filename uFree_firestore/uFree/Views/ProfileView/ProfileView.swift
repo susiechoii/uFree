@@ -3,6 +3,8 @@ import SwiftUI
 struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -210,134 +212,36 @@ struct ProfileView: View {
                                 .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
                                                            bottomLeft: 8.0, bottomRight: 8.0)
                                         .fill(ColorConstants.WhiteA700))
-                                HStack {
-                                    HStack {
-                                        Image("img_vector_17X18")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(18.0),
-                                                   height: getRelativeHeight(17.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                        Text(StringConstants.kLblSound)
-                                            .font(FontScheme
-                                                .kInterMedium(size: getRelativeHeight(16.0)))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(ColorConstants.Gray903)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: getRelativeWidth(50.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .topLeading)
-                                            .padding(.leading, getRelativeWidth(14.0))
-                                    }
-                                    .frame(width: getRelativeWidth(82.0),
-                                           height: getRelativeHeight(17.0), alignment: .center)
-                                    .padding(.top, getRelativeHeight(18.0))
-                                    .padding(.bottom, getRelativeHeight(19.0))
-                                    .padding(.leading, getRelativeWidth(11.0))
-                                    Spacer()
-                                    Image("img_arrowright")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(4.0),
-                                               height: getRelativeHeight(9.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.vertical, getRelativeHeight(25.0))
-                                        .padding(.trailing, getRelativeWidth(13.0))
-                                }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                HStack {
-                                    HStack {
-                                        Image("img_vector_19X19")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(19.0),
-                                                   height: getRelativeWidth(19.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                        Text(StringConstants.kLblLanguage)
-                                            .font(FontScheme
-                                                .kInterMedium(size: getRelativeHeight(16.0)))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(ColorConstants.Gray903)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: getRelativeWidth(76.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .topLeading)
-                                            .padding(.leading, getRelativeWidth(14.0))
-                                    }
-                                    .frame(width: getRelativeWidth(110.0),
-                                           height: getRelativeHeight(21.0), alignment: .center)
-                                    .padding(.vertical, getRelativeHeight(17.0))
-                                    .padding(.leading, getRelativeWidth(9.0))
-                                    Spacer()
-                                    Image("img_arrowright")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(4.0),
-                                               height: getRelativeHeight(9.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.vertical, getRelativeHeight(25.0))
-                                        .padding(.trailing, getRelativeWidth(13.0))
-                                }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                HStack {
-                                    HStack {
-                                        Image("img_iconsolidtext")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(18.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                        Text(StringConstants.kLblTextSize)
-                                            .font(FontScheme
-                                                .kInterMedium(size: getRelativeHeight(16.0)))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(ColorConstants.Gray903)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: getRelativeWidth(70.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .topLeading)
-                                            .padding(.leading, getRelativeWidth(15.0))
-                                    }
-                                    .frame(width: getRelativeWidth(103.0),
-                                           height: getRelativeHeight(16.0), alignment: .center)
-                                    .padding(.top, getRelativeHeight(20.0))
-                                    .padding(.bottom, getRelativeHeight(19.0))
-                                    .padding(.leading, getRelativeWidth(11.0))
-                                    Spacer()
-                                    Text(StringConstants.kLblMedium)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(ColorConstants.Gray600)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(width: getRelativeWidth(46.0),
-                                               height: getRelativeHeight(15.0),
-                                               alignment: .topLeading)
-                                        .padding(.top, getRelativeHeight(22.0))
-                                        .padding(.bottom, getRelativeHeight(19.0))
-                                        .padding(.trailing, getRelativeWidth(8.0))
-                                }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
+                               
+                               
+                               
                             }
+                            Button(action: {
+                                viewModel.signOut()
+                            }, label: {
+                                Text("SIGN OUT")
+                                    .font(FontScheme
+                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
+                                    .fontWeight(.heavy)
+                                    .padding(.horizontal, getRelativeWidth(30.0))
+                                    .padding(.vertical, getRelativeHeight(22.0))
+                                    .foregroundColor(ColorConstants.WhiteA700)
+                                    .minimumScaleFactor(0.5)
+                                    .frame(width: getRelativeWidth(295.0),
+                                           height: getRelativeHeight(60.0),
+                                           alignment: .center)
+                                    .background(RoundedCorners(topLeft: 28.5,
+                                                               topRight: 28.5,
+                                                               bottomLeft: 28.5,
+                                                               bottomRight: 28.5)
+                                        .fill(ColorConstants.Red400))
+                            })
+                            .frame(width: getRelativeWidth(295.0),
+                                   height: getRelativeHeight(60.0), alignment: .center)
+                            .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
+                                                       bottomLeft: 28.5, bottomRight: 28.5)
+                                .fill(ColorConstants.Red400))
+                            
                             Group {
                                 HStack {
                                     Spacer()
@@ -414,6 +318,6 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView().environmentObject(AuthenticationViewModel())
     }
 }

@@ -22,56 +22,32 @@ struct HomePageView: View {
                 // Object array to retrieve items
                 let objectArray = UserDefaults.standard.array(forKey: "specificUserEvents") as? [[String: String]] ?? [["title": "null"]]
                 
-                Button(action: {
-                    viewModel.signOut()
-                }, label: {
-                    Text("SIGN OUT")
-                        .font(FontScheme
-                            .kInterExtraBold(size: getRelativeHeight(35.0)))
-                        .fontWeight(.heavy)
-                        .padding(.horizontal, getRelativeWidth(30.0))
-                        .padding(.vertical, getRelativeHeight(22.0))
-                        .foregroundColor(ColorConstants.WhiteA700)
-                        .minimumScaleFactor(0.5)
-                        .frame(width: getRelativeWidth(295.0),
-                               height: getRelativeHeight(60.0),
-                               alignment: .center)
-                        .background(RoundedCorners(topLeft: 28.5,
-                                                   topRight: 28.5,
-                                                   bottomLeft: 28.5,
-                                                   bottomRight: 28.5)
-                            .fill(ColorConstants.Red400))
-                })
-                .frame(width: getRelativeWidth(295.0),
-                       height: getRelativeHeight(60.0), alignment: .center)
-                .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                           bottomLeft: 28.5, bottomRight: 28.5)
-                    .fill(ColorConstants.Red400))
+                
                 
 //                // Scroll View to display items
 //                ScrollView(.vertical, showsIndicators: false) {
 //                    LazyVStack {
 //                        if (objectArray.count > 0) {
 //                            ForEach(0...objectArray.count-1, id: \.self) { index in
-//                                
+//
 //                                let _ = print("Event index: \(index)")
 //                                let userTitle = objectArray[index]["title"]
-//                                
+//
 //                                if (userTitle != "null") {
 //                                    let userDuration = objectArray[index]["duration"]
 //                                    let userDate = objectArray[index]["date"]
-//                                    
-//                                    
+//
+//
 //                                    GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
 //                                        .onTapGesture {
-//                                            
+//
 //                                            homePageViewModel.nextScreen = "EventView"
 //                                        }
 //                                }
-//                                
+//
 //                            }
 //                        }
-//                        
+//
 //                    }
 //                }.frame(width: UIScreen.main.bounds.width,
 //                        height: getRelativeHeight(580), alignment: .center)

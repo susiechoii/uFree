@@ -9,13 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthenticationViewModel
-    @State var isLoggedIn: Bool = false
     
     var body: some View {
-            if viewModel.user == nil || isLoggedIn {
+            if viewModel.user == nil{
                 let _ = print("DEBUG: ContentView - creating OnboardingView")
                 IntroPageView().environmentObject(viewModel)
-            } else if viewModel.user != nil || !isLoggedIn {
+            } else {
                 let _ = print("DEBUG: ContentView - creating PrimaryView")
                 PrimaryView().environmentObject(viewModel)
             }
