@@ -55,6 +55,7 @@
 		6ED3FD82C028CC705581F531 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950CB3FB5960D3EA609D4962 /* SignInViewModel.swift */; };
 		71FC687B88B20269A1F70E2C /* MonthlyCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F425F1291266C8715DA0776A /* MonthlyCalendarView.swift */; };
 		7280E176CA4B72D700B1CA4E /* DaycellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50A36B2EE4E407DA7E68005 /* DaycellCell.swift */; };
+		72BC983E29352D5A00BC45C6 /* PrimaryViewGlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72BC983D29352D5A00BC45C6 /* PrimaryViewGlobalVars.swift */; };
 		72D5CA8E4EF75D9DE30FE01D /* InterSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43234A4EF321475411DE9184 /* InterSemiBold.ttf */; };
 		7425B81BF6EBDE236FBD8706 /* OnboardAvailabilityScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0237132CA5D0E9E3B4D47CFA /* OnboardAvailabilityScreenViewModel.swift */; };
 		7BB3FFDB2DDDF37D208AF9E3 /* HomeViewFiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F577301E5EBCE59A05F6417 /* HomeViewFiveView.swift */; };
@@ -167,6 +168,7 @@
 		66D6AA09BA141D7FA585AEAC /* PagerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		6DC9E3D8A536E567565FA7ED /* NunitoExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = NunitoExtraBold.ttf; sourceTree = "<group>"; };
 		6F3D0CD38615EA5B03736C9E /* NunitoRegular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = NunitoRegular.ttf; sourceTree = "<group>"; };
+		72BC983D29352D5A00BC45C6 /* PrimaryViewGlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryViewGlobalVars.swift; sourceTree = "<group>"; };
 		76A3B02F73D8CA5F3CFCDC52 /* ProfileView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		77B722934010E0D6525EF81E /* SignInView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		78AE37BD33992DECDA0FBB96 /* EventEditView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				519D43872934AA0B00FCE23B /* PrimaryView.swift */,
+				72BC983D29352D5A00BC45C6 /* PrimaryViewGlobalVars.swift */,
 			);
 			name = PrimaryView;
 			path = ../PrimaryView;
@@ -951,6 +954,7 @@
 				2A472A0C1B100F049FA92387 /* HomePageView.swift in Sources */,
 				D69FBB4C0243CCB2130B40D3 /* GenericCell.swift in Sources */,
 				71FC687B88B20269A1F70E2C /* MonthlyCalendarView.swift in Sources */,
+				72BC983E29352D5A00BC45C6 /* PrimaryViewGlobalVars.swift in Sources */,
 				7280E176CA4B72D700B1CA4E /* DaycellCell.swift in Sources */,
 				B0AFAB36F580A65883AA698C /* WeeklyView.swift in Sources */,
 				AC0071180B92DF266C056830 /* EventABubbleCell.swift in Sources */,

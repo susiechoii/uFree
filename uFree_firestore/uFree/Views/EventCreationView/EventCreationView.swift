@@ -204,7 +204,8 @@ struct EventCreationView: View {
                             specificDate.dateFormat = "yyyy/MM/dd HH:mm"
                             let specificDateObject = specificDate.date(from: "2022/11/10 00:00")
                             createEvent(name: "working on uFree", duration: selectedDuration, description: "we really love xcode man, can't you tell?", date: specificDateObject!, emails: String(describing: userEmailInput))
-                            eventCreationViewModel.nextScreen = "HomePageView"
+                            PrimaryViewModel().eventCreationModalHelper.toggle()
+                            print(PrimaryViewModel().eventCreationModalHelper)
                         }, label: {
                             HStack(spacing: 0) {
                                 Text(StringConstants.kLblDone).font(FontScheme.kInterBlack(size: getRelativeHeight(15.0)))

@@ -125,32 +125,27 @@ struct ProfileView: View {
                                                            bottomLeft: 19.0, bottomRight: 19.0)
                                         .fill(ColorConstants.WhiteA700))
                                 .padding(.top, getRelativeHeight(21.0))
+                                
+                                
+                                VStack {
+                                
                                 HStack {
                                     HStack {
-                                        Image("img_icon_18X16")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(16.0),
-                                                   height: getRelativeHeight(18.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                        Text(StringConstants.kLblChangePassword)
-                                            .font(FontScheme
-                                                .kInterMedium(size: getRelativeHeight(16.0)))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(ColorConstants.Gray903)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: getRelativeWidth(139.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .topLeading)
-                                            .padding(.leading, getRelativeWidth(16.0))
+                                        Button {
+                                            print("User changed password")
+                                
+                                
+                                            profileViewModel.nextScreen = "ResetPasswordView"
+                                        } label: {
+                                            Image("img_icon_18X16")
+                                            Text("\tChange Password")
+                                                .font(FontScheme
+                                                    .kInterMedium(size: getRelativeHeight(16.0)))
+                                                .fontWeight(.medium)
+                                                .foregroundColor(ColorConstants.Gray903)
+                                        }
+                                        
                                     }
-                                    .frame(width: getRelativeWidth(171.0),
-                                           height: getRelativeHeight(20.0), alignment: .center)
-                                    .padding(.top, getRelativeHeight(19.0))
-                                    .padding(.bottom, getRelativeHeight(17.0))
-                                    .padding(.leading, getRelativeWidth(12.0))
                                     Spacer()
                                     Image("img_arrowright")
                                         .resizable()
@@ -161,119 +156,63 @@ struct ProfileView: View {
                                         .padding(.vertical, getRelativeHeight(25.0))
                                         .padding(.trailing, getRelativeWidth(13.0))
                                 }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                .padding(.top, getRelativeHeight(17.0))
+                                
+                                
                                 HStack {
                                     HStack {
-                                        Image("img_icon_1")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(16.0),
-                                                   height: getRelativeHeight(18.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                        Text(StringConstants.kLblNotifications)
-                                            .font(FontScheme
-                                                .kInterMedium(size: getRelativeHeight(16.0)))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(ColorConstants.Gray903)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: getRelativeWidth(98.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .topLeading)
-                                            .padding(.leading, getRelativeWidth(16.0))
+                                        Button {
+                                            print("User signed out")
+                                            viewModel.signOut()
+                                        } label: {
+                                            Image("img_icon_1")
+                                            Text("\tNotifications")
+                                                .font(FontScheme
+                                                    .kInterMedium(size: getRelativeHeight(16.0)))
+                                                .fontWeight(.medium)
+                                                .foregroundColor(ColorConstants.Gray903)
+                                        }
+                                        
                                     }
-                                    .frame(width: getRelativeWidth(130.0),
-                                           height: getRelativeHeight(18.0), alignment: .center)
-                                    .padding(.vertical, getRelativeHeight(19.0))
-                                    .padding(.leading, getRelativeWidth(12.0))
                                     Spacer()
-                                    Text(StringConstants.kLblAllActive)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(ColorConstants.Gray600)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(width: getRelativeWidth(52.0),
-                                               height: getRelativeHeight(15.0),
-                                               alignment: .topLeading)
-                                        .padding(.top, getRelativeHeight(22.0))
-                                        .padding(.bottom, getRelativeHeight(19.0))
-                                        .padding(.trailing, getRelativeWidth(8.0))
+                                                                        Text(StringConstants.kLblAllActive)
+                                                                            .font(FontScheme
+                                                                                .kInterRegular(size: getRelativeHeight(12.0)))
+                                                                            .fontWeight(.regular)
+                                                                            .foregroundColor(ColorConstants.Gray600)
+                                                                            .minimumScaleFactor(0.5)
+                                                                            .multilineTextAlignment(.leading)
+                                                                            .frame(width: getRelativeWidth(52.0),
+                                                                                   height: getRelativeHeight(15.0),
+                                                                                   alignment: .topLeading)
+                                                                            .padding(.top, getRelativeHeight(22.0))
+                                                                            .padding(.bottom, getRelativeHeight(19.0))
+                                                                            .padding(.trailing, getRelativeWidth(8.0))
                                 }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
                                
                                
                                
                             }
-                            Button(action: {
-                                viewModel.signOut()
-                            }, label: {
-                                Text("SIGN OUT")
-                                    .font(FontScheme
-                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
-                                    .fontWeight(.heavy)
-                                    .padding(.horizontal, getRelativeWidth(30.0))
-                                    .padding(.vertical, getRelativeHeight(22.0))
-                                    .foregroundColor(ColorConstants.WhiteA700)
-                                    .minimumScaleFactor(0.5)
-                                    .frame(width: getRelativeWidth(295.0),
-                                           height: getRelativeHeight(60.0),
-                                           alignment: .center)
-                                    .background(RoundedCorners(topLeft: 28.5,
-                                                               topRight: 28.5,
-                                                               bottomLeft: 28.5,
-                                                               bottomRight: 28.5)
-                                        .fill(ColorConstants.Red400))
-                            })
-                            .frame(width: getRelativeWidth(295.0),
-                                   height: getRelativeHeight(60.0), alignment: .center)
-                            .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                                       bottomLeft: 28.5, bottomRight: 28.5)
-                                .fill(ColorConstants.Red400))
+                            
                             
                             Group {
                                 HStack {
-                                    Spacer()
-                                    Image("img_icon_16X18")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(18.0),
-                                               height: getRelativeHeight(16.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.vertical, getRelativeHeight(20.0))
-                                        .padding(.leading, getRelativeWidth(11.0))
-                                        .padding(.trailing, getRelativeWidth(15.0))
-                                    TextField(StringConstants.kLblLogOut,
-                                              text: $profileViewModel.logoutText)
-                                        .font(FontScheme
-                                            .kInterMedium(size: getRelativeHeight(16.0)))
-                                        .foregroundColor(ColorConstants.Purple400)
-                                        .padding()
+                                    Button {
+                                        print("User signed out")
+                                        viewModel.signOut()
+                                    } label: {
+                                        Image("img_icon_16X18")
+                                        Text("\tLog Out")
+                                            .font(FontScheme
+                                                .kInterMedium(size: getRelativeHeight(16.0)))
+                                            .fontWeight(.medium)
+                                            .foregroundColor(ColorConstants.Purple400)
+                                    }
                                 }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                Image("img_search_white_A700")
-                                    .resizable()
-                                    .frame(width: getRelativeWidth(18.0),
-                                           height: getRelativeHeight(19.0), alignment: .center)
-                                    .scaledToFit()
-                                    .clipped()
-                                    .padding(.top, getRelativeHeight(6.0))
-                                    .padding(.horizontal, getRelativeWidth(76.0))
+                                }
+                                
+                                
+                                
+                                
                             }
                         }
                         .frame(width: getRelativeWidth(328.0), height: getRelativeHeight(666.0),
@@ -283,6 +222,8 @@ struct ProfileView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(666.0),
                            alignment: .leading)
+                        
+            
                     VStack(alignment: .leading, spacing: 0) {
                         Text("TabBars")
                             .minimumScaleFactor(0.5)

@@ -78,7 +78,7 @@ struct SheetView: View {
 
 struct CustomTabView: View {
     @Binding var selectedTab: Tab
-    @State private var eventCreationModal = false
+    @State private var eventCreationModal = false   //turned into a global variable
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
     var body: some View {
