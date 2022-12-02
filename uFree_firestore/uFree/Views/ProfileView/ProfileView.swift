@@ -4,6 +4,8 @@ struct ProfileView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var viewModel: AuthenticationViewModel
+    @State var userCurrentName = StringConstants.kLblToddSproull
+    @State var editingProfile = false
     
     var body: some View {
         NavigationView {
@@ -55,16 +57,20 @@ struct ProfileView: View {
                                             .fill(Color.clear.opacity(0.7)))
                                     .padding(.trailing, getRelativeWidth(8.0))
                                     ZStack {
-                                        Image("img_vector_23X24")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(24.0),
-                                                   height: getRelativeHeight(23.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                            .padding(.top, getRelativeHeight(11.87))
-                                            .padding(.bottom, getRelativeHeight(11.13))
-                                            .padding(.horizontal, getRelativeWidth(12.12))
+                                        Button {
+                                            print("button was tapped")
+                                        } label: {
+                                            Image("img_vector_23X24")
+                                                .resizable()
+                                                .frame(width: getRelativeWidth(24.0),
+                                                       height: getRelativeHeight(23.0),
+                                                       alignment: .center)
+                                                .scaledToFit()
+                                                .clipped()
+                                                .padding(.top, getRelativeHeight(11.87))
+                                                .padding(.bottom, getRelativeHeight(11.13))
+                                                .padding(.horizontal, getRelativeWidth(12.12))
+                                        }
                                     }
                                     .hideNavigationBar()
                                     .frame(width: getRelativeWidth(49.0),
@@ -81,27 +87,53 @@ struct ProfileView: View {
                                 .frame(width: getRelativeWidth(184.0),
                                        height: getRelativeHeight(167.0), alignment: .center)
                                 .padding(.horizontal, getRelativeWidth(67.0))
-                                Text(StringConstants.kLblToddSproull)
+                               
+                                if (!editingProfile) {
+                                
+                                Text(userCurrentName)
                                     .font(FontScheme.kInterMedium(size: getRelativeHeight(32.0)))
                                     .fontWeight(.medium)
                                     .foregroundColor(ColorConstants.Bluegray901)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
                                     .frame(width: getRelativeWidth(193.0),
-                                           height: getRelativeHeight(32.0), alignment: .topLeading)
+                                           height: getRelativeHeight(32.0), alignment: .center)
                                     .padding(.top, getRelativeHeight(28.0))
                                     .padding(.horizontal, getRelativeWidth(67.0))
-                                HStack {
+                                
+                            }
+                                if (editingProfile == true) {
+                                    
+                                    VStack {
+                                    
+                                        Spacer()
+                                            .frame(height: 20)
+                                        
+                                    HStack {
+                                    
+                                    Spacer()
+                                        .frame(width: 100)
+                                        
+                                TextField("Change name, click  edit profile when done", text: $userCurrentName)
+                                        .foregroundColor(ColorConstants.Gray500)
+                                        .frame(alignment: .center)
+                                    
+                                    }
+                                    
+                                }
+                                    
+                                        
+                                    
+                                }
+                                
+                                Button {
+                                    print("User is trying to edit profile")
+                                    editingProfile
+                                        .toggle()
+                                } label: {
+                                    Spacer()
                                     Image("img_icon_14X14")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(14.0),
-                                               height: getRelativeWidth(14.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.top, getRelativeHeight(11.0))
-                                        .padding(.bottom, getRelativeHeight(12.0))
-                                        .padding(.leading, getRelativeWidth(111.0))
-                                    Text(StringConstants.kLblEditProfile)
+                                    Text("Edit Profile")
                                         .font(FontScheme
                                             .kInterMedium(size: getRelativeHeight(16.0)))
                                         .fontWeight(.medium)
@@ -157,7 +189,7 @@ struct ProfileView: View {
                                         .padding(.trailing, getRelativeWidth(13.0))
                                 }
                                 
-                                
+                                    
                                 HStack {
                                     HStack {
                                         Button {
@@ -171,6 +203,7 @@ struct ProfileView: View {
                                                 .fontWeight(.medium)
                                                 .foregroundColor(ColorConstants.Gray903)
                                         }
+                                        
                                         
                                     }
                                     Spacer()
@@ -193,9 +226,13 @@ struct ProfileView: View {
                                
                             }
                             
+                                
                             
                             Group {
                                 HStack {
+                                    VStack {
+                                        Spacer()
+                                            .frame(height: 30)
                                     Button {
                                         print("User signed out")
                                         viewModel.signOut()
@@ -207,6 +244,7 @@ struct ProfileView: View {
                                             .fontWeight(.medium)
                                             .foregroundColor(ColorConstants.Purple400)
                                     }
+                                }
                                 }
                                 }
                                 
