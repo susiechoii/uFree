@@ -3,6 +3,8 @@ import SwiftUI
 struct GenericCell: View {
     @EnvironmentObject var viewModel:AuthenticationViewModel
     var title: String!
+    var everyoneConfirmed: Bool!
+    var creator: Bool!
 //    var indexValue: Int!
 //    var date: String!
 //    var duration: String!
@@ -10,6 +12,9 @@ struct GenericCell: View {
     
     init(particularEvent: [String: Any]) {
         title = particularEvent["title"] as! String
+        print("title: \(title)")
+        everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        creator = particularEvent["creator"] as! Bool
     }
     
     var body: some View {
@@ -52,11 +57,13 @@ struct GenericCell: View {
         .frame(width: getRelativeWidth(341.0), alignment: .leading)
         .background(RoundedCorners(topLeft: 16.0, topRight: 16.0, bottomLeft: 16.0,
                                    bottomRight: 16.0)
-                .fill(ColorConstants.WhiteA700))
+            .fill((!everyoneConfirmed && creator) ? ColorConstants.Amber100 : (!everyoneConfirmed && !creator) ? ColorConstants.Red401 : ColorConstants.WhiteA700))
         .shadow(color: ColorConstants.Black9001e, radius: 16, x: 0, y: 8)
         .hideNavigationBar()
     }
 }
+
+
 
 /* struct GenericCell_Previews: PreviewProvider {
 

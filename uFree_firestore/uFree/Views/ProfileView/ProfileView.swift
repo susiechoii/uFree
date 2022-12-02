@@ -286,15 +286,6 @@ struct ProfileView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(666.0),
                            alignment: .leading)
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("TabBars")
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: UIScreen.main.bounds.width,
-                                   height: getRelativeHeight(96.0), alignment: .leading)
-                    }
-                    .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(96.0),
-                           alignment: .leading)
                 }
                 .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
                 .background(ColorConstants.WhiteA700)

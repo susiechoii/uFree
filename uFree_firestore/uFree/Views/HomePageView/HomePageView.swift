@@ -29,60 +29,31 @@ struct HomePageView: View {
                         
                         let _ = print("number of events: \($viewModel.savedUserEvents)")
                         ForEach(1..<$viewModel.savedUserEvents.count, id: \.self) { index in
-                            
-                            GenericCell(particularEvent: viewModel.savedUserEvents[index])
-                            
+                            NavigationLink {
+                                EventView().environmentObject(viewModel)
+                            } label: {
+                                GenericCell(particularEvent: viewModel.savedUserEvents[index])
+                            }
                         }
                     }
                 }.frame(width: UIScreen.main.bounds.width,
                         height: getRelativeHeight(580), alignment: .center)
-                
-                //                // Scroll View to display items
-                //                ScrollView(.vertical, showsIndicators: false) {
-                //                    LazyVStack {
-                //                        if (objectArray.count > 0) {
-                //                            ForEach(0...objectArray.count-1, id: \.self) { index in
-                //
-                //                                let _ = print("Event index: \(index)")
-                //                                let userTitle = objectArray[index]["title"]
-                //
-                //                                if (userTitle != "null") {
-                //                                    let userDuration = objectArray[index]["duration"]
-                //                                    let userDate = objectArray[index]["date"]
-                //
-                //
-                //                                    GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
-                //                                        .onTapGesture {
-                //
-                //                                            homePageViewModel.nextScreen = "EventView"
-                //                                        }
-                //                                }
-                //
-                //                            }
-                //                        }
-                //
-                //                    }
-                //                }.frame(width: UIScreen.main.bounds.width,
-                //                        height: getRelativeHeight(580), alignment: .center)
-                
-                
-                
-                
+        
                 // NAVIGATION LINK GROUP
                 Group {
-                    NavigationLink(destination: EventView(),
-                                   tag: "EventView",
-                                   selection: $homePageViewModel.nextScreen,
-                                   label: {
-                        EmptyView()
-                    })
-                    NavigationLink(destination: EventCreationView(),
+                    NavigationLink(destination: EventCreationView().environmentObject(viewModel),
                                    tag: "EventCreationView",
                                    selection: $homePageViewModel.nextScreen,
                                    label: {
                         EmptyView()
                     })
-                    NavigationLink(destination: HomePageView(),
+                    NavigationLink(destination: EventView().environmentObject(viewModel),
+                                   tag: "EventView",
+                                   selection: $homePageViewModel.nextScreen,
+                                   label: {
+                        EmptyView()
+                    })
+                    NavigationLink(destination: HomePageView().environmentObject(viewModel),
                                    tag: "HomePageView",
                                    selection: $homePageViewModel.nextScreen,
                                    label: {

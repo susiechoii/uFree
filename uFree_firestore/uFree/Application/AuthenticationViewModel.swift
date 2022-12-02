@@ -195,6 +195,7 @@ extension AuthenticationViewModel {
     
     func addNewEventToFirestore() async -> Bool {
         print("ADDING NEW EVENT")
+        errorMessage = ""
         
         var needsSharing = false
         var inviteeUID = ""
@@ -216,6 +217,8 @@ extension AuthenticationViewModel {
                 
                 if needsSharing == false {
                     errorMessage = "Invitee not an existing user. Please try again"
+                    inputInvitee = ""
+                    print("DEBUG: \(errorMessage)")
                     return false
                 }
             }
@@ -234,8 +237,10 @@ extension AuthenticationViewModel {
             
             let UUIDValue = UUID().uuidString
             
-            var newEventCurrentUser:[String: Any] = ["id": UUIDValue, "title" : inputTitle, "creator" : true, "shared" : needsSharing, "confirmed" : true]
-            var newEventInvitee:[String: Any] = ["id" : UUIDValue, "title" : inputTitle, "creator" : false, "shared" : needsSharing, "confirmed" : false]
+            
+            
+            let newEventCurrentUser:[String: Any] = ["id": UUIDValue, "title" : inputTitle, "creator" : true, "shared" : needsSharing, "confirmed" : true, "everyoneConfirmed": !needsSharing]
+            let newEventInvitee:[String: Any] = ["id" : UUIDValue, "title" : inputTitle, "creator" : false, "shared" : needsSharing, "confirmed" : false, "everyoneConfirmed": false]
             
             currentUserExistingEvents.add(newEventCurrentUser)
             let data:[String:Any] = ["uid": user!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": currentUserExistingEvents]
@@ -258,7 +263,7 @@ extension AuthenticationViewModel {
                 }
                 
                 if await getEventsFromFirestore() == true {
-                    print("DBEUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
+                    print("DEBUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
                     return true
                 }
                 
