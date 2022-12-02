@@ -81,7 +81,10 @@ struct ProfileView: View {
                                 .frame(width: getRelativeWidth(184.0),
                                        height: getRelativeHeight(167.0), alignment: .center)
                                 .padding(.horizontal, getRelativeWidth(67.0))
-                                Text(StringConstants.kLblToddSproull)
+                                
+                                
+                                
+                                Text(viewModel.savedName)
                                     .font(FontScheme.kInterMedium(size: getRelativeHeight(32.0)))
                                     .fontWeight(.medium)
                                     .foregroundColor(ColorConstants.Bluegray901)

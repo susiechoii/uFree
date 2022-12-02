@@ -168,7 +168,7 @@ struct EventCreationView: View {
                     ZStack(alignment: .leading) {
                         HStack {
                             TextField(StringConstants.kLblEmail,
-                                      text: $eventCreationViewModel.stringOfEmails)
+                                      text: $viewModel.inputInvitee)
                                 .font(FontScheme
                                     .kInterRegular(size: getRelativeHeight(12.0)))
                                 .foregroundColor(ColorConstants.Black900Cc)
