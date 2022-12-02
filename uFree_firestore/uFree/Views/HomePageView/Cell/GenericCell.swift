@@ -1,18 +1,15 @@
 import SwiftUI
 
 struct GenericCell: View {
+    @EnvironmentObject var viewModel:AuthenticationViewModel
     var title: String!
-    var indexValue: Int!
-    var date: String!
-    var duration: String!
+//    var indexValue: Int!
+//    var date: String!
+//    var duration: String!
     
-    init(title: String, indexValue: Int, date: String, duration: String) {
-        self.title = title
-        self.indexValue = indexValue
-        self.date = date
-        self.duration = duration
-        print("Creating Generic Cell: Index: \(indexValue)")
-        
+    
+    init(particularEvent: [String: Any]) {
+        title = particularEvent["title"] as! String
     }
     
     var body: some View {
@@ -31,16 +28,16 @@ struct GenericCell: View {
             .frame(width: getRelativeWidth(341.0), height: getRelativeHeight(200.0),
                    alignment: .leading)
             .background(ColorConstants.Blue100)
-            Text(self.date + " | Duration: " + self.duration)
-                .font(FontScheme.kInterRegular(size: getRelativeHeight(14.0)))
-                .fontWeight(.regular)
-                .foregroundColor(ColorConstants.Bluegray600)
-                .minimumScaleFactor(0.5)
-                .multilineTextAlignment(.leading)
-                .frame(width: getRelativeWidth(206.0), height: getRelativeHeight(16.0),
-                       alignment: .leading)
-                .padding(.top, getRelativeHeight(16.0))
-                .padding(.horizontal, getRelativeWidth(16.0))
+//            Text(self.date + " | Duration: " + self.duration)
+//                .font(FontScheme.kInterRegular(size: getRelativeHeight(14.0)))
+//                .fontWeight(.regular)
+//                .foregroundColor(ColorConstants.Bluegray600)
+//                .minimumScaleFactor(0.5)
+//                .multilineTextAlignment(.leading)
+//                .frame(width: getRelativeWidth(206.0), height: getRelativeHeight(16.0),
+//                       alignment: .leading)
+//                .padding(.top, getRelativeHeight(16.0))
+//                .padding(.horizontal, getRelativeWidth(16.0))
             Text(self.title)
                 .font(FontScheme.kInterBold(size: getRelativeHeight(24.0)))
                 .fontWeight(.bold)

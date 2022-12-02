@@ -13,44 +13,57 @@ struct HomePageView: View {
     init() {
         print("Creating Home Page View")
     }
-
+    
+    private func getEventsFromFirebase() {
+        Task {
+            return await viewModel.getEventsFromFirestore()
+        }
+    }
     
     var body: some View {
         NavigationView {
             VStack (alignment: .center) {
                 
-                // Object array to retrieve items
-                let objectArray = UserDefaults.standard.array(forKey: "specificUserEvents") as? [[String: String]] ?? [["title": "null"]]
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVStack {
+                        
+                        let _ = print("number of events: \($viewModel.savedUserEvents)")
+                        ForEach(1..<$viewModel.savedUserEvents.count, id: \.self) { index in
+                            
+                            GenericCell(particularEvent: viewModel.savedUserEvents[index])
+                            
+                        }
+                    }
+                }.frame(width: UIScreen.main.bounds.width,
+                        height: getRelativeHeight(580), alignment: .center)
                 
-                
-                
-//                // Scroll View to display items
-//                ScrollView(.vertical, showsIndicators: false) {
-//                    LazyVStack {
-//                        if (objectArray.count > 0) {
-//                            ForEach(0...objectArray.count-1, id: \.self) { index in
-//
-//                                let _ = print("Event index: \(index)")
-//                                let userTitle = objectArray[index]["title"]
-//
-//                                if (userTitle != "null") {
-//                                    let userDuration = objectArray[index]["duration"]
-//                                    let userDate = objectArray[index]["date"]
-//
-//
-//                                    GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
-//                                        .onTapGesture {
-//
-//                                            homePageViewModel.nextScreen = "EventView"
-//                                        }
-//                                }
-//
-//                            }
-//                        }
-//
-//                    }
-//                }.frame(width: UIScreen.main.bounds.width,
-//                        height: getRelativeHeight(580), alignment: .center)
+                //                // Scroll View to display items
+                //                ScrollView(.vertical, showsIndicators: false) {
+                //                    LazyVStack {
+                //                        if (objectArray.count > 0) {
+                //                            ForEach(0...objectArray.count-1, id: \.self) { index in
+                //
+                //                                let _ = print("Event index: \(index)")
+                //                                let userTitle = objectArray[index]["title"]
+                //
+                //                                if (userTitle != "null") {
+                //                                    let userDuration = objectArray[index]["duration"]
+                //                                    let userDate = objectArray[index]["date"]
+                //
+                //
+                //                                    GenericCell(title: userTitle!, indexValue: index, date: userDate!, duration: userDuration!)
+                //                                        .onTapGesture {
+                //
+                //                                            homePageViewModel.nextScreen = "EventView"
+                //                                        }
+                //                                }
+                //
+                //                            }
+                //                        }
+                //
+                //                    }
+                //                }.frame(width: UIScreen.main.bounds.width,
+                //                        height: getRelativeHeight(580), alignment: .center)
                 
                 
                 
@@ -82,6 +95,7 @@ struct HomePageView: View {
             .navigationBarTitle("Upcoming Events")
             
         }
+        
     }
 }
 

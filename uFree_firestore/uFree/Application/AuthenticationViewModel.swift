@@ -28,6 +28,7 @@ class AuthenticationViewModel: ObservableObject {
     @Published var savedName: String = ""
     @Published var savedEmail: String = ""
     @Published var savedUserDefaultHours: [Int] = []
+    @Published var savedUserEvents: [[String: Any]] = [["title":"null"]]
     
     // Used during the registration process
     @Published var tempUser: User?
@@ -35,6 +36,8 @@ class AuthenticationViewModel: ObservableObject {
     @Published var inputEmail: String = ""
     @Published var inputPassword: String = ""
     @Published var inputConfirmPassword: String = ""
+    
+    @Published var inputTitle = "New Event"
     
     // Authentication States
     @Published var authenticationState: AuthenticationState = .unauthenticated
@@ -46,6 +49,18 @@ class AuthenticationViewModel: ObservableObject {
         //registerAuthStateHandler()
         
         user = Auth.auth().currentUser
+        
+        if (user != nil) {
+            Task {
+                do {
+                    try await getEventsFromFirestore()
+                }
+                catch {
+                    errorMessage = "DEBUG: No user found."
+                }
+                
+            }
+        }
     }
     
 //    private var authStateHandle: AuthStateDidChangeListenerHandle?
@@ -90,6 +105,7 @@ extension AuthenticationViewModel {
                 savedName = fetchedUserDocument["name"] as! String
                 savedEmail = fetchedUserDocument["email"] as! String
                 savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+                savedUserEvents = fetchedUserDocument["events"] as! [[String: Any]]
                 configuredDefaults = true
             }
             catch {
@@ -141,7 +157,7 @@ extension AuthenticationViewModel {
     func registerUserInfoToFirestore() async -> Bool {
         print("SAVED NAME \(savedName)")
         print("SAVED EMAIL \(savedEmail)")
-        let data:[String:Any] = ["uid": tempUser!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours]
+        let data:[String:Any] = ["uid": tempUser!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": [["title": "null"]]]
         
         do {
             try await Firestore.firestore().collection("users").document(tempUser!.uid).setData(data)
@@ -157,6 +173,51 @@ extension AuthenticationViewModel {
         }
     }
     
+    func getEventsFromFirestore() async -> Bool {
+        
+        do {
+            let fetchUserInfoResult = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
+            let fetchedUserDocument = fetchUserInfoResult.data()!
+            savedName = fetchedUserDocument["name"] as! String
+            savedEmail = fetchedUserDocument["email"] as! String
+            savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+            savedUserEvents = fetchedUserDocument["events"] as! [[String: Any]]
+            configuredDefaults = true
+            return true
+        }
+        catch {
+            errorMessage = error.localizedDescription
+            print("DEBUG: Failed to retrieve user info \(errorMessage)")
+            return false
+        }
+    }
+    
+    func addNewEventToFirestore() async -> Bool {
+        print("ADDING NEW EVENT")
+        
+        do {
+            let userInformationDocument = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
+            let existingEvents = userInformationDocument.data()!["events"] as! NSMutableArray
+            print("EXISTING EVENTS: \(existingEvents)")
+            existingEvents.add(["title": inputTitle])
+            let data:[String:Any] = ["uid": user!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": existingEvents]
+            
+            do {
+                try await Firestore.firestore().collection("users").document(user!.uid).setData(data)
+                if await getEventsFromFirestore() == true {
+                    return true
+                }
+            }
+            catch {
+                return false
+            }
+        }
+        catch {
+            return false
+        }
+        return false
+    }
+    
     func signOut() {
         do {
             try Auth.auth().signOut()
@@ -165,6 +226,7 @@ extension AuthenticationViewModel {
             savedName = ""
             savedEmail = ""
             savedUserDefaultHours = []
+            savedUserEvents = [["title":"null"]]
             configuredDefaults = false
             authenticationState = .unauthenticated
             user = nil

@@ -15,6 +15,14 @@ struct EventCreationView: View {
     @State var invitees = ""
     @State var description = ""
     
+    private func addNewEventToFirebase() {
+        Task {
+            if await viewModel.addNewEventToFirestore() == true {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
+    
     var body: some View {
         NavigationView{
             ScrollView(.vertical, showsIndicators: true){
@@ -83,31 +91,33 @@ struct EventCreationView: View {
                         .frame(width: 143, height: 12, alignment: .leading)
                         .lineSpacing(26).padding(.top, 25)
 
-//                        ZStack {
-//                            ZStack {
-//                                Text(StringConstants.kMsgYourAvailabili)
-//                                .fontWeight(.bold)
-//                                .font(.subheadline)
-//                                .multilineTextAlignment(.center)
-//                                .lineSpacing(36)
-//                            }
-//                            .frame(width: 350, height: 35)
-//                            .background(Color(red: 0.46, green: 0.66, blue: 1))
-//                            .cornerRadius(10)
-//                            .offset(x: 0, y: 42)
-//                            .frame(width: 350, height: 35)
-
-//                            ZStack {
-//                                Text(StringConstants.kLbl2Hours)
-//                                .font(.callout)
-//                                .frame(alignment: .leading)
-//                                .lineSpacing(24)
-//
-//                                RoundedRectangle(cornerRadius: 8)
-//                                .fill(Color(red: 0.50, green: 0.23, blue: 0.27, opacity: 0.50))
-//                                .offset(x: 141.36, y: 0)
-//                                .frame(width: 23.14, height: 17)
-//                            }
+                    //                        ZStack {
+                    //                            ZStack {
+                    //                                Text(StringConstants.kMsgYourAvailabili)
+                    //                                .fontWeight(.bold)
+                    //                                .font(.subheadline)
+                    //                                .multilineTextAlignment(.center)
+                    //                                .lineSpacing(36)
+                    //                            }
+                    //                            .frame(width: 350, height: 35)
+                    //                            .background(Color(red: 0.46, green: 0.66, blue: 1))
+                    //                            .cornerRadius(10)
+                    //                            .offset(x: 0, y: 42)
+                    //                            .frame(width: 350, height: 35)
+                    
+                    //                            ZStack {
+                    //                                Text(StringConstants.kLbl2Hours)
+                    //                                .font(.callout)
+                    //                                .frame(alignment: .leading)
+                    //                                .lineSpacing(24)
+                    //
+                    //                                RoundedRectangle(cornerRadius: 8)
+                    //                                .fill(Color(red: 0.50, green: 0.23, blue: 0.27, opacity: 0.50))
+                    //                                .offset(x: 141.36, y: 0)
+                    //                                .frame(width: 23.14, height: 17)
+                    //                            }
+                    
+                    
                             // Select Duration
                                                     
                             Picker(StringConstants.kLbl2Hours,
@@ -199,13 +209,7 @@ struct EventCreationView: View {
                     
                     // Done Button
                     VStack {
-                        Button(action: {
-                            let specificDate = DateFormatter()
-                            specificDate.dateFormat = "yyyy/MM/dd HH:mm"
-                            let specificDateObject = specificDate.date(from: "2022/11/10 00:00")
-                            createEvent(name: "working on uFree", duration: selectedDuration, description: "we really love xcode man, can't you tell?", date: specificDateObject!, emails: String(describing: userEmailInput))
-                            eventCreationViewModel.nextScreen = "HomePageView"
-                        }, label: {
+                        Button(action: addNewEventToFirebase, label: {
                             HStack(spacing: 0) {
                                 Text(StringConstants.kLblDone).font(FontScheme.kInterBlack(size: getRelativeHeight(15.0)))
                                 .fontWeight(.black)
@@ -232,82 +236,8 @@ struct EventCreationView: View {
                                    })
                 }
             }.navigationBarTitle(StringConstants.kMsgLetSMakeANe)
-        }.hideNavigationBar()
+        }
     }
-}
-
-func createEvent(name: String, duration: Int, description: String, date: Date, emails: String) {
-    print("Reached in create event")
-    let ref = Database.database().reference()
-    ref.child("events/emails").observeSingleEvent(of: .value, with: { snapshot in
-          guard var emailArray = snapshot.value as? [String] else {
-              return
-          }
-          print("Old Email Values: \(emailArray)")
-        
-        let emailAddress = UserDefaults.standard.object(forKey: "email") as! String
-        // retrieving the events based on the email
-        let emailIndexValue = UserDefaults.standard.integer(forKey: "userIndexValue")
-        
-        print("email index value \(emailIndexValue)")
-        
-        ref.child("events/events").observeSingleEvent(of: .value, with: { snapshot in
-            guard let allUserEvents = snapshot.value as? [[[String: String]]] else {
-                print("Error: All user events not found in database")
-                return
-            }
-            
-            print("All user events: \(allUserEvents)")
-            print("EMAIL INDEX VALUE: \(emailIndexValue)")
-            
-            var specificUserEvents = allUserEvents[emailIndexValue]
-            // [[String: String]]
-    
-            var dateString = ""
-            if #available(iOS 15.0, *) {
-                dateString = date.formatted(date: .numeric, time: .omitted) as String
-            } else {
-                // Fallback on earlier versions
-                print("Get a new phone")
-            }
-            
-            var newEventDictForOriginalUser: [String:String] = [:]
-            
-            if (emails != "") {
-                print("EMAILS STRING \(emails)")
-                let inviteeEmailIndex = emailArray.firstIndex(of: emails) ?? -1
-                
-                if (inviteeEmailIndex != -1) {
-                    let newEventDictForInvitee: [String: String] = ["title": name, "duration": String(duration), "description": description, "date": dateString, "waiting": "true"]
-                    
-                    var specificUserEventsForInvitee = allUserEvents[inviteeEmailIndex]
-                    
-                    specificUserEventsForInvitee.append(newEventDictForInvitee)
-                    
-                    let path = "events/events/" + String(inviteeEmailIndex)
-                    ref.child(path).setValue(specificUserEvents)
-                    
-                    print("Added user event for invitee")
-                } else {
-                
-                newEventDictForOriginalUser = ["title": name, "duration": String(duration), "description": description, "date": dateString, "waiting": "true"]
-                }
-                // for the original inviter
-                
-            }
-            newEventDictForOriginalUser = ["title": name, "duration": String(duration), "description": description, "date": dateString, "waiting": "false"]
-            
-            specificUserEvents.append(newEventDictForOriginalUser)
-            
-            let path = "events/events/" + String(emailIndexValue)
-            ref.child(path).setValue(specificUserEvents)
-            
-            UserDefaults.standard.set(specificUserEvents, forKey: "specificUserEvents")
-            
-            print("Event successfully created")
-        })
-        
-    })
 }
 
 
