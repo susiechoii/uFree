@@ -30,7 +30,7 @@ struct HomePageView: View {
                         let _ = print("number of events: \($viewModel.savedUserEvents)")
                         ForEach(1..<$viewModel.savedUserEvents.count, id: \.self) { index in
                             NavigationLink {
-                                EventView().environmentObject(viewModel)
+                                EventView(particularEvent: viewModel.savedUserEvents[index]).environmentObject(viewModel)
                             } label: {
                                 GenericCell(particularEvent: viewModel.savedUserEvents[index])
                             }
@@ -47,12 +47,12 @@ struct HomePageView: View {
                                    label: {
                         EmptyView()
                     })
-                    NavigationLink(destination: EventView().environmentObject(viewModel),
-                                   tag: "EventView",
-                                   selection: $homePageViewModel.nextScreen,
-                                   label: {
-                        EmptyView()
-                    })
+//                    NavigationLink(destination: EventView().environmentObject(viewModel),
+//                                   tag: "EventView",
+//                                   selection: $homePageViewModel.nextScreen,
+//                                   label: {
+//                        EmptyView()
+//                    })
                     NavigationLink(destination: HomePageView().environmentObject(viewModel),
                                    tag: "HomePageView",
                                    selection: $homePageViewModel.nextScreen,

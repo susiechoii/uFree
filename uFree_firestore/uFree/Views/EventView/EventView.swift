@@ -5,6 +5,22 @@ struct EventView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
+    var title: String!
+    var everyoneConfirmed: Bool!
+    var creator: Bool!
+    var event: [String: Any]
+//    var indexValue: Int!
+//    var date: String!
+//    var duration: String!
+    
+    
+    init(particularEvent: [String: Any]) {
+        event = particularEvent
+        title = particularEvent["title"] as! String
+        print("title: \(title)")
+        everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        creator = particularEvent["creator"] as! Bool
+    }
     
     var body: some View {
         NavigationView {
@@ -68,7 +84,8 @@ struct EventView: View {
 //                                    .frame(width: getRelativeWidth(51.0),
 //                                           height: getRelativeHeight(16.0), alignment: .topLeading)
 //                                    .padding(.trailing)
-                                Text(StringConstants.kLblEventA)
+                            
+                                Text(title)
                                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(24.0)))
                                     .fontWeight(.semibold)
                                     .foregroundColor(ColorConstants.Gray900)
@@ -98,6 +115,34 @@ struct EventView: View {
 //                                                   bottomRight: 8.0))
                         .padding(.top, getRelativeHeight(17.0))
                         .padding(.trailing, getRelativeWidth(10.0))
+                        
+                        Button(action: {
+                            eventViewModel.nextScreen = "OptimalTimeView"
+                        }, label: {
+                            HStack(spacing: 0) {
+                                Text("CONFIRM AVAILABILITY")
+                                    .font(FontScheme
+                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
+                                    .fontWeight(.heavy)
+                                    .padding(.horizontal, getRelativeWidth(30.0))
+                                    .padding(.vertical, getRelativeHeight(22.0))
+                                    .foregroundColor(ColorConstants.WhiteA700)
+                                    .minimumScaleFactor(0.5)
+                                    .frame(width: getRelativeWidth(295.0),
+                                           height: getRelativeHeight(60.0),
+                                           alignment: .center)
+                                    .background(RoundedCorners(topLeft: 28.5,
+                                                               topRight: 28.5,
+                                                               bottomLeft: 28.5,
+                                                               bottomRight: 28.5)
+                                            .fill(ColorConstants.Red400))
+                            }
+                        })
+                        .frame(width: getRelativeWidth(295.0),
+                               height: getRelativeHeight(60.0), alignment: .topLeading)
+                        .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
+                                                   bottomLeft: 28.5, bottomRight: 28.5)
+                                .fill(ColorConstants.Red400))
 //                        ZStack {
 //                            Image("img_amigosshopping")
 //                                .resizable()
@@ -202,6 +247,8 @@ struct EventView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(768.0),
                            alignment: .leading)
+                    
+                   
 //                    .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
 //                                               bottomRight: 8.0))
                 }
@@ -210,8 +257,8 @@ struct EventView: View {
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 Group {
-                    NavigationLink(destination: EventEditView().environmentObject(viewModel),
-                                   tag: "EventEditView",
+                    NavigationLink(destination: OptimalTimeView(particularEvent: event).environmentObject(viewModel),
+                                   tag: "OptimalTimeView",
                                    selection: $eventViewModel.nextScreen,
                                    label: {
                                        EmptyView()
@@ -226,6 +273,6 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventView().environmentObject(AuthenticationViewModel())
+        EventView(particularEvent: ["title":"null"]).environmentObject(AuthenticationViewModel())
     }
 }
