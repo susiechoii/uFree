@@ -7,6 +7,8 @@ struct ProfileView: View {
     @State var userCurrentName = StringConstants.kLblToddSproull
     @State var editingProfile = false
     
+    @State var changePic = false
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -25,6 +27,9 @@ struct ProfileView: View {
                                             .clipped()
                                             .padding(.vertical, getRelativeHeight(8.0))
                                             .padding(.horizontal, getRelativeWidth(7.0))
+                                        
+                                        
+                                        if (changePic == true) {
                                         Image("img_toddtest31")
                                             .resizable()
                                             .frame(width: getRelativeWidth(144.0),
@@ -39,6 +44,10 @@ struct ProfileView: View {
                                             .padding(.top, getRelativeHeight(11.0))
                                             .padding(.bottom, getRelativeHeight(8.0))
                                             .padding(.horizontal, getRelativeWidth(16.0))
+                                        
+                                        }
+                                        
+                                        
                                     }
                                     .hideNavigationBar()
                                     .frame(width: getRelativeWidth(176.0),
@@ -59,6 +68,9 @@ struct ProfileView: View {
                                     ZStack {
                                         Button {
                                             print("button was tapped")
+                                     changePic
+                                                .toggle()
+                                    
                                         } label: {
                                             Image("img_vector_23X24")
                                                 .resizable()
