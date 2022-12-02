@@ -166,7 +166,7 @@ struct ProfileView: View {
                                         Button {
                                             print("User changed password")
                                 
-                                
+                                            viewModel.signOut()
                                             profileViewModel.nextScreen = "ResetPasswordView"
                                         } label: {
                                             Image("img_icon_18X16")
