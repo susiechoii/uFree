@@ -19,7 +19,7 @@ struct EventView: View {
         title = particularEvent["title"] as! String
         print("title: \(title)")
         everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
-        creator = particularEvent["creator"] as! Bool
+//        creator = particularEvent["creator"] as! Bool
     }
     
     var body: some View {

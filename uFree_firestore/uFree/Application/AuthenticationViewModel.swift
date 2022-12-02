@@ -39,6 +39,7 @@ class AuthenticationViewModel: ObservableObject {
     
     @Published var inputTitle = "New Event"
     @Published var inputInvitee = ""
+    @Published var inputUserDefaultHours: [Int] = []
     
     // Authentication States
     @Published var authenticationState: AuthenticationState = .unauthenticated
@@ -64,19 +65,6 @@ class AuthenticationViewModel: ObservableObject {
         }
     }
     
-    //    private var authStateHandle: AuthStateDidChangeListenerHandle?
-    //
-    //    func registerAuthStateHandler() {
-    //        if authStateHandle == nil {
-    //            authStateHandle = Auth.auth().addStateDidChangeListener{ auth, user in
-    //                self.user = user
-    //                self.authenticationState = user == nil ? .unauthenticated : .authenticated
-    //                self.displayName = user?.email ?? "(unknown)"
-    //                print("DEBUG: USER initialized, user email: \(self.displayName)")
-    //
-    //            }
-    //        }
-    //    }
     
     
     private func wait() async {
@@ -106,6 +94,7 @@ extension AuthenticationViewModel {
                 savedName = fetchedUserDocument["name"] as! String
                 savedEmail = fetchedUserDocument["email"] as! String
                 savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+                inputUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
                 savedUserEvents = fetchedUserDocument["events"] as! [[String: Any]]
                 configuredDefaults = true
             }
@@ -159,7 +148,7 @@ extension AuthenticationViewModel {
         print("SAVED NAME \(savedName)")
         print("SAVED EMAIL \(savedEmail)")
         let data:[String:Any] = ["uid": tempUser!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": [["title": "null"]]]
-        
+        inputUserDefaultHours = savedUserDefaultHours
         do {
             try await Firestore.firestore().collection("users").document(tempUser!.uid).setData(data)
             print("DEBUG: Successfully uploaded user configuration data")
@@ -182,6 +171,7 @@ extension AuthenticationViewModel {
             savedName = fetchedUserDocument["name"] as! String
             savedEmail = fetchedUserDocument["email"] as! String
             savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+            inputUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
             savedUserEvents = fetchedUserDocument["events"] as! [[String: Any]]
             configuredDefaults = true
             return true
@@ -200,6 +190,7 @@ extension AuthenticationViewModel {
         var needsSharing = false
         var inviteeUID = ""
         var inviteeEvents: NSMutableArray = [["title" : "null"]]
+        var participants = [user!.uid]
         
         if inputInvitee != "" {
             do {
@@ -211,6 +202,7 @@ extension AuthenticationViewModel {
                     if userEmail == inputInvitee {
                         needsSharing = true
                         inviteeUID = userDocument.get("uid") as! String
+                        participants.append(inviteeUID)
                         inviteeEvents = userDocument.get("events") as! NSMutableArray
                     }
                 }
@@ -239,8 +231,8 @@ extension AuthenticationViewModel {
             
             
             
-            let newEventCurrentUser:[String: Any] = ["id": UUIDValue, "title" : inputTitle, "creator" : true, "shared" : needsSharing, "confirmed" : true, "everyoneConfirmed": !needsSharing]
-            let newEventInvitee:[String: Any] = ["id" : UUIDValue, "title" : inputTitle, "creator" : false, "shared" : needsSharing, "confirmed" : false, "everyoneConfirmed": false]
+            let newEventCurrentUser:[String: Any] = ["id": UUIDValue, "title" : inputTitle, "participants" : participants, "shared" : needsSharing, "confirmed" : true, "everyoneConfirmed": !needsSharing, "allUserHours" : savedUserDefaultHours]
+            let newEventInvitee:[String: Any] = ["id" : UUIDValue, "title" : inputTitle, "participants" : participants, "shared" : needsSharing, "confirmed" : false, "everyoneConfirmed": false, "allUserHours" : savedUserDefaultHours]
             
             currentUserExistingEvents.add(newEventCurrentUser)
             let data:[String:Any] = ["uid": user!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": currentUserExistingEvents]
@@ -285,7 +277,80 @@ extension AuthenticationViewModel {
         return false
     }
     
-
+    func addInviteeAvailabilityToEvent(eventToAddTo: [String: Any]) async -> Bool {
+        
+        var existingSavedUserDefaultHours: [[Int]] = eventToAddTo["allUserHours"] as! [[Int]]
+        existingSavedUserDefaultHours.append(inputUserDefaultHours)
+        
+        var toUpdateEventToAddTo = eventToAddTo
+        
+        toUpdateEventToAddTo["allUserHours"] = existingSavedUserDefaultHours
+        toUpdateEventToAddTo["confirmed"] = true
+        
+        let eventID = toUpdateEventToAddTo["id"] as! String
+        let participantsUIDArray = toUpdateEventToAddTo["participants"] as! [String]
+        let creatorUID = participantsUIDArray[0]
+        
+        // since this is in the perspective of the invitee, we have to get the event from the creator and update that first
+        do {
+            // getting all the events of the creator first
+            let creatorDocument = try await Firestore.firestore().collection("users").document(creatorUID).getDocument()
+            var allCreatorEvents : [[String : Any]] = creatorDocument.get("events") as! [[String : Any]]
+            
+            let eventToModifyIndex: Int = allCreatorEvents.firstIndex(where: { $0["id"] as! String == eventID})!
+            
+            var eventToModify: [String : Any] = allCreatorEvents[eventToModifyIndex]
+            
+            eventToModify["allUserHours"] = existingSavedUserDefaultHours
+            
+            allCreatorEvents[eventToModifyIndex] = eventToModify
+            
+            do {
+                try await Firestore.firestore().collection("users").document(creatorUID).updateData(["events" : allCreatorEvents])
+                
+                do {
+                    let inviteeDocument = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
+                    
+                    // doing the same for the invitee
+                    var allInviteeEvents: [[String : Any]] = inviteeDocument.get("events") as! [[String : Any]]
+                    
+                    let inviteeEventToModifyIndex: Int = allInviteeEvents.firstIndex(where: { $0["id"] as! String == eventID})!
+                    
+                    allInviteeEvents[inviteeEventToModifyIndex] = toUpdateEventToAddTo
+                    
+                    do {
+                        try await Firestore.firestore().collection("users").document(creatorUID).updateData(["events" : allInviteeEvents])
+                        return true
+                    }
+                    catch {
+                        errorMessage = "Failed to update allUserHours for the current user (invitee)"
+                        print("DEBUG \(errorMessage)")
+                        return false
+                    }
+                    
+                    
+                } catch {
+                    errorMessage = "Failed to get documents for existing user (invitee)"
+                    print("DEBUG: \(errorMessage)")
+                    return false
+                }
+            }
+            catch {
+                errorMessage = "Failed to update allUserHours for the event creator"
+                print("DEBUG \(errorMessage)")
+                return false
+            }
+            
+        }
+        catch {
+            errorMessage = error.localizedDescription
+            print("DEBUG: Failed to get creator information \(errorMessage)")
+            return false
+        }
+        
+    }
+    
+    
     
     func signOut() {
         do {
@@ -299,6 +364,7 @@ extension AuthenticationViewModel {
             inputInvitee = ""
             inputPassword = ""
             inputConfirmPassword = ""
+            inputUserDefaultHours = []
             
             configuredDefaults = false
             authenticationState = .unauthenticated
