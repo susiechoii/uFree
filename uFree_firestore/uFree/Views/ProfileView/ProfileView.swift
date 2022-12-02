@@ -205,8 +205,8 @@ struct ProfileView: View {
                                 HStack {
                                     HStack {
                                         Button {
-                                            print("User signed out")
-                                            viewModel.signOut()
+                                            print("User wants to edit notifications")
+                                            
                                         } label: {
                                             Image("img_icon_1")
                                             Text("\tNotifications")
