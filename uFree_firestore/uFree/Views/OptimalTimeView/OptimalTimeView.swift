@@ -20,7 +20,7 @@ struct OptimalTimeView: View {
         title = particularEvent["title"] as! String
         print("title: \(title)")
         everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
-        creator = particularEvent["creator"] as! Bool
+//        creator = particularEvent["creator"] as! Bool
     }
     
     var body: some View {
@@ -44,7 +44,7 @@ struct OptimalTimeView: View {
                         .foregroundColor(ColorConstants.Bluegray900)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
-                        .frame(width: getRelativeWidth(108.0),
+                        .frame(width: getRelativeWidth(160.0),
                                height: getRelativeHeight(40), alignment: .leading)
                         .padding(.top, getRelativeHeight(-5))
                     Text("Choose an alternative date.")
@@ -71,6 +71,7 @@ struct OptimalTimeView: View {
                     .padding(.bottom, getRelativeHeight(10))
                     .padding(.leading, getRelativeWidth(140))
             }
+            .lineSpacing(26).padding(.top, 40)
             .frame(width: UIScreen.main.bounds.width,
                    height: getRelativeHeight(150.0), alignment: .leading)
             
@@ -87,9 +88,9 @@ struct OptimalTimeView: View {
                     }
                 }
                 .padding(.horizontal, getRelativeWidth(25))
-                .padding(.top, getRelativeHeight(-15))
             }
-            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(400))
+            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(500))
+            
             
             
             // SAVE AND CONTINUE BUTTON
@@ -118,7 +119,8 @@ struct OptimalTimeView: View {
                    height: getRelativeHeight(60.0), alignment: .center)
             .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
                                        bottomLeft: 28.5, bottomRight: 28.5)
-                .fill(ColorConstants.Red400))
+            .fill(ColorConstants.Red400))
+            .padding(.top, 25)
             
             
             // NAVIGATION LINK GROUP
@@ -133,7 +135,7 @@ struct OptimalTimeView: View {
             
             
         }
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .top)
         .padding(.top, 0)
         .background(ColorConstants.WhiteA700)
         .ignoresSafeArea()
@@ -144,6 +146,6 @@ struct OptimalTimeView: View {
 
 struct OptimalTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        OptimalTimeView(particularEvent: ["title": "null"]).environmentObject(AuthenticationViewModel())
+        OptimalTimeView(particularEvent: ["title": "null", "everyoneConfirmed": true]).environmentObject(AuthenticationViewModel())
     }
 }
