@@ -34,14 +34,14 @@ struct EventCreationView: View {
                     
                     // WHEN ARE YOU FREE TEXT
                     VStack (alignment: .leading, spacing: 0){
-                        Text("Confirm an")
+                        Text("Create a")
                             .font(FontScheme.kInterRegular(size: getRelativeHeight(25)))
                             .foregroundColor(ColorConstants.Bluegray900)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(108.0),
                                    height: getRelativeHeight(25), alignment: .leading)
-                        Text("Optimal Time")
+                        Text("New Event")
                             .font(FontScheme.kInterRegular(size: getRelativeHeight(30)))
                             .fontWeight(.bold)
                             .foregroundColor(ColorConstants.Bluegray900)
@@ -49,16 +49,7 @@ struct EventCreationView: View {
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(250.0),
                                    height: getRelativeHeight(40), alignment: .leading)
-                            .padding(.top, getRelativeHeight(-5))
-                        Text("Choose an alternative date.")
-                            .font(FontScheme.kInterRegular(size: getRelativeHeight(15)))
-                        
-                            .foregroundColor(ColorConstants.Bluegray900)
-                            .minimumScaleFactor(0.5)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: getRelativeWidth(200),
-                                   height: getRelativeHeight(20), alignment: .leading)
-                            .padding(.top, getRelativeHeight(7))
+//                            .padding(.top, getRelativeHeight(-5))
                     }
                     .frame(width: getRelativeWidth(250),
                            height: getRelativeHeight(100), alignment: .leading)
@@ -80,183 +71,135 @@ struct EventCreationView: View {
                 
                 ScrollView(.vertical, showsIndicators: true){
                     VStack(alignment: .leading){
-                        Text("Select Date")
-                            .fontWeight(.medium)
-                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                            .frame(width: 250, height: 12, alignment: .leading)
-                            .lineSpacing(26)
+                        Group{
+                            HStack{
+                                Text("Event Title:")
+                                    .fontWeight(.medium)
+                                    .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                    .frame(width: 110, height: 12, alignment: .leading)
+                                    .lineSpacing(26)
+                                
+                                TextField("New Event Title",
+                                              text: $viewModel.inputTitle)
+                                    .font(FontScheme
+                                        .kInterRegular(size: getRelativeHeight(20.0)))
+                                    .foregroundColor(ColorConstants.Black900Cc)
+                                    .frame(width: 200, height: 10, alignment: .leading)
+                                    .padding()
+                                    .overlay(
+                                     RoundedRectangle(cornerRadius: 8)
+                                         .stroke(.gray, lineWidth: 2)
+                                    )
+                                    .keyboardType(.emailAddress)
+                            }
+                        }
                         
-                        //original select date bubbles
-                        
-                        //                    ScrollView(.horizontal, showsIndicators: false){
-                        //                        HStack{
-                        //                            ZStack {
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(#colorLiteral(red: 0.9450980424880981, green: 0.9607843160629272, blue: 0.9764705896377563, alpha: 1)))
-                        //                                //Fri
-                        //                                Text(StringConstants.kLblFri).font(FontScheme
-                        //                                    .kInterRegular(size: getRelativeHeight(12.0))).foregroundColor(Color(#colorLiteral(red: 0.29, green: 0.29, blue: 0.29, alpha: 1))).tracking(0.3).multilineTextAlignment(.center).frame(width: 24, height: 14)
-                        //                                    .lineSpacing(26)
-                        //                                //22
-                        //                                Text(StringConstants.kLbl22).font(FontScheme.kInterSemiBold(size: getRelativeHeight(18.0))).foregroundColor(Color(#colorLiteral(red: 0.29, green: 0.29, blue: 0.29, alpha: 1))).tracking(0.3).multilineTextAlignment(.center).frame(width: 24, height: 24)
-                        //                                    .lineSpacing(26)
-                        //                            }
-                        //                            .frame(width: 73, height: 120)
-                        //                            ZStack {
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(#colorLiteral(red: 0.9450980424880981, green: 0.9607843160629272, blue: 0.9764705896377563, alpha: 1)))
-                        //                                //Sat
-                        //                                Text(StringConstants.kLblSat).font(FontScheme
-                        //                                    .kInterRegular(size: getRelativeHeight(12.0))).foregroundColor(Color(#colorLiteral(red: 0.29, green: 0.29, blue: 0.29, alpha: 1))).tracking(0.3).multilineTextAlignment(.center).frame(width: 24, height: 14)
-                        //                                    .lineSpacing(26)
-                        //                                //23
-                        //                                Text(StringConstants.kLbl23).font(FontScheme.kInterSemiBold(size: getRelativeHeight(18.0))).foregroundColor(Color(#colorLiteral(red: 0.29, green: 0.29, blue: 0.29, alpha: 1))).tracking(0.3).multilineTextAlignment(.center).frame(width: 24, height: 24)
-                        //                                    .lineSpacing(26)
-                        //                            }
-                        //                            .frame(width: 73, height: 120)
-                        //                            ZStack {
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(#colorLiteral(red: 0.9450980424880981, green: 0.9607843160629272, blue: 0.9764705896377563, alpha: 1)))
-                        //                            }
-                        //                            .frame(width: 73, height: 120)
-                        //                            ZStack {
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(#colorLiteral(red: 0.9450980424880981, green: 0.9607843160629272, blue: 0.9764705896377563, alpha: 1)))
-                        //                            }
-                        //                            .frame(width: 73, height: 120)
-                        //                            ZStack {
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(#colorLiteral(red: 0.9450980424880981, green: 0.9607843160629272, blue: 0.9764705896377563, alpha: 1)))
-                        //                            }
-                        //                            .frame(width: 73, height: 120)
-                        //                            ZStack {
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(#colorLiteral(red: 0.9450980424880981, green: 0.9607843160629272, blue: 0.9764705896377563, alpha: 1)))
-                        //                            }
-                        //                            .frame(width: 73, height: 120)
-                        //                            ZStack {
-                        //                                RoundedRectangle(cornerRadius: 10)
-                        //                                    .fill(Color(#colorLiteral(red: 0.9450980424880981, green: 0.9607843160629272, blue: 0.9764705896377563, alpha: 1)))
-                        //                            }
-                        //                            .frame(width: 73, height: 120)
-                        //                        }
-                        //                    }
+                        Group{
+                            Text("Select Date")
+                                .fontWeight(.medium)
+                                .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                .frame(width: 250, height: 12, alignment: .leading)
+                                .lineSpacing(26).padding(.top, 20)
 
-//                        Apple DatePicker
-                        DatePicker("select date", selection: $date, displayedComponents: [.date])
-                        //                        .padding(15.0)
-                        //                        .frame(width: -1.0)
-                            .datePickerStyle(GraphicalDatePickerStyle())
-                            .frame(width: 330, alignment: .center)
-                            .padding(.leading, 10)
-                        
-                        Text(StringConstants.kMsgMeetingDuratio)
-                            .fontWeight(.medium)
-                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                            .frame(width: 250, height: 12, alignment: .leading)
-                            .lineSpacing(26).padding(.top, 10)
-                        
-                        //                        ZStack {
-                        //                            ZStack {
-                        //                                Text(StringConstants.kMsgYourAvailabili)
-                        //                                .fontWeight(.bold)
-                        //                                .font(.subheadline)
-                        //                                .multilineTextAlignment(.center)
-                        //                                .lineSpacing(36)
-                        //                            }
-                        //                            .frame(width: 350, height: 35)
-                        //                            .background(Color(red: 0.46, green: 0.66, blue: 1))
-                        //                            .cornerRadius(10)
-                        //                            .offset(x: 0, y: 42)
-                        //                            .frame(width: 350, height: 35)
-                        
-                        //                            ZStack {
-                        //                                Text(StringConstants.kLbl2Hours)
-                        //                                .font(.callout)
-                        //                                .frame(alignment: .leading)
-                        //                                .lineSpacing(24)
-                        //
-                        //                                RoundedRectangle(cornerRadius: 8)
-                        //                                .fill(Color(red: 0.50, green: 0.23, blue: 0.27, opacity: 0.50))
-                        //                                .offset(x: 141.36, y: 0)
-                        //                                .frame(width: 23.14, height: 17)
-                        //                            }
+    //                        Apple DatePicker
+                            DatePicker("select date", selection: $viewModel.inputDate, displayedComponents: [.date])
+                            //                        .padding(15.0)
+                            //                        .frame(width: -1.0)
+                                .datePickerStyle(GraphicalDatePickerStyle())
+                                .frame(width: 330, alignment: .center)
+                                .padding(.leading, 10)
+                        }
                         
                         HStack{
-                            
-                            // Select Duration
-                            
-                            Picker(StringConstants.kLbl2Hours,
-                                   selection: $selectedDuration) {
-                                ForEach(0..<25,
-                                        id: \.self) { value in
-                                    Text(String(value)).tag(value as Int?)
-                                }
+                            VStack(alignment: .leading){
+                                Text(StringConstants.kMsgMeetingDuratio)
+                                    .fontWeight(.medium)
+                                    .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                    .frame(width: 210, height: 12, alignment: .leading)
+                                    .lineSpacing(26).padding(.top, 10)
+                                
+                                HStack{
+                                    
+                                    // Select Duration
+                                    
+                                    Picker(StringConstants.kLbl2Hours,
+                                           selection: $viewModel.inputDuration) {
+                                        ForEach(0..<25,
+                                                id: \.self) { value in
+                                            Text(String(value)).tag(value as Int?)
+                                        }
+                                    }
+                                           .foregroundColor(ColorConstants.Gray700)
+                                           .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                           .pickerStyle(MenuPickerStyle())
+                                           .frame(width: 50, alignment: .center)
+                                    // .border(.black)
+                                           .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(.gray, lineWidth: 2)
+                                           )
+                                    
+                                    Text("Hour(s)")
+                                        .fontWeight(.medium)
+                                        .font(FontScheme.kInterRegular(size: getRelativeHeight(18)))
+                                        .frame(width: 125, height: 12, alignment: .leading)
+                                        .lineSpacing(26)
+                                }.lineSpacing(26).padding(.top, 10)
                             }
-                                   .foregroundColor(ColorConstants.Gray700)
-                                   .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                   .pickerStyle(MenuPickerStyle())
-                                   .frame(width: 50, alignment: .center)
-                            // .border(.black)
-                                   .overlay(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(.gray, lineWidth: 2)
-                                   )
+                        
+                            // Set your availability - SHOULD CALL CALENDAR PAGE
+                            // which is OptimalTimeView now
                             
-                            Text("Hour(s)")
+                            Button(action: {}, label: {
+    //                            HStack(spacing: 0) {
+                                    Text("Edit Availability")
+                                        .font(FontScheme.kInterBold(size: getRelativeHeight(30.0)))
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, getRelativeWidth(10.0))
+//                                        .padding(.vertical, getRelativeHeight(15.0))
+                                        .foregroundColor(ColorConstants.Gray101)
+                                        .minimumScaleFactor(0.5)
+                                        .multilineTextAlignment(.center)
+                                        .frame(width: getRelativeWidth(125.0),
+                                               height: getRelativeHeight(75), alignment: .center)
+                                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0,
+                                                                   bottomLeft: 10.0, bottomRight: 10.0)
+                                            .fill(ColorConstants.BlueA100))
+                                        .padding(.top, getRelativeHeight(10.0))
+//                                        .padding(.horizontal, getRelativeWidth(21.0))
+                                        .padding(.bottom, getRelativeWidth(10.0))
+    //                            }
+                            })
+                            .frame(width: 125, height: 75)
+                            .background(Color(red: 0.95, green: 0.96, blue: 0.98))
+                            .cornerRadius(10)
+                            .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.12), radius: 4)
+                            .offset(x: 0, y: 0)
+                            .lineSpacing(26).padding(.top, 10)
+                        }
+                        
+                        Group{
+                            Text(StringConstants.kLblInvitees)
                                 .fontWeight(.medium)
-                                .font(FontScheme.kInterRegular(size: getRelativeHeight(18)))
-                                .frame(width: 152, height: 12, alignment: .leading)
-                                .lineSpacing(26)
-                        }.lineSpacing(26).padding(.top, 10)
-                        
-                        // Set your availability - SHOULD CALL CALENDAR PAGE
-                        // which is OptimalTimeView now
-                        
-                        Button(action: {}, label: {
-//                            HStack(spacing: 0) {
-                                Text(StringConstants.kMsgYourAvailabili)
-                                    .font(FontScheme.kInterBold(size: getRelativeHeight(25.0)))
-                                    .fontWeight(.bold)
-                                    .padding(.horizontal, getRelativeWidth(30.0))
-                                    .padding(.vertical, getRelativeHeight(15.0))
-                                    .foregroundColor(ColorConstants.Gray101)
-                                    .minimumScaleFactor(0.5)
-                                    .multilineTextAlignment(.center)
-                                    .frame(width: getRelativeWidth(330.0),
-                                           height: getRelativeHeight(35.0), alignment: .center)
-                                    .background(RoundedCorners(topLeft: 10.0, topRight: 10.0,
-                                                               bottomLeft: 10.0, bottomRight: 10.0)
-                                        .fill(ColorConstants.BlueA100))
-                                    .padding(.top, getRelativeHeight(10.0))
-                                    .padding(.horizontal, getRelativeWidth(21.0))
-                                    .padding(.bottom, getRelativeWidth(10.0))
-//                            }
-                        })
-                        .frame(width: 350, height: 40)
-                        .background(Color(red: 0.95, green: 0.96, blue: 0.98))
-                        .cornerRadius(10)
-                        .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.12), radius: 4)
-                        .offset(x: 0, y: 0)
-                        .lineSpacing(26).padding(.top, 30)
-                        
-                        Text(StringConstants.kLblInvitees)
-                            .fontWeight(.medium)
-                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                            .frame(width: 200, height: 11.42, alignment: .leading)
-                            .lineSpacing(26).padding(.top, 20)
-                        //                    ZStack(alignment: .leading) {
-                        HStack {
+                                .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                .frame(width: 200, height: 11.42, alignment: .leading)
+                                .lineSpacing(26).padding(.top, 20)
+                            //                    ZStack(alignment: .leading) {
+                            
                             TextField(StringConstants.kLblEmail,
                                       text: $viewModel.inputInvitee)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(12.0)))
                             .foregroundColor(ColorConstants.Black900Cc)
                             .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                 .stroke(.gray, lineWidth: 2)
+                            )
                             .keyboardType(.emailAddress)
-                            
-                            
+                            .lineSpacing(26).padding(.top, 10)
                         }
+                        
                         //                            .onChange(of: eventCreationViewModel
                         //                                .stringOfEmails) { newValue in
                         //
@@ -284,11 +227,20 @@ struct EventCreationView: View {
                             .fontWeight(.medium)
                             .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
                             .frame(width: 200, height: 11.42, alignment: .leading)
-                            .lineSpacing(26).padding(.top, 70)
+                            .lineSpacing(26).padding(.top, 50)
                         
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(Color(red: 0.95, green: 0.96, blue: 0.98))
-                            .frame(width: 350, height: 83.78)
+                        TextField("Description",
+                                  text: $viewModel.inputDescription)
+                        .font(FontScheme
+                            .kInterRegular(size: getRelativeHeight(12.0)))
+                        .foregroundColor(ColorConstants.Black900Cc)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                             .stroke(.gray, lineWidth: 2)
+                        )
+                        .keyboardType(.emailAddress)
+                        .lineSpacing(26).padding(.top, 10)
                         
                         // Done Button
                         VStack {
@@ -333,7 +285,9 @@ struct EventCreationView: View {
                             EmptyView()
                         })
                     }
-                }.frame(width: getRelativeWidth(UIScreen.main.bounds.width), height: getRelativeHeight(600), alignment: .center)
+                }
+                .frame(width: getRelativeWidth(UIScreen.main.bounds.width), height: getRelativeHeight(600), alignment: .center)
+                .padding(.top, 20)
                 .navigationBarTitle(StringConstants.kMsgLetSMakeANe)
             }
             .ignoresSafeArea()

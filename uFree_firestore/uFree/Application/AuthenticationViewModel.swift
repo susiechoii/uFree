@@ -37,8 +37,11 @@ class AuthenticationViewModel: ObservableObject {
     @Published var inputPassword: String = ""
     @Published var inputConfirmPassword: String = ""
     
-    @Published var inputTitle = "New Event"
+    @Published var inputTitle = "New Event Title"
+    @Published var inputDate = Date.now
+    @Published var inputDuration: Int = 1
     @Published var inputInvitee = ""
+    @Published var inputDescription = ""
     @Published var inputUserDefaultHours: [Int] = []
     
     // Authentication States
