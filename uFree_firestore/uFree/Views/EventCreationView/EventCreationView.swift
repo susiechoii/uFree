@@ -152,12 +152,11 @@ struct EventCreationView: View {
                             // which is OptimalTimeView now
                             
                             Button(action: {}, label: {
-    //                            HStack(spacing: 0) {
-                                    Text("Edit Availability")
+                                VStack(spacing: 0) {
+                                    Text("Edit")
                                         .font(FontScheme.kInterBold(size: getRelativeHeight(30.0)))
                                         .fontWeight(.bold)
                                         .padding(.horizontal, getRelativeWidth(10.0))
-//                                        .padding(.vertical, getRelativeHeight(15.0))
                                         .foregroundColor(ColorConstants.Gray101)
                                         .minimumScaleFactor(0.5)
                                         .multilineTextAlignment(.center)
@@ -167,9 +166,20 @@ struct EventCreationView: View {
                                                                    bottomLeft: 10.0, bottomRight: 10.0)
                                             .fill(ColorConstants.BlueA100))
                                         .padding(.top, getRelativeHeight(10.0))
-//                                        .padding(.horizontal, getRelativeWidth(21.0))
+                                    Text("Avaailability")
+                                        .font(FontScheme.kInterBold(size: getRelativeHeight(30.0)))
+                                        .fontWeight(.bold)
+                                        .padding(.horizontal, getRelativeWidth(10.0))
+                                        .foregroundColor(ColorConstants.Gray101)
+                                        .minimumScaleFactor(0.5)
+                                        .multilineTextAlignment(.center)
+                                        .frame(width: getRelativeWidth(125.0),
+                                               height: getRelativeHeight(75), alignment: .center)
+                                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0,
+                                                                   bottomLeft: 10.0, bottomRight: 10.0)
+                                            .fill(ColorConstants.BlueA100))
                                         .padding(.bottom, getRelativeWidth(10.0))
-    //                            }
+                                }
                             })
                             .frame(width: 125, height: 75)
                             .background(Color(red: 0.95, green: 0.96, blue: 0.98))
@@ -179,27 +189,25 @@ struct EventCreationView: View {
                             .lineSpacing(26).padding(.top, 10)
                         }
                         
-                        Group{
-                            Text(StringConstants.kLblInvitees)
+                       
+                            Text("Invitees")
                                 .fontWeight(.medium)
                                 .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
                                 .frame(width: 200, height: 11.42, alignment: .leading)
                                 .lineSpacing(26).padding(.top, 20)
-                            //                    ZStack(alignment: .leading) {
                             
-                            TextField(StringConstants.kLblEmail,
+                            TextField("Email",
                                       text: $viewModel.inputInvitee)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(12.0)))
                             .foregroundColor(ColorConstants.Black900Cc)
-                            .padding()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                  .stroke(.gray, lineWidth: 2)
                             )
                             .keyboardType(.emailAddress)
                             .lineSpacing(26).padding(.top, 10)
-                        }
+                        
                         
                         //                            .onChange(of: eventCreationViewModel
                         //                                .stringOfEmails) { newValue in
