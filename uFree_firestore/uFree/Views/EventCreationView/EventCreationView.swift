@@ -35,21 +35,22 @@ struct EventCreationView: View {
                     // WHEN ARE YOU FREE TEXT
                     VStack (alignment: .leading, spacing: 0){
                         Text("Create a")
-                            .font(FontScheme.kInterRegular(size: getRelativeHeight(25)))
+                            .font(FontScheme.kInterRegular(size: getRelativeHeight(35)))
                             .foregroundColor(ColorConstants.Bluegray900)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(108.0),
-                                   height: getRelativeHeight(25), alignment: .leading)
+                                   height: getRelativeHeight(35), alignment: .leading)
+                            .padding(.top, getRelativeHeight(50))
                         Text("New Event")
-                            .font(FontScheme.kInterRegular(size: getRelativeHeight(30)))
+                            .font(FontScheme.kInterRegular(size: getRelativeHeight(40)))
                             .fontWeight(.bold)
                             .foregroundColor(ColorConstants.Bluegray900)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.leading)
                             .frame(width: getRelativeWidth(250.0),
                                    height: getRelativeHeight(40), alignment: .leading)
-//                            .padding(.top, getRelativeHeight(-5))
+                            .padding(.top, getRelativeHeight(0))
                     }
                     .frame(width: getRelativeWidth(250),
                            height: getRelativeHeight(100), alignment: .leading)
