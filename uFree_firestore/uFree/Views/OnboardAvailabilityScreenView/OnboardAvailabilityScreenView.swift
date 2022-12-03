@@ -135,6 +135,6 @@ struct OnboardAvailabilityScreenView: View {
 
 struct OnboardAvailabilityScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardAvailabilityScreenView()
+        OnboardAvailabilityScreenView().environmentObject(AuthenticationViewModel())
     }
 }
