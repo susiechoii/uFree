@@ -32,6 +32,8 @@
 		5132C3CB292AF04A0050D887 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5132C3CA292AF04A0050D887 /* GoogleService-Info.plist */; };
 		5132C3CE292AF17E0050D887 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5132C3CD292AF17E0050D887 /* FirebaseAnalytics */; };
 		5132C3D0292AF17E0050D887 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5132C3CF292AF17E0050D887 /* FirebaseAnalyticsSwift */; };
+		5156CA19293C579A0004EC27 /* CreatorConfirmTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156CA18293C579A0004EC27 /* CreatorConfirmTimeView.swift */; };
+		5156CA1B293C57D20004EC27 /* CreatorConfirmTimeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156CA1A293C57D20004EC27 /* CreatorConfirmTimeCellView.swift */; };
 		5198EB87292AF5B7003BD2AD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5198EB86292AF5B7003BD2AD /* FirebaseAnalytics */; };
 		5198EB89292AF5B7003BD2AD /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5198EB88292AF5B7003BD2AD /* FirebaseAnalyticsSwift */; };
 		5198EB8B292AF793003BD2AD /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5198EB8A292AF793003BD2AD /* FirebaseDatabase */; };
@@ -153,6 +155,8 @@
 		4BC4F0B8FA512AFB815B1204 /* RalewaySemiBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = RalewaySemiBold.ttf; sourceTree = "<group>"; };
 		4C46BBFBBB615816C0448749 /* EditDefaultforEventScreenViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EditDefaultforEventScreenViewModel.swift; sourceTree = "<group>"; };
 		5132C3CA292AF04A0050D887 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5156CA18293C579A0004EC27 /* CreatorConfirmTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorConfirmTimeView.swift; sourceTree = "<group>"; };
+		5156CA1A293C57D20004EC27 /* CreatorConfirmTimeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorConfirmTimeCellView.swift; sourceTree = "<group>"; };
 		5198EB8E292AFD2F003BD2AD /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		519D43872934AA0B00FCE23B /* PrimaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		519D438C2934ABC100FCE23B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -332,8 +336,9 @@
 				29434A1779A32D44E546E2E5 /* HomePageView */,
 				2220BE66224F7F9772B5BCFC /* EventCreationView */,
 				E46803C4EA0F6D53323B1FE3 /* EventView */,
-				8DFEA416017EA64806A7DE60 /* EventEditView */,
 				A6195AEF36A8F76B323C387C /* OptimalTimeView */,
+				5156CA17293C57440004EC27 /* CreatorConfirmTimeView */,
+				8DFEA416017EA64806A7DE60 /* EventEditView */,
 				BCB69671167C497D6CEAE976 /* ProfileView */,
 				0563A4E473E37D5303C84B31 /* MonthlyCalendarView */,
 				F7AADA805683CDA3C0F816BE /* WeeklyView */,
@@ -382,6 +387,15 @@
 				06A316F847F535FAE9939BC3 /* ListCard1Cell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		5156CA17293C57440004EC27 /* CreatorConfirmTimeView */ = {
+			isa = PBXGroup;
+			children = (
+				5156CA18293C579A0004EC27 /* CreatorConfirmTimeView.swift */,
+				5156CA1A293C57D20004EC27 /* CreatorConfirmTimeCellView.swift */,
+			);
+			path = CreatorConfirmTimeView;
 			sourceTree = "<group>";
 		};
 		519D43892934AA1200FCE23B /* PrimaryView */ = {
@@ -946,6 +960,7 @@
 				60025E34DDCCCDE67A6C313E /* ColorConstants.swift in Sources */,
 				ED753A42143A4B465FDEBC4B /* FontScheme.swift in Sources */,
 				F274770B1DB9358D34F4339A /* IntroPageView.swift in Sources */,
+				5156CA1B293C57D20004EC27 /* CreatorConfirmTimeCellView.swift in Sources */,
 				929E176D09B5A9EAA291A273 /* SignUpView.swift in Sources */,
 				FAB6663C2D7F90EF4CD507CE /* SignInView.swift in Sources */,
 				2A472A0C1B100F049FA92387 /* HomePageView.swift in Sources */,
@@ -971,6 +986,7 @@
 				4D4570269934788E854FEBC8 /* DaysTimeSeleCell.swift in Sources */,
 				242031D481BD18B249130B08 /* OnboardAvailabilityScreenView.swift in Sources */,
 				331D81A236E82E08054B0BA7 /* DaysTimeSele1Cell.swift in Sources */,
+				5156CA19293C579A0004EC27 /* CreatorConfirmTimeView.swift in Sources */,
 				E22D0FB016A0B36DBE59C396 /* HomeViewThreeView.swift in Sources */,
 				5427AC06BFAA98F89DD364AE /* ListCard1Cell.swift in Sources */,
 				7C75621779B58AD8E0E5A55E /* EventEditView.swift in Sources */,

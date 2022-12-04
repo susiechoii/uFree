@@ -23,6 +23,7 @@ struct GenericCell: View {
     
     var selfConfirmed: Bool!
     var everyoneConfirmed: Bool!
+    var creatorConfirmed: Bool!
     
     var allUserHours: [String: [Int]]!
     
@@ -50,6 +51,7 @@ struct GenericCell: View {
         
         self.selfConfirmed = particularEvent["selfConfirmed"] as! Bool
         self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        self.creatorConfirmed = particularEvent["creatorConfirmed"] as! Bool
         
         self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
@@ -126,7 +128,9 @@ struct GenericCell: View {
             
                 checkIfAllInviteesConfirmed() ?
                 (
-                    isCreator ? ColorConstants.OrangeA200 : ColorConstants.Gray300
+                    isCreator ? (
+                        !selfConfirmed ? ColorConstants.OrangeA200 : ColorConstants.WhiteA700
+                    ) : !creatorConfirmed ? ColorConstants.Gray300 : ColorConstants.WhiteA700
                 ) : (
                     isCreator ? ColorConstants.Amber100 : (
                         selfConfirmed ? ColorConstants.Gray100 : ColorConstants.Red50

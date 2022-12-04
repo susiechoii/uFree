@@ -1,10 +1,17 @@
+//
+//  CreatorConfirmTimeCellViewl.swift
+//  uFree
+//
+//  Created by Leung Wai Liu on 12/3/22.
+//
+
 import SwiftUI
 
-struct DaysTimeSele2Cell: View {
+struct CreatorConfirmTimeCellView: View {
     //COLORs
     //NSCHANGES
     @EnvironmentObject var viewModel: AuthenticationViewModel
-
+    
     @State private var didTapRow8:Bool = false
     @State private var didTapRow9:Bool = false
     @State private var didTapRow10:Bool = false
@@ -14,17 +21,30 @@ struct DaysTimeSele2Cell: View {
     @State private var didTapRow2:Bool = false
     @State private var didTapRow3:Bool = false
     
+    @State private var didTapRow8PrevColor: Color = ColorConstants.Gray101
+    @State private var didTapRow9PrevColor: Color = ColorConstants.Gray101
+    @State private var didTapRow10PrevColor: Color = ColorConstants.Gray101
+    @State private var didTapRow11PrevColor: Color = ColorConstants.Gray101
+    @State private var didTapRow12PrevColor: Color = ColorConstants.Gray101
+    @State private var didTapRow1PrevColor: Color = ColorConstants.Gray101
+    @State private var didTapRow2PrevColor: Color = ColorConstants.Gray101
+    @State private var didTapRow3PrevColor: Color = ColorConstants.Gray101
     
+   
     var index: Int!
     var daysOfWeek: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     var dayInString: String!
+    var currentCellIndex: Int!
+    var previousCellColor: ColorConstants!
     
-    init(index: Int, defaultHours: [Int]) {
+    
+    init(index: Int) {
         self.index = index
         self.dayInString = daysOfWeek[self.index]
+        
     }
     
-
+    
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
@@ -50,23 +70,8 @@ struct DaysTimeSele2Cell: View {
                 let myIndex = index*24+8
                 print(index*24 + 8)
                 
-                if (!didTapRow8) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow8 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow8 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl8am)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -81,33 +86,18 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow8 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow8 ? ColorConstants.BlueA200 : didTapRow8PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
- 
+            
             // 9AM button
             Button(action: {
                 let myIndex = index*24+9
                 print(index*24 + 9)
                 
-                if (!didTapRow9) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow9 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow9 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl9am)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -122,7 +112,7 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow9 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow9 ? ColorConstants.BlueA200 : didTapRow9PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
@@ -132,23 +122,8 @@ struct DaysTimeSele2Cell: View {
                 let myIndex = index*24+10
                 print(index*24 + 10)
                 
-                if (!didTapRow10) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow10 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow10 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl10am)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -163,7 +138,7 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow10 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow10 ? ColorConstants.BlueA200 : didTapRow10PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
@@ -173,23 +148,8 @@ struct DaysTimeSele2Cell: View {
                 let myIndex = index*24+11
                 print(index*24 + 11)
                 
-                if (!didTapRow11) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow11 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow11 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl11am)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -204,7 +164,7 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow11 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow11 ? ColorConstants.BlueA200 : didTapRow11PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
@@ -214,23 +174,8 @@ struct DaysTimeSele2Cell: View {
                 let myIndex = index*24+12
                 print(index*24 + 12)
                 
-                if (!didTapRow12) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow12 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow12 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl12pm)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -245,33 +190,18 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow12 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow12 ? ColorConstants.BlueA200 : didTapRow12PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
             
             // 1PM button
             Button(action: {
-                let myIndex = index*24 + 13
+                let myIndex = index*24+13
                 print(index*24 + 13)
                 
-                if (!didTapRow1) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow1 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow1 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl1pm)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -286,33 +216,18 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow1 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow1 ? ColorConstants.BlueA200 : didTapRow1PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
             
             // 2PM button
             Button(action: {
-                let myIndex = index*24 + 14
+                let myIndex = index*24+14
                 print(index*24 + 14)
                 
-                if (!didTapRow2) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow2 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow2 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl2pm)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -327,33 +242,18 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow2 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow2 ? ColorConstants.BlueA200 : didTapRow2PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
             
             // 3PM button
             Button(action: {
-                let myIndex = index*24 + 15
+                let myIndex = index*24+15
                 print(index*24 + 15)
                 
-                if (!didTapRow3) {
-                    
-                    // sanity check to make sure no duplicates exist
-                    if !viewModel.savedUserDefaultHours.contains(myIndex) {
-                        viewModel.savedUserDefaultHours.append(myIndex)
-                    }
-                    
-                    self.didTapRow3 = true
-                    print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
-                }
-                else {
-                    if let index = viewModel.savedUserDefaultHours.firstIndex(of: myIndex) {
-                        viewModel.savedUserDefaultHours.remove(at: index)
-                    }
-                    print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                    self.didTapRow3 = false
-                }
+                viewModel.finalizedHour = myIndex
+
             }, label: {
                 Text(StringConstants.kLbl3pm)
                     .font(FontScheme.kInterSemiBold(size: getRelativeHeight(12.0)))
@@ -368,7 +268,7 @@ struct DaysTimeSele2Cell: View {
                                                topRight: 10,
                                                bottomLeft: 10,
                                                bottomRight: 10)
-                        .fill(didTapRow3 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                        .fill(didTapRow3 ? ColorConstants.BlueA200 : didTapRow3PrevColor))
                     .padding(.leading, getRelativeWidth(0.0))
                     .padding(.top, getRelativeHeight(12.0))
             })
@@ -376,22 +276,34 @@ struct DaysTimeSele2Cell: View {
         }
         .frame(width: getRelativeWidth(75), alignment: .center)
         .onAppear{
-                    didTapRow8 = viewModel.savedUserDefaultHours.contains(index*24+8)
-                    didTapRow9 = viewModel.savedUserDefaultHours.contains(index*24+9)
-                    didTapRow10 = viewModel.savedUserDefaultHours.contains(index*24+10)
-                    didTapRow11 = viewModel.savedUserDefaultHours.contains(index*24+11)
-                    didTapRow12 = viewModel.savedUserDefaultHours.contains(index*24+12)
-                    didTapRow1 = viewModel.savedUserDefaultHours.contains(index*24+13)
-                    didTapRow2 = viewModel.savedUserDefaultHours.contains(index*24+14)
-                    didTapRow3 = viewModel.savedUserDefaultHours.contains(index*24+15)
+            
+            didTapRow8PrevColor = viewModel.inputCommonHours.contains(index*24+8) ? ColorConstants.Lime100 : ColorConstants.Gray101
+            didTapRow9PrevColor = viewModel.inputCommonHours.contains(index*24+9) ? ColorConstants.Lime100 : ColorConstants.Gray101
+            didTapRow10PrevColor = viewModel.inputCommonHours.contains(index*24+10) ? ColorConstants.Lime100 : ColorConstants.Gray101
+            didTapRow11PrevColor = viewModel.inputCommonHours.contains(index*24+11) ? ColorConstants.Lime100 : ColorConstants.Gray101
+            didTapRow12PrevColor = viewModel.inputCommonHours.contains(index*24+12) ? ColorConstants.Lime100 : ColorConstants.Gray101
+            didTapRow1PrevColor = viewModel.inputCommonHours.contains(index*24+13) ? ColorConstants.Lime100 : ColorConstants.Gray101
+            didTapRow2PrevColor = viewModel.inputCommonHours.contains(index*24+14) ? ColorConstants.Lime100 : ColorConstants.Gray101
+            didTapRow3PrevColor = viewModel.inputCommonHours.contains(index*24+15) ? ColorConstants.Lime100 : ColorConstants.Gray101
+       
         }
+        .onChange(of: viewModel.finalizedHour, perform: { _ in
+            didTapRow8 = viewModel.finalizedHour == index*24 + 8
+            didTapRow9 = viewModel.finalizedHour == index*24 + 9
+            didTapRow10 = viewModel.finalizedHour == index*24 + 10
+            didTapRow11 = viewModel.finalizedHour == index*24 + 11
+            didTapRow12 = viewModel.finalizedHour == index*24 + 12
+            didTapRow1 = viewModel.finalizedHour == index*24 + 13
+            didTapRow2 = viewModel.finalizedHour == index*24 + 14
+            didTapRow3 = viewModel.finalizedHour == index*24 + 15
+        })
         
     }
 }
 
-struct DaysTimeSele2Cell_Previews: PreviewProvider {
 
- static var previews: some View {
-     DaysTimeSele2Cell(index: 0, defaultHours: [0]).environmentObject(AuthenticationViewModel())
- }
- }
+struct CreatorConfirmTimeCellView_Previews: PreviewProvider {
+    static var previews: some View {
+        CreatorConfirmTimeCellView(index: 0).environmentObject(AuthenticationViewModel())
+    }
+}

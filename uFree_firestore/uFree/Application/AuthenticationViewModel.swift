@@ -37,8 +37,13 @@ class AuthenticationViewModel: ObservableObject {
     @Published var inputPassword: String = ""
     @Published var inputConfirmPassword: String = ""
     
+    
     @Published var inputUserDefaultHours: [Int] = []
     
+    @Published var inputCommonHours: [Int] = [0]
+    @Published var finalizedHour: Int = 0
+    
+
     // Authentication States
     @Published var authenticationState: AuthenticationState = .unauthenticated
     
@@ -145,7 +150,7 @@ extension AuthenticationViewModel {
     func registerUserInfoToFirestore() async -> Bool {
         print("SAVED NAME \(savedName)")
         print("SAVED EMAIL \(savedEmail)")
-        let data:[String:Any] = ["uid": tempUser!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": [["title": "null"]]]
+        let data:[String:Any] = ["uid": tempUser!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": [["eventUID": "null", "title": "null"]]]
         inputUserDefaultHours = savedUserDefaultHours
         do {
             try await Firestore.firestore().collection("users").document(tempUser!.uid).setData(data)
@@ -165,7 +170,7 @@ extension AuthenticationViewModel {
         
         do {
             let fetchUserInfoResult = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
-            let fetchedUserDocument = fetchUserInfoResult.data() ?? ["name" : "", "email" : "", "defaultHours": [], "events": [["title": "null"]]]
+            let fetchedUserDocument = fetchUserInfoResult.data() ?? ["name" : "", "email" : "", "defaultHours": [], "events": [["eventUID": "null", "title": "null"]]]
             savedName = fetchedUserDocument["name"] as! String
             savedEmail = fetchedUserDocument["email"] as! String
             savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
@@ -230,11 +235,12 @@ extension AuthenticationViewModel {
             
             
             
-            let newEventCurrentUser:[String: Any] = ["eventUID": UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": true, "isShared" : needsSharing, "selfConfirmed": true, "everyoneConfirmed": !needsSharing, "allUserHours" : savedAllUserHours]
-            let newEventInvitee:[String: Any] = ["eventUID" : UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": false, "isShared" : needsSharing, "selfConfirmed": false, "everyoneConfirmed": false, "allUserHours" : savedAllUserHours]
+            let newEventCurrentUser:[String: Any] = ["eventUID": UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": true, "isShared" : needsSharing, "selfConfirmed": !needsSharing, "everyoneConfirmed": !needsSharing, "creatorConfirmed": !needsSharing, "allUserHours" : savedAllUserHours]
+            let newEventInvitee:[String: Any] = ["eventUID" : UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": false, "isShared" : needsSharing, "selfConfirmed": false, "everyoneConfirmed": false, "creatorConfirmed": false, "allUserHours" : savedAllUserHours]
             
             currentUserExistingEvents.append(newEventCurrentUser)
             inviteeExistingEvents.append(newEventInvitee)
+            
             
             do {
                 try await Firestore.firestore().collection("users").document(user!.uid).updateData(["events" : currentUserExistingEvents])
@@ -276,16 +282,32 @@ extension AuthenticationViewModel {
         return true
     }
     
+    func checkIfAllInviteesConfirmed(allUserHours: [String: [Int]]) -> Bool {
+        for (_, userHours) in allUserHours {
+            if (userHours == []) {
+                print("NOT ALL INVITEES HAVE CONFIRMED")
+                return false
+                
+            }
+        }
+        print("ALL INVITEES HAVE CONFIRMED")
+        return true
+    }
+    
     func addInviteeAvailabilityToEvent(event: [String: Any]) async -> Bool {
         
         var allUserHours: [String: [Int]] = event["allUserHours"] as! [String: [Int]]
         allUserHours[String(describing: user!.uid)] = savedUserDefaultHours
+        let everyoneConfirmedStatus = checkIfAllInviteesConfirmed(allUserHours: allUserHours)
         
         var eventToAdd = event
         
         eventToAdd["allUserHours"] = allUserHours
         eventToAdd["selfConfirmed"] = true
+        eventToAdd["everyoneConfirmed"] = everyoneConfirmedStatus
         
+        
+
         let eventUID = eventToAdd["eventUID"] as! String
         let participantIDs = eventToAdd["participantIDs"] as! [String]
         let creatorID = participantIDs[0]
@@ -302,6 +324,7 @@ extension AuthenticationViewModel {
             
             // syncing up invitee user hours within the creator's event details
             eventToModify["allUserHours"] = allUserHours
+            eventToModify["everyoneConfirmed"] = everyoneConfirmedStatus
             allCreatorEvents[eventToModifyIndex] = eventToModify
             
             do {
@@ -321,7 +344,12 @@ extension AuthenticationViewModel {
                     
                     do {
                         try await Firestore.firestore().collection("users").document(user!.uid).updateData(["events" : allInviteeEvents])
-                        return true
+                        
+                        // refresh
+                        if await getEventsFromFirestore() == true {
+                            print("DEBUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
+                            return true
+                        }
                     }
                     catch {
                         errorMessage = "Failed to update allUserHours for the current user (invitee)"
@@ -352,6 +380,102 @@ extension AuthenticationViewModel {
         return true
     }
     
+    
+    func finalizeEvent(event: [String: Any]) async -> Bool {
+        
+        let participantIDs = event["participantIDs"] as! [String]
+        let eventUID = event["eventUID"] as! String
+        // retreieve the day of the week for date object
+        var dateObject = (event["date"] as! Timestamp).dateValue()
+        let calendar = Calendar.current
+        let dayOfWeek = calendar.component(.weekday, from: dateObject)
+        
+        var dateObjectComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: dateObject)
+        
+        let finalizedHourToSubmit = finalizedHour % 24
+        dateObjectComponents.hour = finalizedHourToSubmit
+        dateObjectComponents.minute = 0
+        
+        do {
+            // getting all the events of the creator first
+            let creatorDocument = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
+            var allCreatorEvents : [[String : Any]] = creatorDocument.get("events") as! [[String : Any]]
+            
+            let eventToModifyIndex: Int = allCreatorEvents.firstIndex(where: { $0["eventUID"] as! String == event["eventUID"] as! String})!
+            
+            var eventToModify: [String : Any] = allCreatorEvents[eventToModifyIndex]
+            
+            // syncing up invitee user hours within the creator's event details
+            eventToModify["date"] = Calendar.current.date(from: dateObjectComponents)
+            eventToModify["selfConfirmed"] = true
+            eventToModify["creatorConfirmed"] = true
+            allCreatorEvents[eventToModifyIndex] = eventToModify
+            
+            do {
+                // updating the event for the creator
+                try await Firestore.firestore().collection("users").document(user!.uid).updateData(["events" : allCreatorEvents])
+                
+                // start looping
+                for userIDString in participantIDs {
+                    do {
+            
+                        // getting all the events of the invitee first
+                        let inviteeDocument = try await Firestore.firestore().collection("users").document(userIDString).getDocument()
+                        
+                        // doing the same for the invitee
+                        var allInviteeEvents: [[String : Any]] = inviteeDocument.get("events") as! [[String : Any]]
+                        
+                        let inviteeEventToModifyIndex: Int = allInviteeEvents.firstIndex(where: { $0["eventUID"] as! String == eventUID})!
+                        
+                        var eventToModifyInvitee: [String : Any] = allInviteeEvents[inviteeEventToModifyIndex]
+                        
+                        eventToModifyInvitee["date"] = Calendar.current.date(from: dateObjectComponents)
+                        eventToModifyInvitee["creatorConfirmed"] = true
+                        allInviteeEvents[inviteeEventToModifyIndex] = eventToModifyInvitee
+                        
+                        
+                        do {
+                            try await Firestore.firestore().collection("users").document(userIDString).updateData(["events" : allInviteeEvents])
+                            
+                            print("ERROR: Success in printing for a user")
+                        }
+                        catch {
+                            errorMessage = "Failed to update allUserHours for the current user (invitee)"
+                            print("DEBUG \(errorMessage)")
+                            return false
+                        }
+                        
+                        
+                    } catch {
+                        errorMessage = "Failed to get documents for existing user (invitee)"
+                        print("DEBUG: \(errorMessage)")
+                        return false
+                    }
+                }
+                
+                // refresh user input
+                if await getEventsFromFirestore() == true {
+                    print("DEBUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
+                    return true
+                }
+                
+            }
+            catch {
+                errorMessage = "Failed to update allUserHours for the event creator"
+                print("DEBUG \(errorMessage)")
+                return false
+            }
+            
+        }
+        catch {
+            errorMessage = error.localizedDescription
+            print("DEBUG: Failed to get creator information \(errorMessage)")
+            return false
+        }
+        
+        
+        return true
+    }
     
     
     func signOut() {
@@ -389,3 +513,5 @@ extension AuthenticationViewModel {
     }
     
 }
+
+

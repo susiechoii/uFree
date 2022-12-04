@@ -1,14 +1,20 @@
+//
+//  CreatorConfirmTimeView.swift
+//  uFree
+//
+//  Created by Leung Wai Liu on 12/3/22.
+//
+
 import SwiftUI
 import Firebase
 
-struct OptimalTimeView: View {
+struct CreatorConfirmTimeView: View {
     @StateObject var optimalTimeViewModel = OptimalTimeViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
-    
     @EnvironmentObject var viewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
-    
+        
     var event: [String: Any]!
     var dateFormatter = DateFormatter()
     
@@ -30,9 +36,9 @@ struct OptimalTimeView: View {
     
     var allUserHours: [String: [Int]]!
     
-    private func addInviteeAvailabilityToEvent() {
+    private func finalizeEvent() {
         Task {
-            if await viewModel.addInviteeAvailabilityToEvent(event: event) == true {
+            if await viewModel.finalizeEvent(event: event) == true {
                 self.presentationMode.wrappedValue.dismiss()
             }
         }
@@ -74,14 +80,14 @@ struct OptimalTimeView: View {
                 
                 // WHEN ARE YOU FREE TEXT
                 VStack (alignment: .leading, spacing: 0){
-                    Text("Set Your")
+                    Text("Confirm an")
                         .font(FontScheme.kInterRegular(size: getRelativeHeight(25)))
                         .foregroundColor(ColorConstants.Bluegray900)
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
                         .frame(width: getRelativeWidth(108.0),
                                height: getRelativeHeight(25), alignment: .leading)
-                    Text("Availability")
+                    Text("Optimal Time")
                         .font(FontScheme.kInterRegular(size: getRelativeHeight(30)))
                         .fontWeight(.bold)
                         .foregroundColor(ColorConstants.Bluegray900)
@@ -124,7 +130,7 @@ struct OptimalTimeView: View {
                 LazyHStack {
                     ForEach(0 ... 6, id: \.self) { index in
                         
-                        DaysTimeSele2Cell(index: index, defaultHours: viewModel.savedUserDefaultHours).environmentObject(viewModel)
+                        CreatorConfirmTimeCellView(index: index).environmentObject(viewModel)
                         
                         
                         
@@ -137,8 +143,8 @@ struct OptimalTimeView: View {
             
             
             // SAVE AND CONTINUE BUTTON
-            Button(action: addInviteeAvailabilityToEvent, label: {
-                Text("SAVE AND CONTINUE")
+            Button(action: finalizeEvent, label: {
+                Text("FINALIZE EVENT")
                     .font(FontScheme
                         .kInterExtraBold(size: getRelativeHeight(35.0)))
                     .fontWeight(.heavy)
@@ -181,12 +187,25 @@ struct OptimalTimeView: View {
         .background(ColorConstants.WhiteA700)
         .ignoresSafeArea()
         .hideNavigationBar()
+        .onAppear {
+            // merging the availability of all the users
+            var mergedUserHours:Set<Int> = Set(allUserHours["creator"] as! [Int])
+            
+            for (index, userHours) in allUserHours {
+                let userHoursSet:Set<Int> = Set(userHours as! [Int])
+                mergedUserHours = mergedUserHours.intersection(userHoursSet)
+            }
+            
+            viewModel.inputCommonHours = Array(mergedUserHours)
+            print("MERGED INPUT COMMON HOURS \(viewModel.inputCommonHours)")
+            
+        }
         
     }
 }
 
-struct OptimalTimeView_Previews: PreviewProvider {
+struct CreatorConfirmTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        OptimalTimeView(particularEvent: ["title": "null", "everyoneConfirmed": true]).environmentObject(AuthenticationViewModel())
+        CreatorConfirmTimeView(particularEvent: ["title": "null", "everyoneConfirmed": true]).environmentObject(AuthenticationViewModel())
     }
 }
