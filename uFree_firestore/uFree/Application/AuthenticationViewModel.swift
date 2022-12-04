@@ -230,8 +230,8 @@ extension AuthenticationViewModel {
             
             
             
-            let newEventCurrentUser:[String: Any] = ["eventUID": UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": true, "isShared" : needsSharing, "everyoneConfirmed": !needsSharing, "allUserHours" : savedAllUserHours]
-            let newEventInvitee:[String: Any] = ["eventUID" : UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": false, "isShared" : needsSharing, "everyoneConfirmed": false, "allUserHours" : savedAllUserHours]
+            let newEventCurrentUser:[String: Any] = ["eventUID": UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": true, "isShared" : needsSharing, "selfConfirmed": true, "everyoneConfirmed": !needsSharing, "allUserHours" : savedAllUserHours]
+            let newEventInvitee:[String: Any] = ["eventUID" : UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": false, "isShared" : needsSharing, "selfConfirmed": false, "everyoneConfirmed": false, "allUserHours" : savedAllUserHours]
             
             currentUserExistingEvents.append(newEventCurrentUser)
             inviteeExistingEvents.append(newEventInvitee)
@@ -284,7 +284,7 @@ extension AuthenticationViewModel {
         var eventToAdd = event
         
         eventToAdd["allUserHours"] = allUserHours
-        eventToAdd["confirmed"] = true
+        eventToAdd["selfConfirmed"] = true
         
         let eventUID = eventToAdd["eventUID"] as! String
         let participantIDs = eventToAdd["participantIDs"] as! [String]

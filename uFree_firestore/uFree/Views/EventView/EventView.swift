@@ -21,7 +21,9 @@ struct EventView: View {
     var isCreator: Bool!
     var isShared: Bool!
 
+    var selfConfirmed: Bool!
     var everyoneConfirmed: Bool!
+    
     var allUserHours: [String: [Int]]!
     
     
@@ -46,9 +48,24 @@ struct EventView: View {
         self.isCreator = particularEvent["isCreator"] as! Bool
         self.isShared = particularEvent["isShared"] as! Bool
         
+        self.selfConfirmed = particularEvent["selfConfirmed"] as! Bool
         self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        
         self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
+    
+    func checkIfAllInviteesConfirmed() -> Bool {
+        for (_, userHours) in allUserHours {
+            if (userHours == []) {
+                print("NOT ALL INVITEES HAVE CONFIRMED")
+                return false
+                
+            }
+        }
+        print("ALL INVITEES HAVE CONFIRMED")
+        return true
+    }
+    
     
     var body: some View {
         NavigationView {
@@ -144,34 +161,39 @@ struct EventView: View {
                         .padding(.top, getRelativeHeight(17.0))
                         .padding(.trailing, getRelativeWidth(10.0))
                         
-                        if (!isCreator) {
-                        Button(action: {
-                            eventViewModel.nextScreen = "OptimalTimeView"
-                        }, label: {
-                            HStack(spacing: 0) {
-                                Text("CONFIRM AVAILABILITY")
-                                    .font(FontScheme
-                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
-                                    .fontWeight(.heavy)
-                                    .padding(.horizontal, getRelativeWidth(30.0))
-                                    .padding(.vertical, getRelativeHeight(22.0))
-                                    .foregroundColor(ColorConstants.WhiteA700)
-                                    .minimumScaleFactor(0.5)
-                                    .frame(width: getRelativeWidth(295.0),
-                                           height: getRelativeHeight(60.0),
-                                           alignment: .center)
-                                    .background(RoundedCorners(topLeft: 28.5,
-                                                               topRight: 28.5,
-                                                               bottomLeft: 28.5,
-                                                               bottomRight: 28.5)
-                                            .fill(ColorConstants.Red400))
+                        if (isCreator) {
+                            if (checkIfAllInviteesConfirmed()) {
+                                Button(action: {
+                                    eventViewModel.nextScreen = "OptimalTimeView"
+                                }, label: {
+                                    HStack(spacing: 0) {
+                                        Text("CONFIRM AVAILABILITY")
+                                            .font(FontScheme
+                                                .kInterExtraBold(size: getRelativeHeight(35.0)))
+                                            .fontWeight(.heavy)
+                                            .padding(.horizontal, getRelativeWidth(30.0))
+                                            .padding(.vertical, getRelativeHeight(22.0))
+                                            .foregroundColor(ColorConstants.WhiteA700)
+                                            .minimumScaleFactor(0.5)
+                                            .frame(width: getRelativeWidth(295.0),
+                                                   height: getRelativeHeight(60.0),
+                                                   alignment: .center)
+                                            .background(RoundedCorners(topLeft: 28.5,
+                                                                       topRight: 28.5,
+                                                                       bottomLeft: 28.5,
+                                                                       bottomRight: 28.5)
+                                                    .fill(ColorConstants.Red400))
+                                    }
+                                })
+                                .frame(width: getRelativeWidth(295.0),
+                                       height: getRelativeHeight(60.0), alignment: .topLeading)
+                                .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
+                                                           bottomLeft: 28.5, bottomRight: 28.5)
+                                        .fill(ColorConstants.Red400))
                             }
-                        })
-                        .frame(width: getRelativeWidth(295.0),
-                               height: getRelativeHeight(60.0), alignment: .topLeading)
-                        .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
-                                                   bottomLeft: 28.5, bottomRight: 28.5)
-                                .fill(ColorConstants.Red400))
+                        
+                        } else {
+                            
                         }
 //                        ZStack {
 //                            Image("img_amigosshopping")

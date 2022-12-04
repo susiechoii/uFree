@@ -20,8 +20,10 @@ struct GenericCell: View {
 
     var isCreator: Bool!
     var isShared: Bool!
-
+    
+    var selfConfirmed: Bool!
     var everyoneConfirmed: Bool!
+    
     var allUserHours: [String: [Int]]!
     
     init(indexValue: Int, particularEvent: [String: Any]) {
@@ -46,9 +48,24 @@ struct GenericCell: View {
         self.isCreator = particularEvent["isCreator"] as! Bool
         self.isShared = particularEvent["isShared"] as! Bool
         
+        self.selfConfirmed = particularEvent["selfConfirmed"] as! Bool
         self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        
         self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
+    
+    func checkIfAllInviteesConfirmed() -> Bool {
+        for (_, userHours) in allUserHours {
+            if (userHours == []) {
+                print("NOT ALL INVITEES HAVE CONFIRMED")
+                return false
+                
+            }
+        }
+        print("ALL INVITEES HAVE CONFIRMED")
+        return true
+    }
+    
     
     var body: some View {
         VStack {
@@ -105,7 +122,18 @@ struct GenericCell: View {
         .frame(width: getRelativeWidth(341.0), alignment: .leading)
         .background(RoundedCorners(topLeft: 16.0, topRight: 16.0, bottomLeft: 16.0,
                                    bottomRight: 16.0)
-            .fill((!everyoneConfirmed && isCreator) ? ColorConstants.Amber100 : (!everyoneConfirmed && !isCreator) ? ColorConstants.Red401 : ColorConstants.WhiteA700))
+            .fill(isShared ? (
+            
+                checkIfAllInviteesConfirmed() ?
+                (
+                    isCreator ? ColorConstants.OrangeA200 : ColorConstants.Gray300
+                ) : (
+                    isCreator ? ColorConstants.Amber100 : (
+                        selfConfirmed ? ColorConstants.Gray100 : ColorConstants.Red50
+                    )
+                )
+            
+            ) : ColorConstants.WhiteA700))
         .shadow(color: ColorConstants.Black9001e, radius: 16, x: 0, y: 8)
         .hideNavigationBar()
     }

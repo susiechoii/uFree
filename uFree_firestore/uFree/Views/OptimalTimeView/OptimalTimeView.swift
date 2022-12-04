@@ -24,7 +24,9 @@ struct OptimalTimeView: View {
     var isCreator: Bool!
     var isShared: Bool!
 
+    var selfConfirmed: Bool!
     var everyoneConfirmed: Bool!
+    
     var allUserHours: [String: [Int]]!
     
     private func addInviteeAvailabilityToEvent() {
@@ -56,7 +58,9 @@ struct OptimalTimeView: View {
         self.isCreator = particularEvent["isCreator"] as! Bool
         self.isShared = particularEvent["isShared"] as! Bool
         
+        self.selfConfirmed = particularEvent["selfConfirmed"] as! Bool
         self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        
         self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
     
