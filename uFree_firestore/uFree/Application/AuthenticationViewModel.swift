@@ -43,7 +43,7 @@ class AuthenticationViewModel: ObservableObject {
     @Published var inputCommonHours: [Int] = [0]
     @Published var finalizedHour: Int = 0
     
-
+    
     // Authentication States
     @Published var authenticationState: AuthenticationState = .unauthenticated
     
@@ -169,15 +169,18 @@ extension AuthenticationViewModel {
     func getEventsFromFirestore() async -> Bool {
         
         do {
-            let fetchUserInfoResult = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
-            let fetchedUserDocument = fetchUserInfoResult.data() ?? ["name" : "", "email" : "", "defaultHours": [], "events": [["eventUID": "null", "title": "null"]]]
-            savedName = fetchedUserDocument["name"] as! String
-            savedEmail = fetchedUserDocument["email"] as! String
-            savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
-            inputUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
-            savedUserEvents = fetchedUserDocument["events"] as! [[String: Any]]
-            configuredDefaults = true
-            return true
+            if (user != nil) {
+                let fetchUserInfoResult = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
+                let fetchedUserDocument = fetchUserInfoResult.data() ?? ["name" : "", "email" : "", "defaultHours": [], "events": [["eventUID": "null", "title": "null"]]]
+                savedName = fetchedUserDocument["name"] as! String
+                savedEmail = fetchedUserDocument["email"] as! String
+                savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+                inputUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+                savedUserEvents = fetchedUserDocument["events"] as! [[String: Any]]
+                configuredDefaults = true
+                return true
+            }
+            return false
         }
         catch {
             errorMessage = error.localizedDescription
@@ -307,7 +310,7 @@ extension AuthenticationViewModel {
         eventToAdd["everyoneConfirmed"] = everyoneConfirmedStatus
         
         
-
+        
         let eventUID = eventToAdd["eventUID"] as! String
         let participantIDs = eventToAdd["participantIDs"] as! [String]
         let creatorID = participantIDs[0]
@@ -418,7 +421,7 @@ extension AuthenticationViewModel {
                 // start looping
                 for userIDString in participantIDs {
                     do {
-            
+                        
                         // getting all the events of the invitee first
                         let inviteeDocument = try await Firestore.firestore().collection("users").document(userIDString).getDocument()
                         
