@@ -108,12 +108,12 @@ struct HomeViewThreeView: View {
                 .padding(.top, getRelativeHeight(30.0))
                 .padding(.bottom, getRelativeHeight(10.0))
                 Group {
-//                    NavigationLink(destination: EventView(),
-//                                   tag: "EventView",
-//                                   selection: $homeViewThreeViewModel.nextScreen,
-//                                   label: {
-//                                       EmptyView()
-//                                   })
+                    NavigationLink(destination: EventView(),
+                                   tag: "EventView",
+                                   selection: $homeViewThreeViewModel.nextScreen,
+                                   label: {
+                                       EmptyView()
+                                   })
                     NavigationLink(destination: EventCreationView(),
                                    tag: "EventCreationView",
                                    selection: $homeViewThreeViewModel.nextScreen,

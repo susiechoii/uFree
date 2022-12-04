@@ -560,12 +560,12 @@ struct AppnavigationView: View {
                                    label: {
                                        EmptyView()
                                    })
-//                    NavigationLink(destination: EventView(),
-//                                   tag: "EventView",
-//                                   selection: $appnavigationViewModel.nextScreen,
-//                                   label: {
-//                                       EmptyView()
-//                                   })
+                    NavigationLink(destination: EventView(),
+                                   tag: "EventView",
+                                   selection: $appnavigationViewModel.nextScreen,
+                                   label: {
+                                       EmptyView()
+                                   })
                     NavigationLink(destination: EditDefaultforEventScreenView(),
                                    tag: "EditDefaultforEventScreenView",
                                    selection: $appnavigationViewModel.nextScreen,
@@ -590,12 +590,12 @@ struct AppnavigationView: View {
                                    label: {
                                        EmptyView()
                                    })
-//                    NavigationLink(destination: OptimalTimeView(),
-//                                   tag: "OptimalTimeView",
-//                                   selection: $appnavigationViewModel.nextScreen,
-//                                   label: {
-//                                       EmptyView()
-//                                   })
+                    NavigationLink(destination: OptimalTimeView(),
+                                   tag: "OptimalTimeView",
+                                   selection: $appnavigationViewModel.nextScreen,
+                                   label: {
+                                       EmptyView()
+                                   })
                     NavigationLink(destination: HomeViewFourView(),
                                    tag: "HomeViewFourView",
                                    selection: $appnavigationViewModel.nextScreen,

@@ -1,73 +1,19 @@
 import SwiftUI
-import Firebase
-import FirebaseFirestore
 
 struct GenericCell: View {
-    @EnvironmentObject var viewModel:AuthenticationViewModel
-    
-    // index value of generic cell as passed in from home model
-    var indexValue: Int
-    var dateFormatter = DateFormatter()
-    
-    var eventUID: String!
     var title: String!
+    var indexValue: Int!
     var date: String!
-    var time: String!
-    var description: String!
-    var duration: Int!
+    var duration: String!
     
-    var participantIDs: [String]!
-
-    var isCreator: Bool!
-    var isShared: Bool!
-    
-    var selfConfirmed: Bool!
-    var everyoneConfirmed: Bool!
-    var creatorConfirmed: Bool!
-    
-    var allUserHours: [String: [Int]]!
-    
-    init(indexValue: Int, particularEvent: [String: Any]) {
+    init(title: String, indexValue: Int, date: String, duration: String) {
+        self.title = title
         self.indexValue = indexValue
+        self.date = date
+        self.duration = duration
+        print("Creating Generic Cell: Index: \(indexValue)")
         
-        self.eventUID = particularEvent["eventUID"] as! String
-        self.title = particularEvent["title"] as! String
-        
-        var dateObject = (particularEvent["date"] as! Timestamp).dateValue()
-        dateFormatter.locale = Locale(identifier: "en_US")
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        self.date = dateFormatter.string(from:dateObject)
-        
-        dateFormatter.dateFormat = "HH:mm"
-        self.time = dateFormatter.string(from:dateObject)
-        
-        self.description = particularEvent["description"] as! String
-        self.duration = particularEvent["duration"] as! Int
-        
-        self.participantIDs = particularEvent["participantIDs"] as! [String]
-        
-        self.isCreator = particularEvent["isCreator"] as! Bool
-        self.isShared = particularEvent["isShared"] as! Bool
-        
-        self.selfConfirmed = particularEvent["selfConfirmed"] as! Bool
-        self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
-        self.creatorConfirmed = particularEvent["creatorConfirmed"] as! Bool
-        
-        self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
-    
-    func checkIfAllInviteesConfirmed() -> Bool {
-        for (_, userHours) in allUserHours {
-            if (userHours == []) {
-                print("NOT ALL INVITEES HAVE CONFIRMED")
-                return false
-                
-            }
-        }
-        print("ALL INVITEES HAVE CONFIRMED")
-        return true
-    }
-    
     
     var body: some View {
         VStack {
@@ -85,31 +31,16 @@ struct GenericCell: View {
             .frame(width: getRelativeWidth(341.0), height: getRelativeHeight(200.0),
                    alignment: .leading)
             .background(ColorConstants.Blue100)
-            
-            if (everyoneConfirmed == true) {
-                Text(self.date + " | " + self.time + " | Duration: " + String(describing: self.duration as! Int))
-                        .font(FontScheme.kInterRegular(size: getRelativeHeight(14.0)))
-                        .fontWeight(.regular)
-                        .foregroundColor(ColorConstants.Bluegray600)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.leading)
-                        .frame(width: getRelativeWidth(206.0), height: getRelativeHeight(16.0),
-                               alignment: .leading)
-                        .padding(.top, getRelativeHeight(16.0))
-                        .padding(.horizontal, getRelativeWidth(16.0))
-            } else {
-                Text(self.date + " | Time Pending | Duration: " + String(describing: self.duration as! Int))
-                        .font(FontScheme.kInterRegular(size: getRelativeHeight(14.0)))
-                        .fontWeight(.regular)
-                        .foregroundColor(ColorConstants.Bluegray600)
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.leading)
-                        .frame(width: getRelativeWidth(206.0), height: getRelativeHeight(16.0),
-                               alignment: .leading)
-                        .padding(.top, getRelativeHeight(16.0))
-                        .padding(.horizontal, getRelativeWidth(16.0))
-            }
-            
+            Text(self.date + " | Duration: " + self.duration)
+                .font(FontScheme.kInterRegular(size: getRelativeHeight(14.0)))
+                .fontWeight(.regular)
+                .foregroundColor(ColorConstants.Bluegray600)
+                .minimumScaleFactor(0.5)
+                .multilineTextAlignment(.leading)
+                .frame(width: getRelativeWidth(206.0), height: getRelativeHeight(16.0),
+                       alignment: .leading)
+                .padding(.top, getRelativeHeight(16.0))
+                .padding(.horizontal, getRelativeWidth(16.0))
             Text(self.title)
                 .font(FontScheme.kInterBold(size: getRelativeHeight(24.0)))
                 .fontWeight(.bold)
@@ -124,30 +55,15 @@ struct GenericCell: View {
         .frame(width: getRelativeWidth(341.0), alignment: .leading)
         .background(RoundedCorners(topLeft: 16.0, topRight: 16.0, bottomLeft: 16.0,
                                    bottomRight: 16.0)
-            .fill(isShared ? (
-            
-                checkIfAllInviteesConfirmed() ?
-                (
-                    isCreator ? (
-                        !selfConfirmed ? ColorConstants.OrangeA200 : ColorConstants.WhiteA700
-                    ) : !creatorConfirmed ? ColorConstants.Gray300 : ColorConstants.WhiteA700
-                ) : (
-                    isCreator ? ColorConstants.Amber100 : (
-                        selfConfirmed ? ColorConstants.Gray100 : ColorConstants.Red50
-                    )
-                )
-            
-            ) : ColorConstants.WhiteA700))
+                .fill(ColorConstants.WhiteA700))
         .shadow(color: ColorConstants.Black9001e, radius: 16, x: 0, y: 8)
         .hideNavigationBar()
     }
 }
 
-
-
-struct GenericCell_Previews: PreviewProvider {
+/* struct GenericCell_Previews: PreviewProvider {
 
  static var previews: some View {
-     GenericCell(indexValue: 1, particularEvent: ["eventUID" : "1", "title" : "eventTitle", "date" : "", "description" : "Test Description", "duration": 1, "participantIDs" : ["UID1", "UID2"], "isCreator" : true, "isShared": false, "everyConfirmed" : true, "allUserHours" : ["creator" : [0,1,2,3]]]).environmentObject(AuthenticationViewModel())
+ 			GenericCell()
  }
-}
+ } */

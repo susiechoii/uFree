@@ -3,10 +3,6 @@ import SwiftUI
 struct EventEditView: View {
     @StateObject var eventEditViewModel = EventEditViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    
-    @EnvironmentObject var viewModel: AuthenticationViewModel
-    
-    
     var body: some View {
         VStack {
             VStack(alignment: .trailing, spacing: 0) {
@@ -403,6 +399,6 @@ struct EventEditView: View {
 
 struct EventEditView_Previews: PreviewProvider {
     static var previews: some View {
-        EventEditView().environmentObject(AuthenticationViewModel())
+        EventEditView()
     }
 }

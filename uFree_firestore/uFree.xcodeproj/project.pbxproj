@@ -17,6 +17,7 @@
 		20A90ECAA275788D78672932 /* NunitoSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9B68355BB1A2D22C140EF6F /* NunitoSemiBold.ttf */; };
 		242031D481BD18B249130B08 /* OnboardAvailabilityScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FBF13C1AEA646897CF26F6 /* OnboardAvailabilityScreenView.swift */; };
 		2A472A0C1B100F049FA92387 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C369B8B8619086178FE5E379 /* HomePageView.swift */; };
+		2AFDB9A14341E21FA5FFFD26 /* Pods_uFree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87C83DD45DD9BE46DDB10510 /* Pods_uFree.framework */; };
 		2C3741BC14C329EF26635CE4 /* InterBlack.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FC5EC62FDE098DCC01BEB3FF /* InterBlack.ttf */; };
 		305D9A5CBF58F17DA6B99300 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318AE7C0A1F7F1A885251721 /* EventView.swift */; };
 		331D81A236E82E08054B0BA7 /* DaysTimeSele1Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1090072EEB5CCFF4E0914D33 /* DaysTimeSele1Cell.swift */; };
@@ -32,8 +33,6 @@
 		5132C3CB292AF04A0050D887 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5132C3CA292AF04A0050D887 /* GoogleService-Info.plist */; };
 		5132C3CE292AF17E0050D887 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5132C3CD292AF17E0050D887 /* FirebaseAnalytics */; };
 		5132C3D0292AF17E0050D887 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5132C3CF292AF17E0050D887 /* FirebaseAnalyticsSwift */; };
-		5156CA19293C579A0004EC27 /* CreatorConfirmTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156CA18293C579A0004EC27 /* CreatorConfirmTimeView.swift */; };
-		5156CA1B293C57D20004EC27 /* CreatorConfirmTimeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5156CA1A293C57D20004EC27 /* CreatorConfirmTimeCellView.swift */; };
 		5198EB87292AF5B7003BD2AD /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5198EB86292AF5B7003BD2AD /* FirebaseAnalytics */; };
 		5198EB89292AF5B7003BD2AD /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5198EB88292AF5B7003BD2AD /* FirebaseAnalyticsSwift */; };
 		5198EB8B292AF793003BD2AD /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5198EB8A292AF793003BD2AD /* FirebaseDatabase */; };
@@ -111,7 +110,6 @@
 		EF18A69EFF2BD61B5D69C980 /* HomeViewFiveViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557A2D63EB4ADC42E62062C0 /* HomeViewFiveViewModel.swift */; };
 		EF3695DE2B1D9576195E66ED /* WeeklyView1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4A00A4DFCF0F339764E2C /* WeeklyView1View.swift */; };
 		EF475FA99D14910FB524682A /* FriendsPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAD45B6DC1B67DC86B16B49 /* FriendsPageViewModel.swift */; };
-		EF62055DF5F8CB2490BF58AA /* Pods_uFree.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A3143EDDE9213326B2F639A /* Pods_uFree.framework */; };
 		EFB069B2BFF27504CB5BD5CB /* Stackrectanglenineone1Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDF6BAB6A536FD077330C36 /* Stackrectanglenineone1Cell.swift */; };
 		F274770B1DB9358D34F4339A /* IntroPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13499CDB254E33937094786A /* IntroPageView.swift */; };
 		F37B74C1F7CAD95C0917A041 /* HomeViewThreeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AA3763172AA61799E60670 /* HomeViewThreeViewModel.swift */; };
@@ -131,6 +129,7 @@
 		12ED355F5668AFADA86D23CA /* InterExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = InterExtraBold.ttf; sourceTree = "<group>"; };
 		13499CDB254E33937094786A /* IntroPageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntroPageView.swift; sourceTree = "<group>"; };
 		17513D7CCF82DCB465E0A41A /* HomeViewTwoViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewTwoViewModel.swift; sourceTree = "<group>"; };
+		189A54238DCEB62D9DC06DBD /* Pods-uFree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.debug.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.debug.xcconfig"; sourceTree = "<group>"; };
 		19EB68457336764D4A206D89 /* InterExtraLight.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = InterExtraLight.ttf; sourceTree = "<group>"; };
 		1AAD45B6DC1B67DC86B16B49 /* FriendsPageViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FriendsPageViewModel.swift; sourceTree = "<group>"; };
 		1B6CEC0AF9EE57365C7877BE /* RobotoBlack.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = RobotoBlack.ttf; sourceTree = "<group>"; };
@@ -155,8 +154,6 @@
 		4BC4F0B8FA512AFB815B1204 /* RalewaySemiBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = RalewaySemiBold.ttf; sourceTree = "<group>"; };
 		4C46BBFBBB615816C0448749 /* EditDefaultforEventScreenViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EditDefaultforEventScreenViewModel.swift; sourceTree = "<group>"; };
 		5132C3CA292AF04A0050D887 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5156CA18293C579A0004EC27 /* CreatorConfirmTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorConfirmTimeView.swift; sourceTree = "<group>"; };
-		5156CA1A293C57D20004EC27 /* CreatorConfirmTimeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatorConfirmTimeCellView.swift; sourceTree = "<group>"; };
 		5198EB8E292AFD2F003BD2AD /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		519D43872934AA0B00FCE23B /* PrimaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryView.swift; sourceTree = "<group>"; };
 		519D438C2934ABC100FCE23B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -165,7 +162,6 @@
 		5529F3DA16F4C0899FFF6363 /* AppnavigationViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppnavigationViewModel.swift; sourceTree = "<group>"; };
 		557A2D63EB4ADC42E62062C0 /* HomeViewFiveViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewFiveViewModel.swift; sourceTree = "<group>"; };
 		584EEA0AAC30F9EFD087A150 /* EventABubbleCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EventABubbleCell.swift; sourceTree = "<group>"; };
-		5A3143EDDE9213326B2F639A /* Pods_uFree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uFree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D7CECB28FE1D14F40D8A42C /* HomePageViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomePageViewModel.swift; sourceTree = "<group>"; };
 		6640E0444C5B629392259285 /* HomeViewTwoView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeViewTwoView.swift; sourceTree = "<group>"; };
 		66D6AA09BA141D7FA585AEAC /* PagerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
@@ -175,11 +171,11 @@
 		77B722934010E0D6525EF81E /* SignInView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		78AE37BD33992DECDA0FBB96 /* EventEditView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EventEditView.swift; sourceTree = "<group>"; };
 		79CFF0B7A5577E3009E9567F /* ResetCodeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ResetCodeView.swift; sourceTree = "<group>"; };
-		7BDB49C7B87549F3F10504BB /* Pods-uFree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.release.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.release.xcconfig"; sourceTree = "<group>"; };
 		7CDF6BAB6A536FD077330C36 /* Stackrectanglenineone1Cell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Stackrectanglenineone1Cell.swift; sourceTree = "<group>"; };
 		7E915332D916E3DB981E508F /* Validation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		7F44DBA027422A5D00171570 /* ActivityLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLoader.swift; sourceTree = "<group>"; };
 		84C4A00A4DFCF0F339764E2C /* WeeklyView1View.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeeklyView1View.swift; sourceTree = "<group>"; };
+		87C83DD45DD9BE46DDB10510 /* Pods_uFree.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_uFree.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		884F3E5027B0E65A00963FC4 /* RoundedCornersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCornersView.swift; sourceTree = "<group>"; };
 		8853052527718DC500B04E6F /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		8853052927718E2D00B04E6F /* EncodableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
@@ -195,7 +191,6 @@
 		88ED74FD272FFECA0088E3EF /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		88ED74FF272FFECA0088E3EF /* uFreeApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = uFreeApp.swift; sourceTree = "<group>"; };
 		8BB7166AE0F72DCA674EB4FF /* EditDefaultforEventScreenView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = EditDefaultforEventScreenView.swift; sourceTree = "<group>"; };
-		903C53847328BE6D94E81559 /* Pods-uFree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.debug.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.debug.xcconfig"; sourceTree = "<group>"; };
 		950CB3FB5960D3EA609D4962 /* SignInViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		9985A360CF3F64DDC9BD93C1 /* MonthlyCalendarViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MonthlyCalendarViewModel.swift; sourceTree = "<group>"; };
 		9B2C37D73D9CB338D8E42323 /* ListCardCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ListCardCell.swift; sourceTree = "<group>"; };
@@ -215,6 +210,7 @@
 		D7EE11CE7E8B7B44214AD637 /* MontserratExtraBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = MontserratExtraBold.ttf; sourceTree = "<group>"; };
 		E0D4D0E6C3CAF2C5B54FF9B3 /* RobotoRomanThin.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = RobotoRomanThin.ttf; sourceTree = "<group>"; };
 		E1CF91695C31A22EFE6A8AC3 /* StringScheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StringScheme.swift; sourceTree = "<group>"; };
+		E66148BD457076FDD322E579 /* Pods-uFree.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-uFree.release.xcconfig"; path = "Target Support Files/Pods-uFree/Pods-uFree.release.xcconfig"; sourceTree = "<group>"; };
 		E6A790E7E73226EF5E9E0A5A /* InterRegular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = InterRegular.ttf; sourceTree = "<group>"; };
 		E7ACB40289D76E51365C5EA3 /* WeeklyView1ViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WeeklyView1ViewModel.swift; sourceTree = "<group>"; };
 		E8B69CC4F94989BD6675D3E1 /* MontserratRomanRegular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = MontserratRomanRegular.ttf; sourceTree = "<group>"; };
@@ -242,8 +238,8 @@
 				5198EB8D292AF9B5003BD2AD /* FirebaseAuth in Frameworks */,
 				519D438F2934C10100FCE23B /* FirebaseFirestore in Frameworks */,
 				5132C3CE292AF17E0050D887 /* FirebaseAnalytics in Frameworks */,
+				2AFDB9A14341E21FA5FFFD26 /* Pods_uFree.framework in Frameworks */,
 				519D43912934C10A00FCE23B /* FirebaseFirestoreSwift in Frameworks */,
-				EF62055DF5F8CB2490BF58AA /* Pods_uFree.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,20 +331,19 @@
 				519D43892934AA1200FCE23B /* PrimaryView */,
 				29434A1779A32D44E546E2E5 /* HomePageView */,
 				2220BE66224F7F9772B5BCFC /* EventCreationView */,
-				E46803C4EA0F6D53323B1FE3 /* EventView */,
-				A6195AEF36A8F76B323C387C /* OptimalTimeView */,
-				5156CA17293C57440004EC27 /* CreatorConfirmTimeView */,
-				BCB69671167C497D6CEAE976 /* ProfileView */,
-				8DFEA416017EA64806A7DE60 /* EventEditView */,
 				0563A4E473E37D5303C84B31 /* MonthlyCalendarView */,
 				F7AADA805683CDA3C0F816BE /* WeeklyView */,
 				AFFF46C140018E666EB31054 /* WeeklyView1View */,
 				83A090F01A3D3531E1DA7DC3 /* FriendsPageView */,
+				BCB69671167C497D6CEAE976 /* ProfileView */,
 				718C5F34A865C410E8F1BBF1 /* ResetCodeView */,
 				803C144871FCFEC7B8F2AF77 /* ResetPasswordView */,
 				F3DB1926EB69CDC0B6C07E50 /* HomeViewTwoView */,
+				E46803C4EA0F6D53323B1FE3 /* EventView */,
 				A5E99AA8B992240685376016 /* EditDefaultforEventScreenView */,
 				3068EE7E361BC3DD809CC9B4 /* HomeViewThreeView */,
+				8DFEA416017EA64806A7DE60 /* EventEditView */,
+				A6195AEF36A8F76B323C387C /* OptimalTimeView */,
 				02F01A134E54B20C459B42EC /* HomeViewFourView */,
 				479364D9AB277613B6799035 /* HomeViewFiveView */,
 				766E4703ECA0B97925C63513 /* AppnavigationView */,
@@ -389,15 +384,6 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		5156CA17293C57440004EC27 /* CreatorConfirmTimeView */ = {
-			isa = PBXGroup;
-			children = (
-				5156CA18293C579A0004EC27 /* CreatorConfirmTimeView.swift */,
-				5156CA1A293C57D20004EC27 /* CreatorConfirmTimeCellView.swift */,
-			);
-			path = CreatorConfirmTimeView;
-			sourceTree = "<group>";
-		};
 		519D43892934AA1200FCE23B /* PrimaryView */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,14 +391,6 @@
 			);
 			name = PrimaryView;
 			path = ../PrimaryView;
-			sourceTree = "<group>";
-		};
-		52E2627DF9B6E63BEBAEBBA7 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				5A3143EDDE9213326B2F639A /* Pods_uFree.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		5E15ECAC31A69ED05AD05ABB /* Cell */ = {
@@ -426,8 +404,8 @@
 		6F608FE24A7ED711BB129FFD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				903C53847328BE6D94E81559 /* Pods-uFree.debug.xcconfig */,
-				7BDB49C7B87549F3F10504BB /* Pods-uFree.release.xcconfig */,
+				189A54238DCEB62D9DC06DBD /* Pods-uFree.debug.xcconfig */,
+				E66148BD457076FDD322E579 /* Pods-uFree.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -537,7 +515,7 @@
 				88ED74E6272FFE6E0088E3EF /* uFree */,
 				88ED74E5272FFE6E0088E3EF /* Products */,
 				6F608FE24A7ED711BB129FFD /* Pods */,
-				52E2627DF9B6E63BEBAEBBA7 /* Frameworks */,
+				C8F79036C1768BCFC929DF30 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -733,6 +711,14 @@
 			path = ProfileView;
 			sourceTree = "<group>";
 		};
+		C8F79036C1768BCFC929DF30 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				87C83DD45DD9BE46DDB10510 /* Pods_uFree.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CFFE5F457B63828F5FA8DE6D /* IntroPageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,11 +789,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 88ED74F3272FFE6F0088E3EF /* Build configuration list for PBXNativeTarget "uFree" */;
 			buildPhases = (
-				D17307ED7EEC6ED9F262D8C3 /* [CP] Check Pods Manifest.lock */,
+				0A5A6F4FFBFF7EB9408C6AB8 /* [CP] Check Pods Manifest.lock */,
 				88ED74E0272FFE6E0088E3EF /* Sources */,
 				88ED74E1272FFE6E0088E3EF /* Frameworks */,
 				88ED74E2272FFE6E0088E3EF /* Resources */,
-				D659D0A87F387CEFB27F89A4 /* [CP] Embed Pods Frameworks */,
+				9628362E1F619035F8E677F9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -898,7 +884,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D17307ED7EEC6ED9F262D8C3 /* [CP] Check Pods Manifest.lock */ = {
+		0A5A6F4FFBFF7EB9408C6AB8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -920,7 +906,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D659D0A87F387CEFB27F89A4 /* [CP] Embed Pods Frameworks */ = {
+		9628362E1F619035F8E677F9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -960,7 +946,6 @@
 				60025E34DDCCCDE67A6C313E /* ColorConstants.swift in Sources */,
 				ED753A42143A4B465FDEBC4B /* FontScheme.swift in Sources */,
 				F274770B1DB9358D34F4339A /* IntroPageView.swift in Sources */,
-				5156CA1B293C57D20004EC27 /* CreatorConfirmTimeCellView.swift in Sources */,
 				929E176D09B5A9EAA291A273 /* SignUpView.swift in Sources */,
 				FAB6663C2D7F90EF4CD507CE /* SignInView.swift in Sources */,
 				2A472A0C1B100F049FA92387 /* HomePageView.swift in Sources */,
@@ -986,7 +971,6 @@
 				4D4570269934788E854FEBC8 /* DaysTimeSeleCell.swift in Sources */,
 				242031D481BD18B249130B08 /* OnboardAvailabilityScreenView.swift in Sources */,
 				331D81A236E82E08054B0BA7 /* DaysTimeSele1Cell.swift in Sources */,
-				5156CA19293C579A0004EC27 /* CreatorConfirmTimeView.swift in Sources */,
 				E22D0FB016A0B36DBE59C396 /* HomeViewThreeView.swift in Sources */,
 				5427AC06BFAA98F89DD364AE /* ListCard1Cell.swift in Sources */,
 				7C75621779B58AD8E0E5A55E /* EventEditView.swift in Sources */,
@@ -1148,7 +1132,7 @@
 		};
 		88ED74F4272FFE6F0088E3EF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 903C53847328BE6D94E81559 /* Pods-uFree.debug.xcconfig */;
+			baseConfigurationReference = 189A54238DCEB62D9DC06DBD /* Pods-uFree.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "uFree-AppIcon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1172,7 +1156,7 @@
 		};
 		88ED74F5272FFE6F0088E3EF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7BDB49C7B87549F3F10504BB /* Pods-uFree.release.xcconfig */;
+			baseConfigurationReference = E66148BD457076FDD322E579 /* Pods-uFree.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "uFree-AppIcon";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

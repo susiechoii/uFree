@@ -3,10 +3,7 @@
 
 import SwiftUI
 import Combine
-import Firebase
-import FirebaseCore
-import FirebaseFirestore
-import FirebaseAuth
+import FirebaseAnalyticsSwift
 
 // to prepare the email and password field to hash
 private enum FocusableField: Hashable {
@@ -23,8 +20,8 @@ struct SignInView: View {
     @Environment(\.dismiss) var dismiss
     
     // State variables for email and user input
-    @State var inputEmail = ""
-    @State var inputPassword = ""
+    @State var userEmailInput = ""
+    @State var userPasswordInput = ""
     
     // Variable for the back button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -35,7 +32,7 @@ struct SignInView: View {
     // Function to sign in with email and password
     private func signInWithEmailPassword() {
         Task {
-            if await viewModel.signInWithEmailPassword(inputEmail: inputEmail, inputPassword: inputPassword) == true {
+            if await viewModel.signInWithEmailPassword() == true {
                 print("DEBUG: Back at sign in view, sign in true with email:")
             }
         }
@@ -102,7 +99,7 @@ struct SignInView: View {
                         // LOGIN EMAIL VSTACK
                         HStack {
                             TextField("Email",
-                                      text: $inputEmail)
+                                      text: $viewModel.inputEmail)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(14.0)))
                             .foregroundColor(ColorConstants.Black900Cc)
@@ -130,7 +127,7 @@ struct SignInView: View {
                         // LOGIN PASSWORD VSTACK
                         HStack {
                             SecureField("Password",
-                                        text: $inputPassword)
+                                        text: $viewModel.inputPassword)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(14)))
                             .foregroundColor(ColorConstants.Black900Cc)

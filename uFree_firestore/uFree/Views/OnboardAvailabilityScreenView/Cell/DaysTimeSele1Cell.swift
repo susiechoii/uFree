@@ -172,7 +172,7 @@ struct DaysTimeSele1Cell: View {
                 let myIndex = index*24+11
                 print(index*24 + 11)
                 
-                if (!didTapRow11) {
+                if (!didTapRow8) {
                     
                     // sanity check to make sure no duplicates exist
                     if !viewModel.savedUserDefaultHours.contains(myIndex) {
