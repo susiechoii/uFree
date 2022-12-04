@@ -94,127 +94,127 @@ struct ProfileView: View {
                                            height: getRelativeHeight(32.0), alignment: .topLeading)
                                     .padding(.top, getRelativeHeight(28.0))
                                     .padding(.horizontal, getRelativeWidth(67.0))
-                                HStack {
-                                    Image("img_icon_14X14")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(14.0),
-                                               height: getRelativeWidth(14.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.top, getRelativeHeight(11.0))
-                                        .padding(.bottom, getRelativeHeight(12.0))
-                                        .padding(.leading, getRelativeWidth(111.0))
-                                    Text(StringConstants.kLblEditProfile)
-                                        .font(FontScheme
-                                            .kInterMedium(size: getRelativeHeight(16.0)))
-                                        .fontWeight(.medium)
-                                        .foregroundColor(ColorConstants.Purple400)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(width: getRelativeWidth(83.0),
-                                               height: getRelativeHeight(16.0),
-                                               alignment: .topLeading)
-                                        .padding(.vertical, getRelativeHeight(11.0))
-                                        .padding(.leading, getRelativeWidth(10.0))
-                                        .padding(.trailing, getRelativeWidth(108.0))
-                                }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(38.0), alignment: .leading)
-                                .overlay(RoundedCorners(topLeft: 19.0, topRight: 19.0,
-                                                        bottomLeft: 19.0, bottomRight: 19.0)
-                                        .stroke(ColorConstants.Purple400,
-                                                lineWidth: 1))
-                                .background(RoundedCorners(topLeft: 19.0, topRight: 19.0,
-                                                           bottomLeft: 19.0, bottomRight: 19.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                .padding(.top, getRelativeHeight(21.0))
-                                HStack {
-                                    HStack {
-                                        Image("img_icon_18X16")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(16.0),
-                                                   height: getRelativeHeight(18.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                        Text(StringConstants.kLblChangePassword)
-                                            .font(FontScheme
-                                                .kInterMedium(size: getRelativeHeight(16.0)))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(ColorConstants.Gray903)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: getRelativeWidth(139.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .topLeading)
-                                            .padding(.leading, getRelativeWidth(16.0))
-                                    }
-                                    .frame(width: getRelativeWidth(171.0),
-                                           height: getRelativeHeight(20.0), alignment: .center)
-                                    .padding(.top, getRelativeHeight(19.0))
-                                    .padding(.bottom, getRelativeHeight(17.0))
-                                    .padding(.leading, getRelativeWidth(12.0))
-                                    Spacer()
-                                    Image("img_arrowright")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(4.0),
-                                               height: getRelativeHeight(9.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.vertical, getRelativeHeight(25.0))
-                                        .padding(.trailing, getRelativeWidth(13.0))
-                                }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
-                                .padding(.top, getRelativeHeight(17.0))
-                                HStack {
-                                    HStack {
-                                        Image("img_icon_1")
-                                            .resizable()
-                                            .frame(width: getRelativeWidth(16.0),
-                                                   height: getRelativeHeight(18.0),
-                                                   alignment: .center)
-                                            .scaledToFit()
-                                            .clipped()
-                                        Text(StringConstants.kLblNotifications)
-                                            .font(FontScheme
-                                                .kInterMedium(size: getRelativeHeight(16.0)))
-                                            .fontWeight(.medium)
-                                            .foregroundColor(ColorConstants.Gray903)
-                                            .minimumScaleFactor(0.5)
-                                            .multilineTextAlignment(.leading)
-                                            .frame(width: getRelativeWidth(98.0),
-                                                   height: getRelativeHeight(16.0),
-                                                   alignment: .topLeading)
-                                            .padding(.leading, getRelativeWidth(16.0))
-                                    }
-                                    .frame(width: getRelativeWidth(130.0),
-                                           height: getRelativeHeight(18.0), alignment: .center)
-                                    .padding(.vertical, getRelativeHeight(19.0))
-                                    .padding(.leading, getRelativeWidth(12.0))
-                                    Spacer()
-                                    Text(StringConstants.kLblAllActive)
-                                        .font(FontScheme
-                                            .kInterRegular(size: getRelativeHeight(12.0)))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(ColorConstants.Gray600)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.leading)
-                                        .frame(width: getRelativeWidth(52.0),
-                                               height: getRelativeHeight(15.0),
-                                               alignment: .topLeading)
-                                        .padding(.top, getRelativeHeight(22.0))
-                                        .padding(.bottom, getRelativeHeight(19.0))
-                                        .padding(.trailing, getRelativeWidth(8.0))
-                                }
-                                .frame(width: getRelativeWidth(328.0),
-                                       height: getRelativeHeight(56.0), alignment: .leading)
-                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
-                                                           bottomLeft: 8.0, bottomRight: 8.0)
-                                        .fill(ColorConstants.WhiteA700))
+//                                HStack {
+//                                    Image("img_icon_14X14")
+//                                        .resizable()
+//                                        .frame(width: getRelativeWidth(14.0),
+//                                               height: getRelativeWidth(14.0), alignment: .center)
+//                                        .scaledToFit()
+//                                        .clipped()
+//                                        .padding(.top, getRelativeHeight(11.0))
+//                                        .padding(.bottom, getRelativeHeight(12.0))
+//                                        .padding(.leading, getRelativeWidth(111.0))
+//                                    Text(StringConstants.kLblEditProfile)
+//                                        .font(FontScheme
+//                                            .kInterMedium(size: getRelativeHeight(16.0)))
+//                                        .fontWeight(.medium)
+//                                        .foregroundColor(ColorConstants.Purple400)
+//                                        .minimumScaleFactor(0.5)
+//                                        .multilineTextAlignment(.leading)
+//                                        .frame(width: getRelativeWidth(83.0),
+//                                               height: getRelativeHeight(16.0),
+//                                               alignment: .topLeading)
+//                                        .padding(.vertical, getRelativeHeight(11.0))
+//                                        .padding(.leading, getRelativeWidth(10.0))
+//                                        .padding(.trailing, getRelativeWidth(108.0))
+//                                }
+//                                .frame(width: getRelativeWidth(328.0),
+//                                       height: getRelativeHeight(38.0), alignment: .leading)
+//                                .overlay(RoundedCorners(topLeft: 19.0, topRight: 19.0,
+//                                                        bottomLeft: 19.0, bottomRight: 19.0)
+//                                        .stroke(ColorConstants.Purple400,
+//                                                lineWidth: 1))
+//                                .background(RoundedCorners(topLeft: 19.0, topRight: 19.0,
+//                                                           bottomLeft: 19.0, bottomRight: 19.0)
+//                                        .fill(ColorConstants.WhiteA700))
+//                                .padding(.top, getRelativeHeight(21.0))
+//                                HStack {
+//                                    HStack {
+//                                        Image("img_icon_18X16")
+//                                            .resizable()
+//                                            .frame(width: getRelativeWidth(16.0),
+//                                                   height: getRelativeHeight(18.0),
+//                                                   alignment: .center)
+//                                            .scaledToFit()
+//                                            .clipped()
+//                                        Text(StringConstants.kLblChangePassword)
+//                                            .font(FontScheme
+//                                                .kInterMedium(size: getRelativeHeight(16.0)))
+//                                            .fontWeight(.medium)
+//                                            .foregroundColor(ColorConstants.Gray903)
+//                                            .minimumScaleFactor(0.5)
+//                                            .multilineTextAlignment(.leading)
+//                                            .frame(width: getRelativeWidth(139.0),
+//                                                   height: getRelativeHeight(16.0),
+//                                                   alignment: .topLeading)
+//                                            .padding(.leading, getRelativeWidth(16.0))
+//                                    }
+//                                    .frame(width: getRelativeWidth(171.0),
+//                                           height: getRelativeHeight(20.0), alignment: .center)
+//                                    .padding(.top, getRelativeHeight(19.0))
+//                                    .padding(.bottom, getRelativeHeight(17.0))
+//                                    .padding(.leading, getRelativeWidth(12.0))
+//                                    Spacer()
+//                                    Image("img_arrowright")
+//                                        .resizable()
+//                                        .frame(width: getRelativeWidth(4.0),
+//                                               height: getRelativeHeight(9.0), alignment: .center)
+//                                        .scaledToFit()
+//                                        .clipped()
+//                                        .padding(.vertical, getRelativeHeight(25.0))
+//                                        .padding(.trailing, getRelativeWidth(13.0))
+//                                }
+//                                .frame(width: getRelativeWidth(328.0),
+//                                       height: getRelativeHeight(56.0), alignment: .leading)
+//                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
+//                                                           bottomLeft: 8.0, bottomRight: 8.0)
+//                                        .fill(ColorConstants.WhiteA700))
+//                                .padding(.top, getRelativeHeight(17.0))
+//                                HStack {
+//                                    HStack {
+//                                        Image("img_icon_1")
+//                                            .resizable()
+//                                            .frame(width: getRelativeWidth(16.0),
+//                                                   height: getRelativeHeight(18.0),
+//                                                   alignment: .center)
+//                                            .scaledToFit()
+//                                            .clipped()
+//                                        Text(StringConstants.kLblNotifications)
+//                                            .font(FontScheme
+//                                                .kInterMedium(size: getRelativeHeight(16.0)))
+//                                            .fontWeight(.medium)
+//                                            .foregroundColor(ColorConstants.Gray903)
+//                                            .minimumScaleFactor(0.5)
+//                                            .multilineTextAlignment(.leading)
+//                                            .frame(width: getRelativeWidth(98.0),
+//                                                   height: getRelativeHeight(16.0),
+//                                                   alignment: .topLeading)
+//                                            .padding(.leading, getRelativeWidth(16.0))
+//                                    }
+//                                    .frame(width: getRelativeWidth(130.0),
+//                                           height: getRelativeHeight(18.0), alignment: .center)
+//                                    .padding(.vertical, getRelativeHeight(19.0))
+//                                    .padding(.leading, getRelativeWidth(12.0))
+//                                    Spacer()
+//                                    Text(StringConstants.kLblAllActive)
+//                                        .font(FontScheme
+//                                            .kInterRegular(size: getRelativeHeight(12.0)))
+//                                        .fontWeight(.regular)
+//                                        .foregroundColor(ColorConstants.Gray600)
+//                                        .minimumScaleFactor(0.5)
+//                                        .multilineTextAlignment(.leading)
+//                                        .frame(width: getRelativeWidth(52.0),
+//                                               height: getRelativeHeight(15.0),
+//                                               alignment: .topLeading)
+//                                        .padding(.top, getRelativeHeight(22.0))
+//                                        .padding(.bottom, getRelativeHeight(19.0))
+//                                        .padding(.trailing, getRelativeWidth(8.0))
+//                                }
+//                                .frame(width: getRelativeWidth(328.0),
+//                                       height: getRelativeHeight(56.0), alignment: .leading)
+//                                .background(RoundedCorners(topLeft: 8.0, topRight: 8.0,
+//                                                           bottomLeft: 8.0, bottomRight: 8.0)
+//                                        .fill(ColorConstants.WhiteA700))
                                
                                
                                

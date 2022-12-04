@@ -229,6 +229,7 @@ struct PrimaryView: View {
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
     @State private var selectedIndex = 0
+    @State var tabImage = 0
     
     var body: some View {
         TabView(selection: $selectedIndex) {
@@ -237,7 +238,12 @@ struct PrimaryView: View {
                     self.selectedIndex = 0
                 }
                 .tabItem {
+                    if (self.selectedIndex == 0) {
+                        Image("img_vector")
+                    }
+                    else {
                     Image("img_fill1")
+                    }
                 }.tag(0)
             EventCreationView().environmentObject(viewModel)
                 .onTapGesture {
@@ -246,14 +252,24 @@ struct PrimaryView: View {
                         EmptyView()
                     })}
                 .tabItem {
+                    if (self.selectedIndex == 1) {
+                        Image("img_group90")
+                    }
+                    else {
                     Image("img_group90")
+                    }
                 }
             ProfileView().environmentObject(viewModel)
                 .onTapGesture {
                     self.selectedIndex = 2
                 }
                 .tabItem {
+                    if (self.selectedIndex == 2){
+                        Image("img_vector_1")
+                    }
+                    else {
                     Image("img_combinedshape_24X20")
+                    }
                 }
         }
     }

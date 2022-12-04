@@ -195,7 +195,9 @@ struct EventCreationView: View {
                         
                         // Done Button
                         VStack {
-                            Button(action: addNewEventToFirebase, label: {
+                            Button(action: addNewEventToFirebase
+                            
+                                   , label: {
                                 HStack(spacing: 0) {
                                     Text(StringConstants.kLblDone).font(FontScheme.kInterBlack(size: getRelativeHeight(15.0)))
                                         .fontWeight(.black)
