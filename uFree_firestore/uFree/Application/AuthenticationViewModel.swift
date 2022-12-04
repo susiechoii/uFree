@@ -32,11 +32,6 @@ class AuthenticationViewModel: ObservableObject {
     
     // Used during the registration process
     @Published var tempUser: User?
-    @Published var inputName: String = ""
-    @Published var inputEmail: String = ""
-    @Published var inputPassword: String = ""
-    @Published var inputConfirmPassword: String = ""
-    
     
     @Published var inputUserDefaultHours: [Int] = []
     
@@ -51,8 +46,6 @@ class AuthenticationViewModel: ObservableObject {
     @Published var displayName: String = ""
     
     init() {
-        //registerAuthStateHandler()
-        
         user = Auth.auth().currentUser
         
         if (user != nil) {
@@ -62,12 +55,11 @@ class AuthenticationViewModel: ObservableObject {
                 }
                 catch {
                     errorMessage = "DEBUG: No user found."
+                    print("DEBUG: \(errorMessage)")
                 }
-                
             }
         }
     }
-    
     
     
     private func wait() async {
@@ -83,12 +75,12 @@ class AuthenticationViewModel: ObservableObject {
 
 // MARK: - Email and Password Authentication
 extension AuthenticationViewModel {
-    func signInWithEmailPassword() async -> Bool {
+    
+    func signInWithEmailPassword(inputEmail: String, inputPassword: String) async -> Bool {
         
         do {
             let authResult = try await Auth.auth().signIn(withEmail: inputEmail, password: inputPassword)
             user = authResult.user
-            inputPassword = ""
             
             // retrieving the user information
             do {
@@ -120,7 +112,7 @@ extension AuthenticationViewModel {
     }
     
     
-    func addUserToFirestore() async -> Bool {
+    func addUserToFirestore(inputName: String, inputEmail: String, inputPassword: String, inputConfirmPassword: String) async -> Bool {
         
         if inputPassword != inputConfirmPassword {
             errorMessage = "Password fields do not match"
@@ -139,10 +131,10 @@ extension AuthenticationViewModel {
             
         }
         catch {
-            print(error)
+            errorMessage = error.localizedDescription
+            print("DEBUG: \(error.localizedDescription)")
             savedName = ""
             savedEmail = ""
-            errorMessage = error.localizedDescription
             return false
         }
     }
@@ -150,8 +142,10 @@ extension AuthenticationViewModel {
     func registerUserInfoToFirestore() async -> Bool {
         print("SAVED NAME \(savedName)")
         print("SAVED EMAIL \(savedEmail)")
+        
         let data:[String:Any] = ["uid": tempUser!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": [["eventUID": "null", "title": "null"]]]
         inputUserDefaultHours = savedUserDefaultHours
+        
         do {
             try await Firestore.firestore().collection("users").document(tempUser!.uid).setData(data)
             print("DEBUG: Successfully uploaded user configuration data")
@@ -487,9 +481,7 @@ extension AuthenticationViewModel {
             savedEmail = ""
             savedUserDefaultHours = []
             savedUserEvents = [["eventUID" : "null", "title":"null"]]
-            
-            inputEmail = ""
-            inputConfirmPassword = ""
+
             inputUserDefaultHours = []
             
             configuredDefaults = false
@@ -506,9 +498,24 @@ extension AuthenticationViewModel {
     
     func deleteAccount() async -> Bool {
         do {
+            savedName = ""
+            savedEmail = ""
+            savedUserDefaultHours = []
+            savedUserEvents = [["eventUID" : "null", "title":"null"]]
+
+            inputUserDefaultHours = []
+            
+            configuredDefaults = false
+            authenticationState = .unauthenticated
+            try Auth.auth().signOut()
             try await user?.delete()
+            print("DEBUG: User account successfully deleted")
+            user = nil
+            return true
+            
         }
         catch {
+            print("DEBUG: Error deleting account \(error.localizedDescription)")
             errorMessage = error.localizedDescription
             return false
         }

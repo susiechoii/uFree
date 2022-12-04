@@ -20,8 +20,8 @@ struct SignInView: View {
     @Environment(\.dismiss) var dismiss
     
     // State variables for email and user input
-    @State var userEmailInput = ""
-    @State var userPasswordInput = ""
+    @State var inputEmail = ""
+    @State var inputPassword = ""
     
     // Variable for the back button
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -32,7 +32,7 @@ struct SignInView: View {
     // Function to sign in with email and password
     private func signInWithEmailPassword() {
         Task {
-            if await viewModel.signInWithEmailPassword() == true {
+            if await viewModel.signInWithEmailPassword(inputEmail: inputEmail, inputPassword: inputPassword) == true {
                 print("DEBUG: Back at sign in view, sign in true with email:")
             }
         }
@@ -99,7 +99,7 @@ struct SignInView: View {
                         // LOGIN EMAIL VSTACK
                         HStack {
                             TextField("Email",
-                                      text: $viewModel.inputEmail)
+                                      text: $inputEmail)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(14.0)))
                             .foregroundColor(ColorConstants.Black900Cc)
@@ -127,7 +127,7 @@ struct SignInView: View {
                         // LOGIN PASSWORD VSTACK
                         HStack {
                             SecureField("Password",
-                                        text: $viewModel.inputPassword)
+                                        text: $inputPassword)
                             .font(FontScheme
                                 .kInterRegular(size: getRelativeHeight(14)))
                             .foregroundColor(ColorConstants.Black900Cc)

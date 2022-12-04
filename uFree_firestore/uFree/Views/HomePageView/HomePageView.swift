@@ -72,12 +72,7 @@ struct HomePageView: View {
                                    label: {
                         EmptyView()
                     })
-//                    NavigationLink(destination: EventView().environmentObject(viewModel),
-//                                   tag: "EventView",
-//                                   selection: $homePageViewModel.nextScreen,
-//                                   label: {
-//                        EmptyView()
-//                    })
+
                     NavigationLink(destination: HomePageView().environmentObject(viewModel),
                                    tag: "HomePageView",
                                    selection: $homePageViewModel.nextScreen,
@@ -86,9 +81,10 @@ struct HomePageView: View {
                     })
                 }
             }
-            .onAppear() {
+            .onAppear {
                 getEventsFromFirebase()
             }
+            
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             .background(ColorConstants.WhiteA700)
             .navigationBarTitle("Upcoming Events")
