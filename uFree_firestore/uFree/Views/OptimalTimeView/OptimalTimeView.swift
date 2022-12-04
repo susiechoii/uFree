@@ -1,4 +1,5 @@
 import SwiftUI
+import Firebase
 
 struct OptimalTimeView: View {
     @StateObject var optimalTimeViewModel = OptimalTimeViewModel()
@@ -8,19 +9,55 @@ struct OptimalTimeView: View {
     @EnvironmentObject var viewModel: AuthenticationViewModel
     @Environment(\.dismiss) var dismiss
     
-    var title: String!
-    var everyoneConfirmed: Bool!
-    var creator: Bool!
-//    var indexValue: Int!
-//    var date: String!
-//    var duration: String!
+    var event: [String: Any]!
+    var dateFormatter = DateFormatter()
     
+    var eventUID: String!
+    var title: String!
+    var date: String!
+    var time: String!
+    var description: String!
+    var duration: Int!
+    
+    var participantIDs: [String]!
+
+    var isCreator: Bool!
+    var isShared: Bool!
+
+    var everyoneConfirmed: Bool!
+    var allUserHours: [String: [Int]]!
+    
+    private func addInviteeAvailabilityToEvent() {
+        Task {
+            if await viewModel.addInviteeAvailabilityToEvent(event: event) == true {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }
+    }
     
     init(particularEvent: [String: Any]) {
-        title = particularEvent["title"] as! String
-        print("title: \(title)")
-        everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
-//        creator = particularEvent["creator"] as! Bool
+        self.event = particularEvent as! [String: Any]
+        self.eventUID = particularEvent["eventUID"] as! String
+        self.title = particularEvent["title"] as! String
+        
+        var dateObject = (particularEvent["date"] as! Timestamp).dateValue()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        self.date = dateFormatter.string(from:dateObject)
+        
+        dateFormatter.dateFormat = "HH:mm"
+        self.time = dateFormatter.string(from:dateObject)
+        
+        self.description = particularEvent["description"] as! String
+        self.duration = particularEvent["duration"] as! Int
+        
+        self.participantIDs = particularEvent["participantIDs"] as! [String]
+        
+        self.isCreator = particularEvent["isCreator"] as! Bool
+        self.isShared = particularEvent["isShared"] as! Bool
+        
+        self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
     
     var body: some View {
@@ -94,9 +131,7 @@ struct OptimalTimeView: View {
             
             
             // SAVE AND CONTINUE BUTTON
-            Button(action: {
-                
-            }, label: {
+            Button(action: addInviteeAvailabilityToEvent, label: {
                 Text("SAVE AND CONTINUE")
                     .font(FontScheme
                         .kInterExtraBold(size: getRelativeHeight(35.0)))

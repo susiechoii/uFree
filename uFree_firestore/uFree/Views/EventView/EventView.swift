@@ -1,25 +1,53 @@
 import SwiftUI
+import Firebase
 
 struct EventView: View {
     @StateObject var eventViewModel = EventViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
+    var event: [String: Any]!
+    var dateFormatter = DateFormatter()
+    
+    var eventUID: String!
     var title: String!
+    var date: String!
+    var time: String!
+    var description: String!
+    var duration: Int!
+    
+    var participantIDs: [String]!
+
+    var isCreator: Bool!
+    var isShared: Bool!
+
     var everyoneConfirmed: Bool!
-    var creator: Bool!
-    var event: [String: Any]
-//    var indexValue: Int!
-//    var date: String!
-//    var duration: String!
+    var allUserHours: [String: [Int]]!
     
     
     init(particularEvent: [String: Any]) {
-        event = particularEvent
-        title = particularEvent["title"] as! String
-        print("title: \(title)")
-        everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
-//        creator = particularEvent["creator"] as! Bool
+        self.event = particularEvent as! [String: Any]
+        self.eventUID = particularEvent["eventUID"] as! String
+        self.title = particularEvent["title"] as! String
+        
+        var dateObject = (particularEvent["date"] as! Timestamp).dateValue()
+        dateFormatter.locale = Locale(identifier: "en_US")
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        self.date = dateFormatter.string(from:dateObject)
+        
+        dateFormatter.dateFormat = "HH:mm"
+        self.time = dateFormatter.string(from:dateObject)
+        
+        self.description = particularEvent["description"] as! String
+        self.duration = particularEvent["duration"] as! Int
+        
+        self.participantIDs = particularEvent["participantIDs"] as! [String]
+        
+        self.isCreator = particularEvent["isCreator"] as! Bool
+        self.isShared = particularEvent["isShared"] as! Bool
+        
+        self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
+        self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
     
     var body: some View {
@@ -116,6 +144,7 @@ struct EventView: View {
                         .padding(.top, getRelativeHeight(17.0))
                         .padding(.trailing, getRelativeWidth(10.0))
                         
+                        if (!isCreator) {
                         Button(action: {
                             eventViewModel.nextScreen = "OptimalTimeView"
                         }, label: {
@@ -143,6 +172,7 @@ struct EventView: View {
                         .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
                                                    bottomLeft: 28.5, bottomRight: 28.5)
                                 .fill(ColorConstants.Red400))
+                        }
 //                        ZStack {
 //                            Image("img_amigosshopping")
 //                                .resizable()

@@ -28,7 +28,7 @@ class AuthenticationViewModel: ObservableObject {
     @Published var savedName: String = ""
     @Published var savedEmail: String = ""
     @Published var savedUserDefaultHours: [Int] = []
-    @Published var savedUserEvents: [[String: Any]] = [["title":"null"]]
+    @Published var savedUserEvents: [[String: Any]] = [["eventUID" : "null", "title":"null"]]
     
     // Used during the registration process
     @Published var tempUser: User?
@@ -276,49 +276,51 @@ extension AuthenticationViewModel {
         return true
     }
     
-    func addInviteeAvailabilityToEvent(eventToAddTo: [String: Any]) async -> Bool {
+    func addInviteeAvailabilityToEvent(event: [String: Any]) async -> Bool {
         
-        var existingSavedUserDefaultHours: [[Int]] = eventToAddTo["allUserHours"] as! [[Int]]
-        existingSavedUserDefaultHours.append(inputUserDefaultHours)
+        var allUserHours: [String: [Int]] = event["allUserHours"] as! [String: [Int]]
+        allUserHours[String(describing: user!.uid)] = savedUserDefaultHours
         
-        var toUpdateEventToAddTo = eventToAddTo
+        var eventToAdd = event
         
-        toUpdateEventToAddTo["allUserHours"] = existingSavedUserDefaultHours
-        toUpdateEventToAddTo["confirmed"] = true
+        eventToAdd["allUserHours"] = allUserHours
+        eventToAdd["confirmed"] = true
         
-        let eventID = toUpdateEventToAddTo["id"] as! String
-        let participantsUIDArray = toUpdateEventToAddTo["participants"] as! [String]
-        let creatorUID = participantsUIDArray[0]
+        let eventUID = eventToAdd["eventUID"] as! String
+        let participantIDs = eventToAdd["participantIDs"] as! [String]
+        let creatorID = participantIDs[0]
         
         // since this is in the perspective of the invitee, we have to get the event from the creator and update that first
         do {
             // getting all the events of the creator first
-            let creatorDocument = try await Firestore.firestore().collection("users").document(creatorUID).getDocument()
+            let creatorDocument = try await Firestore.firestore().collection("users").document(creatorID).getDocument()
             var allCreatorEvents : [[String : Any]] = creatorDocument.get("events") as! [[String : Any]]
             
-            let eventToModifyIndex: Int = allCreatorEvents.firstIndex(where: { $0["id"] as! String == eventID})!
+            let eventToModifyIndex: Int = allCreatorEvents.firstIndex(where: { $0["eventUID"] as! String == eventUID})!
             
             var eventToModify: [String : Any] = allCreatorEvents[eventToModifyIndex]
             
-            eventToModify["allUserHours"] = existingSavedUserDefaultHours
-            
+            // syncing up invitee user hours within the creator's event details
+            eventToModify["allUserHours"] = allUserHours
             allCreatorEvents[eventToModifyIndex] = eventToModify
             
             do {
-                try await Firestore.firestore().collection("users").document(creatorUID).updateData(["events" : allCreatorEvents])
+                // updating the event for the creator
+                try await Firestore.firestore().collection("users").document(creatorID).updateData(["events" : allCreatorEvents])
                 
                 do {
+                    // getting all the events of the invitee first
                     let inviteeDocument = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
                     
                     // doing the same for the invitee
                     var allInviteeEvents: [[String : Any]] = inviteeDocument.get("events") as! [[String : Any]]
                     
-                    let inviteeEventToModifyIndex: Int = allInviteeEvents.firstIndex(where: { $0["id"] as! String == eventID})!
+                    let inviteeEventToModifyIndex: Int = allInviteeEvents.firstIndex(where: { $0["eventUID"] as! String == eventUID})!
                     
-                    allInviteeEvents[inviteeEventToModifyIndex] = toUpdateEventToAddTo
+                    allInviteeEvents[inviteeEventToModifyIndex] = eventToAdd
                     
                     do {
-                        try await Firestore.firestore().collection("users").document(creatorUID).updateData(["events" : allInviteeEvents])
+                        try await Firestore.firestore().collection("users").document(user!.uid).updateData(["events" : allInviteeEvents])
                         return true
                     }
                     catch {
@@ -347,6 +349,7 @@ extension AuthenticationViewModel {
             return false
         }
         
+        return true
     }
     
     
@@ -356,7 +359,7 @@ extension AuthenticationViewModel {
             savedName = ""
             savedEmail = ""
             savedUserDefaultHours = []
-            savedUserEvents = [["title":"null"]]
+            savedUserEvents = [["eventUID" : "null", "title":"null"]]
             
             inputEmail = ""
             inputConfirmPassword = ""
