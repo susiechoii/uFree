@@ -27,11 +27,10 @@ struct ProfileView: View {
                                             .clipped()
                                             .padding(.vertical, getRelativeHeight(8.0))
                                             .padding(.horizontal, getRelativeWidth(7.0))
-                                        
-                                        
-                                        if (changePic == true) {
-                                        Image("img_toddtest31")
-                                            .resizable()
+
+//                                        Image("img_toddtest31")
+//                                            .resizable()
+
                                             .frame(width: getRelativeWidth(144.0),
                                                    height: getRelativeHeight(148.0),
                                                    alignment: .center)
@@ -99,10 +98,11 @@ struct ProfileView: View {
                                 .frame(width: getRelativeWidth(184.0),
                                        height: getRelativeHeight(167.0), alignment: .center)
                                 .padding(.horizontal, getRelativeWidth(67.0))
-                               
-                                if (!editingProfile) {
+
                                 
-                                Text(userCurrentName)
+                                
+                                
+                                Text(viewModel.savedName)
                                     .font(FontScheme.kInterMedium(size: getRelativeHeight(32.0)))
                                     .fontWeight(.medium)
                                     .foregroundColor(ColorConstants.Bluegray901)
@@ -237,6 +237,7 @@ struct ProfileView: View {
                                
                                
                             }
+
                             
                                 
                             
@@ -256,6 +257,7 @@ struct ProfileView: View {
                                             .fontWeight(.medium)
                                             .foregroundColor(ColorConstants.Purple400)
                                     }
+
                                 }
                                 }
                                 }
@@ -272,6 +274,7 @@ struct ProfileView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(666.0),
                            alignment: .leading)
+
                         
             
                     VStack(alignment: .leading, spacing: 0) {
@@ -283,6 +286,7 @@ struct ProfileView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(96.0),
                            alignment: .leading)
+
                 }
                 .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
                 .background(ColorConstants.WhiteA700)

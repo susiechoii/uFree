@@ -3,7 +3,10 @@
 
 import SwiftUI
 import Combine
-import FirebaseAnalyticsSwift
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 private enum FocusableField: Hashable {
     case name
@@ -25,10 +28,15 @@ struct SignUpView: View {
     
     @FocusState private var focus: FocusableField?
     
+    @State var inputName = ""
+    @State var inputEmail = ""
+    @State var inputPassword = ""
+    @State var inputConfirmPassword = ""
+    
     // Function for to sign in
     private func addUserToFireStore() {
         Task {
-            if await viewModel.addUserToFirestore() == true {
+            if await viewModel.addUserToFirestore(inputName: inputName, inputEmail: inputEmail, inputPassword: inputPassword, inputConfirmPassword: inputConfirmPassword) == true {
                 signUpViewModel.nextScreen = "OnboardAvailabilityScreenView"
             }
         }
@@ -89,7 +97,7 @@ struct SignUpView: View {
                     // ENTER NAME VSTACK
                     HStack {
                         TextField("Enter Name",
-                                  text: $viewModel.inputName)
+                                  text: $inputName)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
@@ -116,7 +124,7 @@ struct SignUpView: View {
                     // ENTER EMAIL VSTACK
                     HStack {
                         TextField("Enter Email",
-                                  text: $viewModel.inputEmail)
+                                  text: $inputEmail)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
@@ -145,7 +153,7 @@ struct SignUpView: View {
                     // ENTER PASSWORD VSTACK
                     HStack {
                         SecureField("Enter Password",
-                                    text: $viewModel.inputPassword)
+                                    text: $inputPassword)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
@@ -173,7 +181,7 @@ struct SignUpView: View {
                     // CONFIRM PASSWORD VSTACK
                     HStack {
                         SecureField("Confirm Password",
-                                    text: $viewModel.inputConfirmPassword)
+                                    text: $inputConfirmPassword)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(14.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
