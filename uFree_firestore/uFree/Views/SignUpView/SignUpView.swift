@@ -3,7 +3,10 @@
 
 import SwiftUI
 import Combine
-import FirebaseAnalyticsSwift
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 private enum FocusableField: Hashable {
     case name

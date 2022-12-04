@@ -1,5 +1,8 @@
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 struct OptimalTimeView: View {
     @StateObject var optimalTimeViewModel = OptimalTimeViewModel()

@@ -7,6 +7,9 @@
 
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 struct CreatorConfirmTimeView: View {
     @StateObject var optimalTimeViewModel = OptimalTimeViewModel()
