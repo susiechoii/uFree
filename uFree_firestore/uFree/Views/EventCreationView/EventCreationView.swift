@@ -4,21 +4,22 @@ import Firebase
 struct EventCreationView: View {
     @StateObject var eventCreationViewModel = EventCreationViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.dismiss) var dismiss
+    
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
     @State var userEmailInput = ""
     
     //User input variables
-    @State var eventTitle = ""
-    @State var specificDates = ""
-    @State var selectedDuration: Int = 1
-    @State var invitees = ""
-    @State var description = ""
-    @State var date = Date.now
+    @State var inputTitle = ""
+    @State var inputDate = Date.now
+    @State var inputDuration: Int = 1
+    @State var inputInvitee = ""
+    @State var inputDescription = ""
     
     private func addNewEventToFirebase() {
         Task {
-            if await viewModel.addNewEventToFirestore() == true {
+            if await viewModel.addNewEventToFirestore(inputTitle: inputTitle, inputDate: inputDate, inputDuration: inputDuration, inputInvitee: inputInvitee, inputDescription: inputDescription) == true {
                 self.presentationMode.wrappedValue.dismiss()
             }
         }
@@ -70,186 +71,127 @@ struct EventCreationView: View {
                        height: getRelativeHeight(150.0), alignment: .leading)
                 
                 
+                // Scroll View for the rest of the views
                 ScrollView(.vertical, showsIndicators: true){
                     VStack(alignment: .leading){
+                        
+                        // Input Title Screen
                         Group{
                             HStack{
                                 Text("Event Title:")
-                                    .fontWeight(.medium)
                                     .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                    .fontWeight(.medium)
                                     .frame(width: 110, height: 12, alignment: .leading)
                                     .lineSpacing(26)
                                 
                                 TextField("New Event Title",
-                                              text: $viewModel.inputTitle)
-                                    .font(FontScheme
-                                        .kInterRegular(size: getRelativeHeight(20.0)))
-                                    .foregroundColor(ColorConstants.Black900Cc)
-                                    .frame(width: 200, height: 10, alignment: .leading)
-                                    .padding()
-                                    .overlay(
-                                     RoundedRectangle(cornerRadius: 8)
-                                         .stroke(.gray, lineWidth: 2)
-                                    )
-                                    .keyboardType(.emailAddress)
+                                          text: $inputTitle)
+                                .font(FontScheme
+                                    .kInterRegular(size: getRelativeHeight(20.0)))
+                                .foregroundColor(ColorConstants.Black900Cc)
+                                .frame(width: 200, height: 10, alignment: .leading)
+                                .padding()
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(.gray, lineWidth: 2)
+                                )
+                                .keyboardType(.emailAddress)
                             }
                         }
                         
-                        Group{
-                            Text("Select Date")
-                                .fontWeight(.medium)
-                                .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                .frame(width: 250, height: 12, alignment: .leading)
-                                .lineSpacing(26).padding(.top, 20)
-
-    //                        Apple DatePicker
-                            DatePicker("select date", selection: $viewModel.inputDate, displayedComponents: [.date])
-                            //                        .padding(15.0)
-                            //                        .frame(width: -1.0)
-                                .datePickerStyle(GraphicalDatePickerStyle())
-                                .frame(width: 330, alignment: .center)
-                                .padding(.leading, 10)
-                        }
+                        // Selecting Date
                         
+                        Text("Select Date")
+                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                            .fontWeight(.medium)
+                            .frame(width: 250, height: 12, alignment: .leading)
+                            .lineSpacing(26).padding(.top, 20)
+                        
+                        //Apple DatePicker
+                        DatePicker("Select Date", selection: $inputDate)
+                            .datePickerStyle(GraphicalDatePickerStyle())
+                            .frame(width: 330, alignment: .center)
+                            .padding(.leading, 10)
+                        
+                        
+                        
+                        // Meeting Duration Title
+                        Text("Meeting Duration")
+                            .fontWeight(.medium)
+                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                            .frame(width: 210, height: 12, alignment: .leading)
+                            .lineSpacing(26).padding(.top, 10)
+                        
+                        // Select Duration HStack
                         HStack{
-                            VStack(alignment: .leading){
-                                Text(StringConstants.kMsgMeetingDuratio)
-                                    .fontWeight(.medium)
-                                    .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                    .frame(width: 210, height: 12, alignment: .leading)
-                                    .lineSpacing(26).padding(.top, 10)
-                                
-                                HStack{
-                                    
-                                    // Select Duration
-                                    
-                                    Picker(StringConstants.kLbl2Hours,
-                                           selection: $viewModel.inputDuration) {
-                                        ForEach(0..<25,
-                                                id: \.self) { value in
-                                            Text(String(value)).tag(value as Int?)
-                                        }
-                                    }
-                                           .foregroundColor(ColorConstants.Gray700)
-                                           .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                           .pickerStyle(MenuPickerStyle())
-                                           .frame(width: 50, alignment: .center)
-                                    // .border(.black)
-                                           .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(.gray, lineWidth: 2)
-                                           )
-                                    
-                                    Text("Hour(s)")
-                                        .fontWeight(.medium)
-                                        .font(FontScheme.kInterRegular(size: getRelativeHeight(18)))
-                                        .frame(width: 125, height: 12, alignment: .leading)
-                                        .lineSpacing(26)
-                                }.lineSpacing(26).padding(.top, 10)
-                            }
-                        
-                            // Set your availability - SHOULD CALL CALENDAR PAGE
-                            // which is OptimalTimeView now
                             
-                            Button(action: {}, label: {
-                                VStack(spacing: 0) {
-                                    Text("Edit")
-                                        .font(FontScheme.kInterBold(size: getRelativeHeight(30.0)))
-                                        .fontWeight(.bold)
-                                        .padding(.horizontal, getRelativeWidth(10.0))
-                                        .foregroundColor(ColorConstants.Gray101)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.center)
-                                        .frame(width: getRelativeWidth(125.0),
-                                               height: getRelativeHeight(75), alignment: .center)
-                                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0,
-                                                                   bottomLeft: 10.0, bottomRight: 10.0)
-                                            .fill(ColorConstants.BlueA100))
-                                        .padding(.top, getRelativeHeight(10.0))
-                                    Text("Avaailability")
-                                        .font(FontScheme.kInterBold(size: getRelativeHeight(30.0)))
-                                        .fontWeight(.bold)
-                                        .padding(.horizontal, getRelativeWidth(10.0))
-                                        .foregroundColor(ColorConstants.Gray101)
-                                        .minimumScaleFactor(0.5)
-                                        .multilineTextAlignment(.center)
-                                        .frame(width: getRelativeWidth(125.0),
-                                               height: getRelativeHeight(75), alignment: .center)
-                                        .background(RoundedCorners(topLeft: 10.0, topRight: 10.0,
-                                                                   bottomLeft: 10.0, bottomRight: 10.0)
-                                            .fill(ColorConstants.BlueA100))
-                                        .padding(.bottom, getRelativeWidth(10.0))
+                            Picker(StringConstants.kLbl2Hours,
+                                   selection: $inputDuration) {
+                                ForEach(0..<25,
+                                        id: \.self) { value in
+                                    Text(String(value)).tag(value as Int?)
                                 }
-                            })
-                            .frame(width: 125, height: 75)
-                            .background(Color(red: 0.95, green: 0.96, blue: 0.98))
-                            .cornerRadius(10)
-                            .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.12), radius: 4)
-                            .offset(x: 0, y: 0)
-                            .lineSpacing(26).padding(.top, 10)
-                        }
-                        
-                       
-                            Text("Invitees")
-                                .fontWeight(.medium)
-                                .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                .frame(width: 200, height: 11.42, alignment: .leading)
-                                .lineSpacing(26).padding(.top, 20)
+                            }
+                                   .foregroundColor(ColorConstants.Gray700)
+                                   .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                   .pickerStyle(MenuPickerStyle())
+                                   .frame(width: 50, alignment: .center)
+                                   .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(.gray, lineWidth: 2)
+                                   )
                             
-                            TextField("Email",
-                                      text: $viewModel.inputInvitee)
-                            .font(FontScheme
-                                .kInterRegular(size: getRelativeHeight(12.0)))
-                            .foregroundColor(ColorConstants.Black900Cc)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                 .stroke(.gray, lineWidth: 2)
-                            )
-                            .keyboardType(.emailAddress)
-                            .lineSpacing(26).padding(.top, 10)
+                            Text("Hour(s)")
+                                .fontWeight(.medium)
+                                .font(FontScheme.kInterRegular(size: getRelativeHeight(18)))
+                                .frame(width: 125, height: 12, alignment: .leading)
+                                .lineSpacing(26)
+                        }.lineSpacing(26).padding(.top, 10)
                         
                         
-                        //                            .onChange(of: eventCreationViewModel
-                        //                                .stringOfEmails) { newValue in
-                        //
-                        //                                    eventCreationViewModel.stringOfEmails = newValue
-                        //
-                        //                                    print($eventCreationViewModel.stringOfEmails.wrappedValue)
-                        //                                    userEmailInput = $eventCreationViewModel.stringOfEmails.wrappedValue
-                        //                                }
-                        //                                .frame(width: getRelativeWidth(295.0),
-                        //                                       height: getRelativeHeight(58.0), alignment: .leading)
-                        //                                .overlay(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                        //                                                        bottomLeft: 29.0, bottomRight: 29.0)
-                        //                                    .stroke(ColorConstants.Gray700,
-                        //                                            lineWidth: 1))
-                        //                                .background(RoundedCorners(topLeft: 29.0, topRight: 29.0,
-                        //                                                           bottomLeft: 29.0,
-                        //                                                           bottomRight: 29.0)
-                        //                                    .fill(ColorConstants.WhiteA700))
+                        // Invitees Header
+                        Text("Invitees")
+                            .fontWeight(.medium)
+                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                            .frame(width: 200, height: 11.42, alignment: .leading)
+                            .lineSpacing(26).padding(.top, 20)
+                            .padding(.bottom, getRelativeHeight(5))
+                        
+                        // Invitees Title
+                        TextField("Email",
+                                  text: $inputInvitee)
+                        .font(FontScheme
+                            .kInterRegular(size: getRelativeHeight(15.0)))
+                        .foregroundColor(ColorConstants.Black900Cc)
+                        .frame(width: getRelativeWidth(310), height: 10, alignment: .leading)
+                        .padding()
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(.gray, lineWidth: 2)
+                        )
+                        .keyboardType(.emailAddress)
                         
                         
-                        //                    }.frame(width: 343, height: 30)
-                        
-                        
-                        Text(StringConstants.kLblDescription)
+                        // Description header
+                        Text("Description")
                             .fontWeight(.medium)
                             .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
                             .frame(width: 200, height: 11.42, alignment: .leading)
                             .lineSpacing(26).padding(.top, 50)
                         
+                        
+                        // Invitees Title
                         TextField("Description",
-                                  text: $viewModel.inputDescription)
+                                  text: $inputDescription)
                         .font(FontScheme
-                            .kInterRegular(size: getRelativeHeight(12.0)))
+                            .kInterRegular(size: getRelativeHeight(15.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
+                        .frame(width: getRelativeWidth(310), height: getRelativeHeight(50), alignment: .leading)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                             .stroke(.gray, lineWidth: 2)
+                                .stroke(.gray, lineWidth: 2)
                         )
-                        .keyboardType(.emailAddress)
-                        .lineSpacing(26).padding(.top, 10)
                         
                         // Done Button
                         VStack {
@@ -287,7 +229,7 @@ struct EventCreationView: View {
                         .padding(.bottom, 20)
                     }.padding(.top, 20).padding(.leading, getRelativeWidth(27))
                     Group {
-                        NavigationLink(destination: HomePageView(),
+                        NavigationLink(destination: HomePageView().environmentObject(viewModel),
                                        tag: "HomePageView",
                                        selection: $eventCreationViewModel.nextScreen,
                                        label: {

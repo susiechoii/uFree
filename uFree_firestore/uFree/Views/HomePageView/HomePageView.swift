@@ -32,7 +32,7 @@ struct HomePageView: View {
                             NavigationLink {
                                 EventView(particularEvent: viewModel.savedUserEvents[index]).environmentObject(viewModel)
                             } label: {
-                                GenericCell(particularEvent: viewModel.savedUserEvents[index])
+                                GenericCell(indexValue: index, particularEvent: viewModel.savedUserEvents[index])
                             }
                         }
                     }

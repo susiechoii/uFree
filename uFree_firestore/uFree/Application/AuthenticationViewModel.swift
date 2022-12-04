@@ -37,11 +37,6 @@ class AuthenticationViewModel: ObservableObject {
     @Published var inputPassword: String = ""
     @Published var inputConfirmPassword: String = ""
     
-    @Published var inputTitle = "New Event Title"
-    @Published var inputDate = Date.now
-    @Published var inputDuration: Int = 1
-    @Published var inputInvitee = ""
-    @Published var inputDescription = ""
     @Published var inputUserDefaultHours: [Int] = []
     
     // Authentication States
@@ -170,7 +165,7 @@ extension AuthenticationViewModel {
         
         do {
             let fetchUserInfoResult = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
-            let fetchedUserDocument = fetchUserInfoResult.data()!
+            let fetchedUserDocument = fetchUserInfoResult.data() ?? ["name" : "", "email" : "", "defaultHours": [], "events": [["title": "null"]]]
             savedName = fetchedUserDocument["name"] as! String
             savedEmail = fetchedUserDocument["email"] as! String
             savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
@@ -186,14 +181,15 @@ extension AuthenticationViewModel {
         }
     }
     
-    func addNewEventToFirestore() async -> Bool {
+    func addNewEventToFirestore(inputTitle: String, inputDate: Date, inputDuration: Int, inputInvitee: String, inputDescription: String) async -> Bool {
         print("ADDING NEW EVENT")
         errorMessage = ""
         
         var needsSharing = false
         var inviteeUID = ""
-        var inviteeEvents: NSMutableArray = [["title" : "null"]]
+        var inviteeExistingEvents: [[String: Any]] = [["title" : "null"]]
         var participants = [user!.uid]
+        var savedAllUserHours = ["creator": savedUserDefaultHours]
         
         if inputInvitee != "" {
             do {
@@ -206,13 +202,14 @@ extension AuthenticationViewModel {
                         needsSharing = true
                         inviteeUID = userDocument.get("uid") as! String
                         participants.append(inviteeUID)
-                        inviteeEvents = userDocument.get("events") as! NSMutableArray
+                        inviteeExistingEvents = userDocument.get("events") as! [[String: Any]]
+                        let inviteeBlankArray: [Int] = []
+                        savedAllUserHours[inviteeUID] = inviteeBlankArray
                     }
                 }
                 
                 if needsSharing == false {
                     errorMessage = "Invitee not an existing user. Please try again"
-                    inputInvitee = ""
                     print("DEBUG: \(errorMessage)")
                     return false
                 }
@@ -220,33 +217,31 @@ extension AuthenticationViewModel {
             catch {
                 errorMessage = error.localizedDescription
                 print("DEBUG: Unable to find all users: \(errorMessage)")
-                inputInvitee = ""
                 return false
             }
         }
         
         do {
             let userInformationDocument = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
-            let currentUserExistingEvents = userInformationDocument.data()!["events"] as! NSMutableArray
+            var currentUserExistingEvents = userInformationDocument.data()!["events"] as! [[String : Any]]
             print("EXISTING EVENTS: \(currentUserExistingEvents)")
             
             let UUIDValue = UUID().uuidString
             
             
             
-            let newEventCurrentUser:[String: Any] = ["id": UUIDValue, "title" : inputTitle, "participants" : participants, "shared" : needsSharing, "confirmed" : true, "everyoneConfirmed": !needsSharing, "allUserHours" : savedUserDefaultHours]
-            let newEventInvitee:[String: Any] = ["id" : UUIDValue, "title" : inputTitle, "participants" : participants, "shared" : needsSharing, "confirmed" : false, "everyoneConfirmed": false, "allUserHours" : savedUserDefaultHours]
+            let newEventCurrentUser:[String: Any] = ["eventUID": UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": true, "isShared" : needsSharing, "everyoneConfirmed": !needsSharing, "allUserHours" : savedAllUserHours]
+            let newEventInvitee:[String: Any] = ["eventUID" : UUIDValue, "title" : inputTitle, "date": inputDate, "description" : inputDescription, "duration" : inputDuration, "participantIDs" : participants, "isCreator": false, "isShared" : needsSharing, "everyoneConfirmed": false, "allUserHours" : savedAllUserHours]
             
-            currentUserExistingEvents.add(newEventCurrentUser)
-            let data:[String:Any] = ["uid": user!.uid, "email": savedEmail, "name": savedName, "defaultHours": savedUserDefaultHours, "events": currentUserExistingEvents]
+            currentUserExistingEvents.append(newEventCurrentUser)
+            inviteeExistingEvents.append(newEventInvitee)
             
             do {
-                try await Firestore.firestore().collection("users").document(user!.uid).setData(data)
+                try await Firestore.firestore().collection("users").document(user!.uid).updateData(["events" : currentUserExistingEvents])
                 
                 if needsSharing {
-                    inviteeEvents.add(newEventInvitee)
                     do {
-                        try await Firestore.firestore().collection("users").document(inviteeUID).setData(["events": inviteeEvents], merge: true)
+                        try await Firestore.firestore().collection("users").document(inviteeUID).updateData(["events": inviteeExistingEvents])
                     }
                     catch {
                         errorMessage = "DEBUG: Unable to add enw event for invitee"
@@ -257,6 +252,7 @@ extension AuthenticationViewModel {
                     
                 }
                 
+                // refresh
                 if await getEventsFromFirestore() == true {
                     print("DEBUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
                     return true
@@ -277,7 +273,7 @@ extension AuthenticationViewModel {
             return false
         }
         
-        return false
+        return true
     }
     
     func addInviteeAvailabilityToEvent(eventToAddTo: [String: Any]) async -> Bool {
@@ -362,10 +358,7 @@ extension AuthenticationViewModel {
             savedUserDefaultHours = []
             savedUserEvents = [["title":"null"]]
             
-            inputName = ""
-            inputTitle = ""
-            inputInvitee = ""
-            inputPassword = ""
+            inputEmail = ""
             inputConfirmPassword = ""
             inputUserDefaultHours = []
             

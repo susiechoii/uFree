@@ -241,18 +241,20 @@ struct PrimaryView: View {
                 }.tag(0)
             EventCreationView().environmentObject(viewModel)
                 .onTapGesture {
-                    self.selectedIndex = 1
-                }
+                    NavigationLink(destination: HomePageView().environmentObject(viewModel),
+                                   label: {
+                        EmptyView()
+                    })}
                 .tabItem {
                     Image("img_group90")
-                }.tag(1)
+                }
             ProfileView().environmentObject(viewModel)
                 .onTapGesture {
                     self.selectedIndex = 2
                 }
                 .tabItem {
                     Image("img_combinedshape_24X20")
-                }.tag(2)
+                }
         }
     }
 }
