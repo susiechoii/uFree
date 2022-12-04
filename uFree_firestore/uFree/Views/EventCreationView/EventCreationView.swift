@@ -163,7 +163,7 @@ struct EventCreationView: View {
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(15.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
-                        .frame(width: getRelativeWidth(310), height: 10, alignment: .leading)
+                        .frame(width: getRelativeWidth(300), height: 10, alignment: .leading)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
@@ -177,7 +177,7 @@ struct EventCreationView: View {
                             .fontWeight(.medium)
                             .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
                             .frame(width: 200, height: 11.42, alignment: .leading)
-                            .lineSpacing(26).padding(.top, 50)
+                            .lineSpacing(26).padding(.top, 40).padding(.bottom, getRelativeHeight(5))
                         
                         
                         // Invitees Title
@@ -186,7 +186,7 @@ struct EventCreationView: View {
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(15.0)))
                         .foregroundColor(ColorConstants.Black900Cc)
-                        .frame(width: getRelativeWidth(310), height: getRelativeHeight(50), alignment: .leading)
+                        .frame(width: getRelativeWidth(300), height: getRelativeHeight(50), alignment: .leading)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
@@ -222,12 +222,12 @@ struct EventCreationView: View {
                                 
                             }
                         }
-                        .frame(width: getRelativeWidth(339.0), height: getRelativeHeight(45.0),
+                        .frame(width: getRelativeWidth(330.0), height: getRelativeHeight(45.0),
                                alignment: .trailing)
                         .background(RoundedCorners(topLeft: 22.0, topRight: 22.0, bottomLeft: 22.0, bottomRight: 22.0).fill(ColorConstants.IndigoA70077))
                         .padding(.top, getRelativeHeight(18.0)).padding(.horizontal, getRelativeWidth(0.0))
                         .padding(.bottom, 20)
-                    }.padding(.top, 20).padding(.leading, getRelativeWidth(27))
+                    }.padding(.top, 20).padding(.leading, getRelativeWidth(3))
                     Group {
                         NavigationLink(destination: HomePageView().environmentObject(viewModel),
                                        tag: "HomePageView",

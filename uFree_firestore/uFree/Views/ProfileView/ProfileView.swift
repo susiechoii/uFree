@@ -23,8 +23,8 @@ struct ProfileView: View {
                                             .clipped()
                                             .padding(.vertical, getRelativeHeight(8.0))
                                             .padding(.horizontal, getRelativeWidth(7.0))
-                                        Image("img_toddtest31")
-                                            .resizable()
+//                                        Image("img_toddtest31")
+//                                            .resizable()
                                             .frame(width: getRelativeWidth(144.0),
                                                    height: getRelativeHeight(148.0),
                                                    alignment: .center)
@@ -239,7 +239,7 @@ struct ProfileView: View {
                                                                bottomRight: 28.5)
                                         .fill(ColorConstants.Red400))
                             })
-                            .frame(width: getRelativeWidth(295.0),
+                            .frame(width: getRelativeWidth(325.0),
                                    height: getRelativeHeight(60.0), alignment: .center)
                             .background(RoundedCorners(topLeft: 28.5, topRight: 28.5,
                                                        bottomLeft: 28.5, bottomRight: 28.5)
@@ -248,21 +248,21 @@ struct ProfileView: View {
                             Group {
                                 HStack {
                                     Spacer()
-                                    Image("img_icon_16X18")
-                                        .resizable()
-                                        .frame(width: getRelativeWidth(18.0),
-                                               height: getRelativeHeight(16.0), alignment: .center)
-                                        .scaledToFit()
-                                        .clipped()
-                                        .padding(.vertical, getRelativeHeight(20.0))
-                                        .padding(.leading, getRelativeWidth(11.0))
-                                        .padding(.trailing, getRelativeWidth(15.0))
-                                    TextField(StringConstants.kLblLogOut,
-                                              text: $profileViewModel.logoutText)
-                                        .font(FontScheme
-                                            .kInterMedium(size: getRelativeHeight(16.0)))
-                                        .foregroundColor(ColorConstants.Purple400)
-                                        .padding()
+//                                    Image("img_icon_16X18")
+//                                        .resizable()
+//                                        .frame(width: getRelativeWidth(18.0),
+//                                               height: getRelativeHeight(16.0), alignment: .center)
+//                                        .scaledToFit()
+//                                        .clipped()
+//                                        .padding(.vertical, getRelativeHeight(20.0))
+//                                        .padding(.leading, getRelativeWidth(11.0))
+//                                        .padding(.trailing, getRelativeWidth(15.0))
+//                                    TextField(StringConstants.kLblLogOut,
+//                                              text: $profileViewModel.logoutText)
+//                                        .font(FontScheme
+//                                            .kInterMedium(size: getRelativeHeight(16.0)))
+//                                        .foregroundColor(ColorConstants.Purple400)
+//                                        .padding()
                                 }
                                 .frame(width: getRelativeWidth(328.0),
                                        height: getRelativeHeight(56.0), alignment: .leading)
