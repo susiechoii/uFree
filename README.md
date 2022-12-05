@@ -27,6 +27,8 @@ Each user has a default calendar displaying their availability over the course o
 
 * We have done our best to minimize any warnings; however, due to the large scope of the project, there may still be some outstanding messages after the project builds. Thanks for your understanding.
 
+* Please make sure to hold and press when selecting dates for the calendar and editing text fields. The app is most responsive this way.
+
 * What do colors of events signify on uFree’s homepage? Every color that is not **white** or **green** indicates that the event needs attention from either the creator or participant.
 
   * **White**: Personal event confirmed
@@ -36,11 +38,11 @@ Each user has a default calendar displaying their availability over the course o
   * **Amber**: Creators see this color if they have created a shared event and are waiting for invitees to confirm availability.
   * **Orange**: Creators see this color if invitees have confirmed their availability, and the creator must now choose a final time for the event.
 
-### Potential Bugs That Currently Exist And How to Resolve Them
+### Potential Warnings That Currently Exist
 
-* [Bug 1]
+* We are confident in our database schema, so any downcasting and forced unwrapping of nil objects has undergone extensive verification. This is to say that nothing actually crashes when the app itself is run. Because of a tight time frame, we elected to keep these warnings in place to avoid any last minute issues regarding the functionality.
 
-* [Bug 2]
+* Immutable values that were never used were also kept in the final project, again due to a desire to submit something that we definitely know is working.
 
 ### Promised Functionality
 
@@ -58,6 +60,8 @@ Each user has a default calendar displaying their availability over the course o
 
 * We hold our database of users, events, and hours in Google Firebase.
 
+* Later extension to this project: adding date ranges when creating an event (only applicable for iOS 16)
+
 #### Citations
 
-[Citations.pdf](https://github.com/susiechoii/uFree/files/10152328/Citations.pdf)
+[Citations.pdf](https://github.com/susiechoii/uFree/files/10153204/Citations.pdf)
