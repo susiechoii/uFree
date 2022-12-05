@@ -5,7 +5,6 @@
 //  Created by Leung Wai Liu on 11/20/22.
 //
 // source: from Google's Getting Started with Firebase
-
 import Foundation
 import SwiftUI
 import Firebase
@@ -195,6 +194,9 @@ extension AuthenticationViewModel {
     }
     
     func addNewEventToFirestore(inputTitle: String, inputDate: Date, inputDuration: Int, inputInvitees: String, inputDescription: String) async -> Bool {
+
+        allUsersInEvent = []
+
         print("ADDING NEW EVENT")
         errorMessage = ""
         
@@ -531,6 +533,7 @@ extension AuthenticationViewModel {
             savedEmail = ""
             savedUserDefaultHours = []
             savedUserEvents = [["eventUID" : "null", "title":"null"]]
+            allUsersInEvent = []
 
             inputUserDefaultHours = []
             
@@ -552,13 +555,16 @@ extension AuthenticationViewModel {
             savedEmail = ""
             savedUserDefaultHours = []
             savedUserEvents = [["eventUID" : "null", "title":"null"]]
+            allUsersInEvent = []
 
             inputUserDefaultHours = []
             
             configuredDefaults = false
             authenticationState = .unauthenticated
             try Auth.auth().signOut()
+            
             try await user?.delete()
+            
             print("DEBUG: User account successfully deleted")
             user = nil
             return true
