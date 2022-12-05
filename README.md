@@ -27,6 +27,8 @@ Each user has a default calendar displaying their availability over the course o
 
 * We have done our best to minimize any warnings; however, due to the large scope of the project, there may still be some outstanding messages after the project builds. Thanks for your understanding.
 
+* Please make sure to hold and press when selecting dates for the calendar and editing text fields. The app is most responsive this way.
+
 * What do colors of events signify on uFree’s homepage? Every color that is not **white** or **green** indicates that the event needs attention from either the creator or participant.
 
   * **White**: Personal event confirmed
