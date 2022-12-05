@@ -1,5 +1,7 @@
 import SwiftUI
 import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 struct EventView: View {
     @StateObject var eventViewModel = EventViewModel()
@@ -470,6 +472,6 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventView(particularEvent: ["title":"null"]).environmentObject(AuthenticationViewModel())
+        EventView(particularEvent: ["eventUID": "0", "title" : "Test Title", "date": Date.now, "description" : "Test Description", "duration" : 5, "participantIDs" : ["CreatorUID", "InviteeUID"], "isCreator": true, "isShared" : true, "selfConfirmed": false, "everyoneConfirmed": false, "creatorConfirmed": false, "allUserHours" : ["creator": [0,1,2,3], "InviteeID1": [2,3,4,5]]]).environmentObject(AuthenticationViewModel())
     }
 }

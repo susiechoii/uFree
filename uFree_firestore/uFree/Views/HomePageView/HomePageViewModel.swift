@@ -1,6 +1,9 @@
 import Foundation
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 class HomePageViewModel: ObservableObject {
     @Published var nextScreen: String? = nil    

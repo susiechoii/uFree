@@ -3,7 +3,10 @@
 
 import SwiftUI
 import Combine
-import FirebaseAnalyticsSwift
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 // to prepare the email and password field to hash
 private enum FocusableField: Hashable {

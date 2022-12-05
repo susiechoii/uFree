@@ -1,5 +1,8 @@
 import SwiftUI
 import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 struct OnboardAvailabilityScreenView: View {
     @StateObject var onboardAvailabilityScreenViewModel = OnboardAvailabilityScreenViewModel()
