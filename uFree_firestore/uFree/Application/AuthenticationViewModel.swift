@@ -35,7 +35,7 @@ class AuthenticationViewModel: ObservableObject {
     
     @Published var inputUserDefaultHours: [Int] = []
     
-    @Published var inputCommonHours: [Int] = [0]
+    @Published var inputCommonHours: [Int] = [168]
     @Published var finalizedHour: Int = 0
     
     @Published var selectedTabViewIndex = 0
