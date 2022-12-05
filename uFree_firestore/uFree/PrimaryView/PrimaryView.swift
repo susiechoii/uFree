@@ -219,7 +219,6 @@
 //        PrimaryView().environmentObject(AuthenticationViewModel())
 //    }
 //}
-
 import SwiftUI
 import Firebase
 import Foundation
@@ -241,9 +240,10 @@ struct PrimaryView: View {
                 }.tag(0)
             EventCreationView().environmentObject(viewModel)
                 .onTapGesture {
-                    self.selectedIndex = 1
-                    
-                }
+                    NavigationLink(destination: HomePageView().environmentObject(viewModel),
+                                   label: {
+                        EmptyView()
+                    })}
                 .tabItem {
                     Image("img_group90")
                 }
@@ -254,10 +254,9 @@ struct PrimaryView: View {
                 .tabItem {
                     Image("img_combinedshape_24X20")
                 }
-        }.hideNavigationBar()
+        }
     }
 }
-
 
 struct PrimaryView_Previews: PreviewProvider {
     static var previews: some View {
