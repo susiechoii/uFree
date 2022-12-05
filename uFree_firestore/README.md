@@ -65,5 +65,4 @@ Each user has a default calendar displaying their availability over the course o
 * Later extension to this project: adding date ranges when creating an event (only applicable for iOS 16)
 
 #### Citations
-
-[Citations.pdf](https://github.com/susiechoii/uFree/files/10153204/Citations.pdf)
+[Citations.pdf](https://github.com/susiechoii/uFree/files/10153894/Citations.pdf)
