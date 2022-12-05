@@ -168,14 +168,21 @@ extension AuthenticationViewModel {
         do {
             if (user != nil) {
                 let fetchUserInfoResult = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
-                let fetchedUserDocument = fetchUserInfoResult.data() ?? ["name" : "", "email" : "", "defaultHours": [], "events": [["eventUID": "null", "title": "null"]]]
-                savedName = fetchedUserDocument["name"] as! String
-                savedEmail = fetchedUserDocument["email"] as! String
-                savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
-                inputUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
-                savedUserEvents = fetchedUserDocument["events"] as! [[String: Any]]
-                configuredDefaults = true
-                return true
+                
+                if (fetchUserInfoResult.exists) {
+                    let fetchedUserDocument = fetchUserInfoResult.data() ?? ["name" : "", "email" : "", "defaultHours": [], "events": [["eventUID": "null", "title": "null"]]]
+                    savedName = fetchedUserDocument["name"] as! String
+                    savedEmail = fetchedUserDocument["email"] as! String
+                    savedUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+                    inputUserDefaultHours = fetchedUserDocument["defaultHours"] as! [Int]
+                    savedUserEvents = fetchedUserDocument["events"] as? [[String: Any]] ?? [["eventUID": "null", "title": "null"]]
+                    configuredDefaults = true
+                    return true
+                }
+                else {
+                    print("DEBUG: User does not exist in firestore")
+                    return false
+                }
             }
             return false
         }
