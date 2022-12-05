@@ -110,11 +110,11 @@ struct EventView: View {
                 
                 VStack {
                     
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }, label: {
-                        Image("img_arrowleft")
-                    })
+//                    Button(action: {
+//                        self.presentationMode.wrappedValue.dismiss()
+//                    }, label: {
+//                        Image("img_arrowleft")
+//                    })
                     
                     VStack {
                         
@@ -149,6 +149,12 @@ struct EventView: View {
                                 .frame(width: getRelativeWidth(8.0), height: getRelativeHeight(87.0), alignment: .center)
                                 .background(RoundedCorners(topLeft: 4.0, topRight: 4.0, bottomLeft: 4.0, bottomRight: 4.0)
                                     .fill(ColorConstants.OrangeA200))
+                            
+                            Button(action: {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }, label: {
+                                Image("img_arrowleft")
+                            })
                             
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("Event Details")

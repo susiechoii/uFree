@@ -18,6 +18,8 @@ struct OptimalTimeView: View {
     var eventUID: String!
     var title: String!
     var date: String!
+    var weekday: Int!
+    var weekArray: [Int] = []
     var time: String!
     var description: String!
     var duration: Int!
@@ -53,6 +55,25 @@ struct OptimalTimeView: View {
         
         dateFormatter.dateFormat = "HH:mm"
         self.time = dateFormatter.string(from:dateObject)
+        
+        self.weekday = Calendar.current.component(.weekday, from: dateObject) - 1
+//        weekArray.concat(weekArray.splice(0,weekArray.indexOf(weekday)))
+        var i: Int = weekday, count = 0, n = 7
+
+        // while loop from i = 1 to 5
+        while (count < n) {
+            if(i < 7){
+                self.weekArray.append(i)
+                i += 1
+            }
+            else{
+                i = 0
+                self.weekArray.append(i)
+                i += 1
+            }
+            count += 1
+        }
+        print(self.weekArray)
         
         self.description = particularEvent["description"] as! String
         self.duration = particularEvent["duration"] as! Int
@@ -125,12 +146,11 @@ struct OptimalTimeView: View {
             // SCROLL VIEW FOR THE DAYS OF THE WEEK
             ScrollView([.horizontal, .vertical], showsIndicators: false) {
                 LazyHStack {
-                    ForEach(0 ... 6, id: \.self) { index in
-                        
+                    ForEach(self.weekArray, id: \.self) { index in
+//                        let _ = print(index)
+//                        let _ = print(self.weekArray[index])
+//                        let _ = print(self.weekArray)
                         DaysTimeSele2Cell(index: index, defaultHours: viewModel.savedUserDefaultHours).environmentObject(viewModel)
-                        
-                        
-                        
                     }
                 }
                 .padding(.horizontal, getRelativeWidth(25))
@@ -190,6 +210,6 @@ struct OptimalTimeView: View {
 
 struct OptimalTimeView_Previews: PreviewProvider {
     static var previews: some View {
-        OptimalTimeView(particularEvent: ["title": "null", "everyoneConfirmed": true]).environmentObject(AuthenticationViewModel())
+        OptimalTimeView(particularEvent: ["eventUID": "0", "title" : "Test Title", "date": Date.now, "description" : "Test Description", "duration" : 5, "participantIDs" : ["CreatorUID", "InviteeUID"], "isCreator": true, "isShared" : true, "selfConfirmed": false, "everyoneConfirmed": false, "creatorConfirmed": false, "allUserHours" : ["creator": [0,1,2,3], "InviteeID1": [2,3,4,5]]]).environmentObject(AuthenticationViewModel())
     }
 }
