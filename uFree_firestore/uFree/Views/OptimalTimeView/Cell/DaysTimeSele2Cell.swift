@@ -108,7 +108,7 @@ struct DaysTimeSele2Cell: View {
                         let myIndex = index*24+1
                         print(index*24 + 1)
                         
-                        if (!didTapRow4) {
+                        if (!didTapRow1) {
                             
                             // sanity check to make sure no duplicates exist
                             if !viewModel.savedUserDefaultHours.contains(myIndex) {
@@ -599,14 +599,14 @@ struct DaysTimeSele2Cell: View {
                         let myIndex = index*24 + 13
                         print(index*24 + 13)
                         
-                        if (!didTapRow1) {
+                        if (!didTapRow13) {
                             
                             // sanity check to make sure no duplicates exist
                             if !viewModel.savedUserDefaultHours.contains(myIndex) {
                                 viewModel.savedUserDefaultHours.append(myIndex)
                             }
                             
-                            self.didTapRow1 = true
+                            self.didTapRow13 = true
                             print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
                         }
                         else {
@@ -614,7 +614,7 @@ struct DaysTimeSele2Cell: View {
                                 viewModel.savedUserDefaultHours.remove(at: index)
                             }
                             print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                            self.didTapRow1 = false
+                            self.didTapRow13 = false
                         }
                     }, label: {
                         Text(StringConstants.kLbl1pm)
@@ -630,7 +630,7 @@ struct DaysTimeSele2Cell: View {
                                                        topRight: 10,
                                                        bottomLeft: 10,
                                                        bottomRight: 10)
-                                .fill(didTapRow1 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                                .fill(didTapRow13 ? ColorConstants.Lime100 : ColorConstants.Gray101))
                             .padding(.leading, getRelativeWidth(0.0))
                             .padding(.top, getRelativeHeight(12.0))
                     })
@@ -640,14 +640,14 @@ struct DaysTimeSele2Cell: View {
                         let myIndex = index*24 + 14
                         print(index*24 + 14)
                         
-                        if (!didTapRow2) {
+                        if (!didTapRow14) {
                             
                             // sanity check to make sure no duplicates exist
                             if !viewModel.savedUserDefaultHours.contains(myIndex) {
                                 viewModel.savedUserDefaultHours.append(myIndex)
                             }
                             
-                            self.didTapRow2 = true
+                            self.didTapRow14 = true
                             print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
                         }
                         else {
@@ -655,7 +655,7 @@ struct DaysTimeSele2Cell: View {
                                 viewModel.savedUserDefaultHours.remove(at: index)
                             }
                             print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                            self.didTapRow2 = false
+                            self.didTapRow14 = false
                         }
                     }, label: {
                         Text(StringConstants.kLbl2pm)
@@ -671,7 +671,7 @@ struct DaysTimeSele2Cell: View {
                                                        topRight: 10,
                                                        bottomLeft: 10,
                                                        bottomRight: 10)
-                                .fill(didTapRow2 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                                .fill(didTapRow14 ? ColorConstants.Lime100 : ColorConstants.Gray101))
                             .padding(.leading, getRelativeWidth(0.0))
                             .padding(.top, getRelativeHeight(12.0))
                     })
@@ -684,14 +684,14 @@ struct DaysTimeSele2Cell: View {
                         let myIndex = index*24 + 15
                         print(index*24 + 15)
                         
-                        if (!didTapRow3) {
+                        if (!didTapRow15) {
                             
                             // sanity check to make sure no duplicates exist
                             if !viewModel.savedUserDefaultHours.contains(myIndex) {
                                 viewModel.savedUserDefaultHours.append(myIndex)
                             }
                             
-                            self.didTapRow3 = true
+                            self.didTapRow15 = true
                             print("viewModel.savedUserDefaultHours: \(viewModel.savedUserDefaultHours)")
                         }
                         else {
@@ -699,7 +699,7 @@ struct DaysTimeSele2Cell: View {
                                 viewModel.savedUserDefaultHours.remove(at: index)
                             }
                             print("viewModel.savedUserDefaultHours REMOVED VALUE: \(viewModel.savedUserDefaultHours)")
-                            self.didTapRow3 = false
+                            self.didTapRow15 = false
                         }
                     }, label: {
                         Text(StringConstants.kLbl3pm)
@@ -715,7 +715,7 @@ struct DaysTimeSele2Cell: View {
                                                        topRight: 10,
                                                        bottomLeft: 10,
                                                        bottomRight: 10)
-                                .fill(didTapRow3 ? ColorConstants.Lime100 : ColorConstants.Gray101))
+                                .fill(didTapRow15 ? ColorConstants.Lime100 : ColorConstants.Gray101))
                             .padding(.leading, getRelativeWidth(0.0))
                             .padding(.top, getRelativeHeight(12.0))
                     })
