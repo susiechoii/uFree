@@ -2,6 +2,10 @@
 // uFree
 
 import SwiftUI
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 struct IntroPageView: View {
     @StateObject var introPageViewModel = IntroPageViewModel()

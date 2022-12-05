@@ -6,18 +6,23 @@
 //
 
 import SwiftUI
+import Firebase
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: AuthenticationViewModel
     
     var body: some View {
-            if viewModel.user == nil{
-                let _ = print("DEBUG: ContentView - creating OnboardingView")
-                IntroPageView().environmentObject(viewModel)
-            } else {
-                let _ = print("DEBUG: ContentView - creating PrimaryView")
-                PrimaryView().environmentObject(viewModel)
-            }
+        if viewModel.user == nil && viewModel.configuredDefaults == false {
+            let _ = print("DEBUG: ContentView - creating OnboardingView")
+            IntroPageView().environmentObject(viewModel)
+        }
+        else if viewModel.user != nil && viewModel.configuredDefaults == true {
+            let _ = print("DEBUG: ContentView - creating PrimaryView")
+            PrimaryView().environmentObject(viewModel)
+        }
     }
 }
 
