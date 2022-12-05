@@ -35,7 +35,11 @@ Each user has a default calendar displaying their availability over the course o
   * **Amber**: Creators see this color if they have created a shared event and are waiting for invitees to confirm availability.
   * **Orange**: Creators see this color if invitees have confirmed their availability, and the creator must now choose a final time for the event.
 
-### Potential Bugs and How to Get Past Them
+### Potential Bugs That Currently Exist And How to Resolve Them
+
+* [Bug 1]
+
+* [Bug 2]
 
 ### Things We Promised and How We Deliver
 
