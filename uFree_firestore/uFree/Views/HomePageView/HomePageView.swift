@@ -62,6 +62,7 @@ struct HomePageView: View {
                                     SheetView2(index: index).environmentObject(viewModel)
                             }
                             
+                            
 //                            NavigationLink {
 //                                EventView(particularEvent: viewModel.savedUserEvents[index]).environmentObject(viewModel)
 //                            } label: {
