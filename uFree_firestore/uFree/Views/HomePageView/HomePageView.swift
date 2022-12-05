@@ -19,6 +19,7 @@ struct SheetView2: View {
     }
     
     var body: some View {
+        let _ = print("indexVal: \(indexVal)")
         EventView(particularEvent: viewModel.savedUserEvents[indexVal]).environmentObject(viewModel)
     }
 }
@@ -53,9 +54,11 @@ struct HomePageView: View {
                             Button {
                                 eventDetailModal.toggle()
                             } label: {
+                                let _ = print("regIndex \(index)")
                                 GenericCell(indexValue: index, particularEvent: viewModel.savedUserEvents[index])
                             }
                             .sheet(isPresented: $eventDetailModal) {
+                                    let _ = print("PASSEDIndex \(index)")
                                     SheetView2(index: index).environmentObject(viewModel)
                             }
                             
