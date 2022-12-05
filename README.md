@@ -64,4 +64,4 @@ Each user has a default calendar displaying their availability over the course o
 
 #### Citations
 
-[Citations.pdf](https://github.com/susiechoii/uFree/files/10152328/Citations.pdf)
+[Citations.pdf](https://github.com/susiechoii/uFree/files/10153204/Citations.pdf)
