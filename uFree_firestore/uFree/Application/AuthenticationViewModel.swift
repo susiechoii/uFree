@@ -42,6 +42,9 @@ class AuthenticationViewModel: ObservableObject {
     
     @Published var selectedTabViewIndex = 0
     
+    @Published var allUsersInEvent: [String] = [""]
+
+    
     // Authentication States
     @Published var authenticationState: AuthenticationState = .unauthenticated
     
@@ -524,6 +527,30 @@ extension AuthenticationViewModel {
         }
         return true
     }
+    
+    func getUsersFromFirestore(listOfUsers: [String]) async -> Bool {
+        allUsersInEvent = []
+            do {
+                let userInfo = try await Firestore.firestore().collection("users")
+                for user in listOfUsers {
+                    if (userInfo.document(user) != nil) {
+                        
+                        do {
+                            let userInfoDocument = try await userInfo.document(user).getDocument()
+                            let userInfoData = userInfoDocument.data() as! [String: Any]
+                            let userInfoString = userInfoData["name"] as! String
+                            
+                            allUsersInEvent.append(userInfoString)
+                        } catch {
+                            print("DEBUG: Unable to get")
+                        }
+                    }
+                }
+                return true
+            } catch {
+                return false
+            }
+        }
     
 }
 

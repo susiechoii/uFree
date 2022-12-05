@@ -53,7 +53,7 @@ struct HomePageView: View {
                             } label: {
                                 GenericCell(indexValue: index, particularEvent: viewModel.savedUserEvents[index])
                                     .padding(.bottom, getRelativeHeight(10))
-                            }
+                            } 
                         }
                     }.padding(.top, getRelativeHeight(12))
                 }.frame(width: UIScreen.main.bounds.width,
