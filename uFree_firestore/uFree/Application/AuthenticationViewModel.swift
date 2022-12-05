@@ -195,7 +195,7 @@ extension AuthenticationViewModel {
     
     func addNewEventToFirestore(inputTitle: String, inputDate: Date, inputDuration: Int, inputInvitees: String, inputDescription: String) async -> Bool {
 
-        allUsersInEvent = []
+//        allUsersInEvent = []
 
         print("ADDING NEW EVENT")
         errorMessage = ""

@@ -260,8 +260,9 @@ struct EventView: View {
                         .padding(.vertical, getRelativeHeight(16.0))
                         .padding(.horizontal, getRelativeWidth(16.0))
                         
+                        let _ = print(isShared)
                         if (isShared) {
-                            
+                            let _ = print(checkIfAllInviteesConfirmed())
                             if (checkIfAllInviteesConfirmed()) {
                                 
                                 if (isCreator) {
@@ -282,7 +283,8 @@ struct EventView: View {
                                                     .frame(width: getRelativeWidth(295.0),
                                                            height: getRelativeHeight(60.0),
                                                            alignment: .center)
-                                                
+                                                    .background(RoundedCorners(topLeft: 20, topRight: 20, bottomLeft: 20, bottomRight: 20)
+                                                    .fill(ColorConstants.Red400))
                                             }
                                         })
                                         .frame(width: getRelativeWidth(295.0),
@@ -340,7 +342,8 @@ struct EventView: View {
                                                     .foregroundColor(ColorConstants.WhiteA700)
                                                     .minimumScaleFactor(0.5)
                                                     .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0), alignment: .center)
-                                                
+                                                    .background(RoundedCorners(topLeft: 20, topRight: 20, bottomLeft: 20, bottomRight: 20)
+                                                    .fill(ColorConstants.Red400))
                                             }
                                         })
                                         .frame(width: getRelativeWidth(295.0),
