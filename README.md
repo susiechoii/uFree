@@ -57,3 +57,7 @@ Each user has a default calendar displaying their availability over the course o
 * A user can use their default calendar to autofill any event invite (this is default behavior)
 
 * We hold our database of users, events, and hours in Google Firebase.
+
+#### Citations
+
+[Citations.pdf](https://github.com/susiechoii/uFree/files/10151416/Citations.pdf)
