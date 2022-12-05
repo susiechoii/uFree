@@ -90,8 +90,8 @@ struct GenericCell: View {
                     checkIfAllInviteesConfirmed() ?
                     (
                         isCreator ? (
-                            !selfConfirmed ? ColorConstants.OrangeA200 : ColorConstants.WhiteA700
-                        ) : !creatorConfirmed ? ColorConstants.Gray300 : ColorConstants.WhiteA700
+                            !selfConfirmed ? ColorConstants.OrangeA200 : ColorConstants.Lime100
+                        ) : !creatorConfirmed ? ColorConstants.Gray300 : ColorConstants.Lime100
                     ) : (
                         isCreator ? ColorConstants.Amber100 : (
                             selfConfirmed ? ColorConstants.Gray100 : ColorConstants.Red50
