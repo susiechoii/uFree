@@ -191,9 +191,6 @@ struct EventView: View {
                         
                         if (isShared) {
                             
-                            //                            $viewModel.allUsersInEvent
-                            
-                            
                             ZStack {
                                 Image("img_amigosshopping")
                                     .resizable()
