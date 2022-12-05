@@ -5,9 +5,27 @@ import FirebaseFirestore
 import FirebaseAuth
 
 
+//Sheet for the event creation (modal)
+@available(iOS 15.0, *)
+struct SheetView2: View {
+    @EnvironmentObject var viewModel: AuthenticationViewModel
+    @Environment(\.dismiss) var dismiss
+    var indexVal = 0
+    
+    // init method
+    init(index: Int) {
+        indexVal = index
+        print("Creating Home Page View")
+    }
+    
+    var body: some View {
+        EventView(particularEvent: viewModel.savedUserEvents[indexVal]).environmentObject(viewModel)
+    }
+}
+
 struct HomePageView: View {
     @StateObject var homePageViewModel = HomePageViewModel()
-    
+    @State private var eventDetailModal = false
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @EnvironmentObject var viewModel:AuthenticationViewModel
@@ -32,11 +50,20 @@ struct HomePageView: View {
                         
                         let _ = print("number of events: \($viewModel.savedUserEvents)")
                         ForEach(1..<$viewModel.savedUserEvents.count, id: \.self) { index in
-                            NavigationLink {
-                                EventView(particularEvent: viewModel.savedUserEvents[index]).environmentObject(viewModel)
+                            Button {
+                                eventDetailModal.toggle()
                             } label: {
                                 GenericCell(indexValue: index, particularEvent: viewModel.savedUserEvents[index])
                             }
+                            .sheet(isPresented: $eventDetailModal) {
+                                    SheetView2(index: index).environmentObject(viewModel)
+                            }
+                            
+//                            NavigationLink {
+//                                EventView(particularEvent: viewModel.savedUserEvents[index]).environmentObject(viewModel)
+//                            } label: {
+//                                GenericCell(indexValue: index, particularEvent: viewModel.savedUserEvents[index])
+//                            }
                         }
                     }
                 }.frame(width: UIScreen.main.bounds.width,
