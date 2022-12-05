@@ -29,11 +29,11 @@ Each user has a default calendar displaying their availability over the course o
 
 * What do colors of events signify on uFree’s homepage?
 
-** White: event confirmed
-** Red: participants see this color if they need to confirm their availability for an event.
-** Gray: participants see this color if they have confirmed their availability for an event, but other users have not yet confirmed (or the creator has not finalized a start time).
-** Amber: Creators see this color if they have created a shared event and are waiting for invitees to confirm availability.
-** Orange: Creators see this color if invitees have confirmed their availability, and the creator must now choose a final time for the event.
+  * White: event confirmed
+  * Red: participants see this color if they need to confirm their availability for an event.
+  * Gray: participants see this color if they have confirmed their availability for an event, but other users have not yet confirmed (or the creator has not finalized a start time).
+  * Amber: Creators see this color if they have created a shared event and are waiting for invitees to confirm availability.
+  * Orange: Creators see this color if invitees have confirmed their availability, and the creator must now choose a final time for the event.
 
 ### Potential Bugs and How to Get Past Them
 
