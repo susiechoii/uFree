@@ -4,9 +4,7 @@
 //
 //  Created by Leung Wai Liu on 11/20/22.
 //
-
 // source: from Google's Getting Started with Firebase
-
 
 import Foundation
 import SwiftUI
@@ -196,7 +194,7 @@ extension AuthenticationViewModel {
         }
     }
     
-    func addNewEventToFirestore(inputTitle: String, inputDate: Date, inputDuration: Int, inputInvitee: String, inputDescription: String) async -> Bool {
+    func addNewEventToFirestore(inputTitle: String, inputDate: Date, inputDuration: Int, inputInvitees: String, inputDescription: String) async -> Bool {
         print("ADDING NEW EVENT")
         errorMessage = ""
         
@@ -206,34 +204,41 @@ extension AuthenticationViewModel {
         var participants = [user!.uid]
         var savedAllUserHours = ["creator": savedUserDefaultHours]
         
-        if inputInvitee != "" {
-            do {
-                let allUsersRecord = try await Firestore.firestore().collection("users").getDocuments()
-                
-                for userDocument in allUsersRecord.documents {
-                    let userEmail = userDocument.get("email") as? String
+        if inputInvitees != "" {
+
+            let invitees = inputInvitees.components(separatedBy: ", ")
+            print("INVITEES: \(invitees)")
+
+            for invitee in invitees {
+                do {
+                    let allUsersRecord = try await Firestore.firestore().collection("users").getDocuments()
                     
-                    if userEmail == inputInvitee {
-                        needsSharing = true
-                        inviteeUID = userDocument.get("uid") as! String
-                        participants.append(inviteeUID)
-                        inviteeExistingEvents = userDocument.get("events") as! [[String: Any]]
-                        let inviteeBlankArray: [Int] = []
-                        savedAllUserHours[inviteeUID] = inviteeBlankArray
+                    for userDocument in allUsersRecord.documents {
+                        let userEmail = userDocument.get("email") as? String
+                        
+                        if userEmail == invitee {
+                            needsSharing = true
+                            inviteeUID = userDocument.get("uid") as! String
+                            participants.append(inviteeUID)
+                            inviteeExistingEvents = userDocument.get("events") as! [[String: Any]]
+                            let inviteeBlankArray: [Int] = []
+                            savedAllUserHours[inviteeUID] = inviteeBlankArray
+                        }
+                    }
+                    
+                    if needsSharing == false {
+                        errorMessage = "Invitee not an existing user. Please try again"
+                        print("DEBUG: \(errorMessage)")
+                        return false
                     }
                 }
-                
-                if needsSharing == false {
-                    errorMessage = "Invitee not an existing user. Please try again"
-                    print("DEBUG: \(errorMessage)")
+                catch {
+                    errorMessage = error.localizedDescription
+                    print("DEBUG: Unable to find all users: \(errorMessage)")
                     return false
                 }
             }
-            catch {
-                errorMessage = error.localizedDescription
-                print("DEBUG: Unable to find all users: \(errorMessage)")
-                return false
-            }
+            
         }
         
         do {
@@ -256,16 +261,25 @@ extension AuthenticationViewModel {
                 try await Firestore.firestore().collection("users").document(user!.uid).updateData(["events" : currentUserExistingEvents])
                 
                 if needsSharing {
-                    do {
-                        try await Firestore.firestore().collection("users").document(inviteeUID).updateData(["events": inviteeExistingEvents])
-                    }
-                    catch {
-                        errorMessage = "DEBUG: Unable to add enw event for invitee"
-                        print(errorMessage)
-                        return false
-                    }
                     
-                    
+                    let invitees = inputInvitees.components(separatedBy: ", ")
+                    print("ACTUALLY ADDING: \(invitees)")
+
+                    for participantID in participants {
+                        if (participantID != participants[0]) {
+                            do {
+                                
+                                try await Firestore.firestore().collection("users").document(participantID).updateData(["events": inviteeExistingEvents])
+                            }
+                            catch {
+                                errorMessage = "DEBUG: Unable to add enw event for invitee"
+                                print(errorMessage)
+                                return false
+                            }
+                        }
+                        
+                    }
+
                 }
                 
                 // refresh
@@ -340,39 +354,59 @@ extension AuthenticationViewModel {
             do {
                 // updating the event for the creator
                 try await Firestore.firestore().collection("users").document(creatorID).updateData(["events" : allCreatorEvents])
-                
-                do {
-                    // getting all the events of the invitee first
-                    let inviteeDocument = try await Firestore.firestore().collection("users").document(user!.uid).getDocument()
+
+                for inviteeID in participantIDs {
                     
-                    // doing the same for the invitee
-                    var allInviteeEvents: [[String : Any]] = inviteeDocument.get("events") as! [[String : Any]]
-                    
-                    let inviteeEventToModifyIndex: Int = allInviteeEvents.firstIndex(where: { $0["eventUID"] as! String == eventUID})!
-                    
-                    allInviteeEvents[inviteeEventToModifyIndex] = eventToAdd
-                    
-                    do {
-                        try await Firestore.firestore().collection("users").document(user!.uid).updateData(["events" : allInviteeEvents])
+                    if (inviteeID != participantIDs[0]) {
+                        print("INVITEEID: \(inviteeID)")
+                        print("participantIDs: \(participantIDs)")
                         
-                        // refresh
-                        if await getEventsFromFirestore() == true {
-                            print("DEBUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
-                            return true
+                        var eventToAddInvitee = event
+                        eventToAddInvitee["allUserHours"] = allUserHours
+                        eventToAddInvitee["everyoneConfirmed"] = everyoneConfirmedStatus
+
+                        do {
+                            // getting all the events of the invitee first
+                            let inviteeDocument = try await Firestore.firestore().collection("users").document(inviteeID).getDocument()
+                            
+                            // doing the same for the invitee
+                            var allInviteeEvents: [[String : Any]] = inviteeDocument.get("events") as! [[String : Any]]
+                            
+                            let inviteeEventToModifyIndex: Int = allInviteeEvents.firstIndex(where: { $0["eventUID"] as! String == eventUID})!
+                            
+                            if (inviteeID == user!.uid) {
+                                if (!((allInviteeEvents[inviteeEventToModifyIndex]["selfConfirmed"] as! Bool))) {
+                                    eventToAddInvitee["selfConfirmed"] = true
+                                }
+                            }
+                            
+                            allInviteeEvents[inviteeEventToModifyIndex] = eventToAddInvitee
+                        
+                            
+                            do {
+                                try await Firestore.firestore().collection("users").document(inviteeID).updateData(["events" : allInviteeEvents])
+                                
+                                // refresh
+    //                            if await getEventsFromFirestore() == true {
+    //                                print("DEBUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
+    //                                return true
+    //                            }
+                            }
+                            catch {
+                                errorMessage = "Failed to update allUserHours for the current user (invitee)"
+                                print("DEBUG \(errorMessage)")
+                                return false
+                            }
+                            
+                            
+                        } catch {
+                            errorMessage = "Failed to get documents for existing user (invitee)"
+                            print("DEBUG: \(errorMessage)")
+                            return false
                         }
                     }
-                    catch {
-                        errorMessage = "Failed to update allUserHours for the current user (invitee)"
-                        print("DEBUG \(errorMessage)")
-                        return false
-                    }
-                    
-                    
-                } catch {
-                    errorMessage = "Failed to get documents for existing user (invitee)"
-                    print("DEBUG: \(errorMessage)")
-                    return false
                 }
+                   
             }
             catch {
                 errorMessage = "Failed to update allUserHours for the event creator"
@@ -386,7 +420,10 @@ extension AuthenticationViewModel {
             print("DEBUG: Failed to get creator information \(errorMessage)")
             return false
         }
-        
+        if await getEventsFromFirestore() == true {
+            print("DEBUG: EVENT CREATION, SHARING, HOME PAGE REFRESH SUCCESS")
+            return true
+        }
         return true
     }
     
@@ -560,5 +597,3 @@ extension AuthenticationViewModel {
         }
     
 }
-
-

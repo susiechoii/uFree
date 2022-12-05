@@ -17,13 +17,19 @@ struct EventCreationView: View {
     @State var inputTitle = ""
     @State var inputDate = Date.now
     @State var inputDuration: Int = 1
-    @State var inputInvitee = ""
+
+    // @State var inputInvitee = ""
+    @State var inputInvitees = ""
+
+
     @State var inputDescription = ""
     
     private func addNewEventToFirebase() {
         Task {
-            if await viewModel.addNewEventToFirestore(inputTitle: inputTitle, inputDate: inputDate, inputDuration: inputDuration, inputInvitee: inputInvitee, inputDescription: inputDescription) == true {
+            if await viewModel.addNewEventToFirestore(inputTitle: inputTitle, inputDate: inputDate, inputDuration: inputDuration, inputInvitees: inputInvitees, inputDescription: inputDescription) == true {
                 self.presentationMode.wrappedValue.dismiss()
+            // if await viewModel.addNewEventToFirestore(inputTitle: inputTitle, inputDate: inputDate, inputDuration: inputDuration, inputInvitee: inputInvitee, inputDescription: inputDescription) == true {
+            //     self.presentationMode.wrappedValue.dismiss()
 //                viewModel.selectedTabViewIndex = 0
                 
             }
@@ -163,8 +169,9 @@ struct EventCreationView: View {
                             .padding(.bottom, getRelativeHeight(5))
                         
                         // Invitees Title
-                        TextField("Email",
-                                  text: $inputInvitee)
+                        // TextField("Email(s)",
+                        //           text: inputInvitees)
+                        TextField("Email(s)", text: $inputInvitees)
                         .font(FontScheme
                             .kInterRegular(size: getRelativeHeight(15.0)))
                         .foregroundColor(ColorConstants.Black900Cc)

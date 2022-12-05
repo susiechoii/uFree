@@ -13,20 +13,20 @@ struct ProfileView: View {
                     .frame(width: 140, height: 140)
                     .clipShape(Circle())
                 
-                Text(StringConstants.kLblToddSproull)
+                Text(viewModel.savedName)
                     .font(.title)
                     .bold()
             }
-            .redacted(reason: .placeholder)
+//            .redacted(reason: .placeholder)
             
             Spacer().frame(height: 30)
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Image(systemName: "envelope")
-                    Text("blah@email.com")
+                    Text(viewModel.savedEmail)
                 }
             }
-            .redacted(reason: .placeholder)
+//            .redacted(reason: .placeholder)
             
             Spacer().frame(height: 30)
             
@@ -49,7 +49,7 @@ struct ProfileView: View {
                                                bottomLeft: 15,
                                                bottomRight: 15)
                         .fill(ColorConstants.Gray600))
-            }).redacted(reason: .placeholder)
+            })//.redacted(reason: .placeholder)
             
             Button(action: {
                 viewModel.signOut()
@@ -70,7 +70,8 @@ struct ProfileView: View {
                                                bottomLeft: 20,
                                                bottomRight: 20)
                         .fill(ColorConstants.Red400))
-            }).redacted(reason: .placeholder)
+            })
+//            .redacted(reason: .placeholder)
         }
     }
 }
