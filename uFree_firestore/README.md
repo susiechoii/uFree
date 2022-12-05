@@ -21,7 +21,7 @@ Each user has a default calendar displaying their availability over the course o
 
 * Build the project as normal on the iPhone 13 Pro. It may help to have two simulators open to test functionality between two different users.
 
-* Create events and enjoy the clean interface of uFree!
+* Create events and enjoy the clean interface of uFree! Please refresh every time a new change is made, especially if you have more than one simulator open. This will just make sure everything is absolutely synchronized with the database.
 
 ### Notes
 
