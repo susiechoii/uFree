@@ -40,6 +40,7 @@ class AuthenticationViewModel: ObservableObject {
     @Published var inputCommonHours: [Int] = [0]
     @Published var finalizedHour: Int = 0
     
+    @Published var selectedTabViewIndex = 0
     
     // Authentication States
     @Published var authenticationState: AuthenticationState = .unauthenticated

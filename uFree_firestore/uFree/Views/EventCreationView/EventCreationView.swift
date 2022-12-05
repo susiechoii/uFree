@@ -24,6 +24,8 @@ struct EventCreationView: View {
         Task {
             if await viewModel.addNewEventToFirestore(inputTitle: inputTitle, inputDate: inputDate, inputDuration: inputDuration, inputInvitee: inputInvitee, inputDescription: inputDescription) == true {
                 self.presentationMode.wrappedValue.dismiss()
+//                viewModel.selectedTabViewIndex = 0
+                
             }
         }
     }

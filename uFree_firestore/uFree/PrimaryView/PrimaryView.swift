@@ -241,10 +241,9 @@ struct PrimaryView: View {
                 }.tag(0)
             EventCreationView().environmentObject(viewModel)
                 .onTapGesture {
-                    NavigationLink(destination: HomePageView().environmentObject(viewModel),
-                                   label: {
-                        EmptyView()
-                    })}
+                    self.selectedIndex = 1
+                    
+                }
                 .tabItem {
                     Image("img_group90")
                 }
@@ -255,9 +254,10 @@ struct PrimaryView: View {
                 .tabItem {
                     Image("img_combinedshape_24X20")
                 }
-        }
+        }.hideNavigationBar()
     }
 }
+
 
 struct PrimaryView_Previews: PreviewProvider {
     static var previews: some View {
