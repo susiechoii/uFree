@@ -74,13 +74,24 @@ struct GenericCell: View {
             
             // ZStack for the image
             ZStack {
-                Image("img_nomadscampfire")
-                    .resizable()
-                    .frame(width: getRelativeWidth(129.0), height: getRelativeHeight(86.0),
-                           alignment: .leading)
-                    .scaledToFit()
-                    .padding(.vertical, getRelativeHeight(16.0))
-                    .padding(.horizontal, getRelativeWidth(16.0))
+                if (!isShared) {
+                    Image("img_nomadscampfire")
+                        .resizable()
+                        .frame(width: getRelativeWidth(129.0), height: getRelativeHeight(86.0),
+                               alignment: .leading)
+                        .scaledToFit()
+                        .padding(.vertical, getRelativeHeight(16.0))
+                        .padding(.horizontal, getRelativeWidth(16.0))
+                } else {
+                    Image("img_amigosshopping")
+                        .resizable()
+                        .frame(width: getRelativeWidth(129.0), height: getRelativeHeight(86.0),
+                               alignment: .leading)
+                        .scaledToFit()
+                        .padding(.vertical, getRelativeHeight(16.0))
+                        .padding(.horizontal, getRelativeWidth(16.0))
+                }
+                
             }
             .frame(width: getRelativeWidth(161.0), height: getRelativeHeight(130.0),
                    alignment: .leading)
@@ -110,7 +121,7 @@ struct GenericCell: View {
                     .foregroundColor(ColorConstants.Gray900)
                     .minimumScaleFactor(0.5)
                     .multilineTextAlignment(.leading)
-                    .frame(width: getRelativeWidth(180), height: getRelativeHeight(60),
+                    .frame(width: getRelativeWidth(150), height: getRelativeHeight(60),
                            alignment: .leading)
                     .padding(.top, getRelativeHeight(15))
                 

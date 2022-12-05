@@ -17,7 +17,9 @@ struct EventView: View {
     
     var eventUID: String!
     var title: String!
+    
     var date: String!
+    
     var time: String!
     var description: String!
     var duration: Int!
@@ -55,7 +57,7 @@ struct EventView: View {
         if participantString.count >= 2 {
             participantString = String(describing: participantString.prefix(participantString.count - 2))
         }
-
+        
         return participantString
     }
     
@@ -65,27 +67,29 @@ struct EventView: View {
         self.eventUID = particularEvent["eventUID"] as! String
         self.title = particularEvent["title"] as! String
         self.allUserNames = []
-
+        
+        
         var dateObject = (particularEvent["date"] as! Timestamp).dateValue()
+        
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateFormat = "MM/dd/yyyy"
         self.date = dateFormatter.string(from:dateObject)
-
+        
         dateFormatter.dateFormat = "HH:mm"
         self.time = dateFormatter.string(from:dateObject)
-
+        
         self.description = particularEvent["description"] as! String
         self.duration = particularEvent["duration"] as! Int
-
+        
         self.participantIDs = particularEvent["participantIDs"] as! [String]
-
+        
         self.isCreator = particularEvent["isCreator"] as! Bool
         self.isShared = particularEvent["isShared"] as! Bool
-
+        
         self.selfConfirmed = particularEvent["selfConfirmed"] as! Bool
         self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
         self.creatorConfirmed = particularEvent["creatorConfirmed"] as! Bool
-
+        
         self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
     
@@ -129,24 +133,26 @@ struct EventView: View {
                             
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("Event Details")
-                                    .font(FontScheme.kInterRegular(size: getRelativeHeight(12.0)))
-                                    .fontWeight(.regular)
+                                    .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                    .fontWeight(.bold)
                                     .foregroundColor(ColorConstants.OrangeA200)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
-                                    .frame(width: getRelativeWidth(51.0), height: getRelativeHeight(16.0), alignment: .topLeading)
+                                    .frame(width: getRelativeWidth(120), height: getRelativeHeight(40), alignment: .topLeading)
                                     .padding(.trailing)
+                                    .padding(.bottom, 0)
+                                
                                 
                                 Text(self.title)
-                                    .font(FontScheme.kInterSemiBold(size: getRelativeHeight(24.0)))
+                                    .font(FontScheme.kInterSemiBold(size: getRelativeHeight(50)))
                                     .fontWeight(.semibold)
                                     .foregroundColor(ColorConstants.Gray900)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
-                                    .frame(width: getRelativeWidth(85.0),
-                                           height: getRelativeHeight(24.0), alignment: .topLeading)
-                                    .padding(.top, getRelativeHeight(11.0))
+                                    .frame(width: getRelativeWidth(200),
+                                           height: getRelativeHeight(50), alignment: .topLeading)
                                     .padding(.trailing, getRelativeWidth(10.0))
+                                    .padding(.top, getRelativeHeight(-5))
                                 
                                 Text("Date: " + String(describing: self.date))
                                     .font(FontScheme.kInterBold(size: getRelativeHeight(16.0)))
@@ -184,10 +190,10 @@ struct EventView: View {
                         .padding(.trailing, getRelativeWidth(300.0))
                         
                         if (isShared) {
-
+                            
                             //                            $viewModel.allUsersInEvent
-
-
+                            
+                            
                             ZStack {
                                 Image("img_amigosshopping")
                                     .resizable()
@@ -258,9 +264,9 @@ struct EventView: View {
                         .padding(.horizontal, getRelativeWidth(16.0))
                         
                         if (isShared) {
-
+                            
                             if (checkIfAllInviteesConfirmed()) {
-
+                                
                                 if (isCreator) {
                                     if (!selfConfirmed) {
                                         // confirm availability button
@@ -279,12 +285,12 @@ struct EventView: View {
                                                     .frame(width: getRelativeWidth(295.0),
                                                            height: getRelativeHeight(60.0),
                                                            alignment: .center)
-
+                                                
                                             }
                                         })
                                         .frame(width: getRelativeWidth(295.0),
                                                height: getRelativeHeight(60.0), alignment: .topLeading)
-
+                                        
                                     } else {
                                         // Text that says Confirmed
                                         Text("Event Confirmed!")
@@ -309,7 +315,7 @@ struct EventView: View {
                                             .frame(width: getRelativeWidth(470), height: 1, alignment: .leading)
                                             .lineSpacing(26)
                                     }
-
+                                    
                                 }
                             } else {
                                 // not checkifallinviteesconfirmed
@@ -337,12 +343,12 @@ struct EventView: View {
                                                     .foregroundColor(ColorConstants.WhiteA700)
                                                     .minimumScaleFactor(0.5)
                                                     .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0), alignment: .center)
-
+                                                
                                             }
                                         })
                                         .frame(width: getRelativeWidth(295.0),
                                                height: getRelativeHeight(60.0), alignment: .topLeading)
-
+                                        
                                     } else {
                                         // Text that says waiting
                                         Text("Waiting for other users to confirm...")
@@ -383,7 +389,7 @@ struct EventView: View {
                         })
                         .padding(.vertical, getRelativeHeight(20))
                         .padding(.horizontal, getRelativeWidth(-200.0))
-
+                        
                         
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(768.0), alignment: .leading)
@@ -424,7 +430,7 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-//        EventView().environmentObject(AuthenticationViewModel())
-        EventView(particularEvent: ["eventUID": "0", "title" : "Test Title", "date": NSDate().timeIntervalSince1970, "description" : "Test Description", "duration" : 5, "participantIDs" : ["CreatorUID", "InviteeUID"], "isCreator": true, "isShared" : true, "selfConfirmed": false, "everyoneConfirmed": false, "creatorConfirmed": false, "allUserHours" : ["creator": [0,1,2,3], "InviteeID1": [2,3,4,5]]]).environmentObject(AuthenticationViewModel())
+        //        EventView().environmentObject(AuthenticationViewModel())
+        EventView(particularEvent: ["eventUID": "0", "title" : "Test Title", "date": nil, "description" : "Test Description", "duration" : 5, "participantIDs" : ["CreatorUID", "InviteeUID"], "isCreator": true, "isShared" : true, "selfConfirmed": false, "everyoneConfirmed": false, "creatorConfirmed": false, "allUserHours" : ["creator": [0,1,2,3], "InviteeID1": [2,3,4,5]]]).environmentObject(AuthenticationViewModel())
     }
 }
