@@ -435,9 +435,9 @@ extension AuthenticationViewModel {
         let participantIDs = event["participantIDs"] as! [String]
         let eventUID = event["eventUID"] as! String
         // retreieve the day of the week for date object
-        var dateObject = (event["date"] as! Timestamp).dateValue()
-        let calendar = Calendar.current
-        let dayOfWeek = calendar.component(.weekday, from: dateObject)
+        let dateObject = (event["date"] as! Timestamp).dateValue()
+//        let calendar = Calendar.current
+//        let dayOfWeek = calendar.component(.weekday, from: dateObject)
         
         var dateObjectComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: dateObject)
         
