@@ -65,27 +65,27 @@ struct EventView: View {
         self.eventUID = particularEvent["eventUID"] as! String
         self.title = particularEvent["title"] as! String
         self.allUserNames = []
-        
+
         var dateObject = (particularEvent["date"] as! Timestamp).dateValue()
         dateFormatter.locale = Locale(identifier: "en_US")
         dateFormatter.dateFormat = "MM/dd/yyyy"
         self.date = dateFormatter.string(from:dateObject)
-        
+
         dateFormatter.dateFormat = "HH:mm"
         self.time = dateFormatter.string(from:dateObject)
-        
+
         self.description = particularEvent["description"] as! String
         self.duration = particularEvent["duration"] as! Int
-        
+
         self.participantIDs = particularEvent["participantIDs"] as! [String]
-        
+
         self.isCreator = particularEvent["isCreator"] as! Bool
         self.isShared = particularEvent["isShared"] as! Bool
-        
+
         self.selfConfirmed = particularEvent["selfConfirmed"] as! Bool
         self.everyoneConfirmed = particularEvent["everyoneConfirmed"] as! Bool
         self.creatorConfirmed = particularEvent["creatorConfirmed"] as! Bool
-        
+
         self.allUserHours = particularEvent["allUserHours"] as! [String: [Int]]
     }
     
@@ -110,51 +110,22 @@ struct EventView: View {
                 
                 VStack {
                     
-//                    Button(action: {
-//                        self.presentationMode.wrappedValue.dismiss()
-//                    }, label: {
-//                        Image("img_arrowleft")
-//                    })
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }, label: {
+                        Image("img_arrowleft")
+                    })
+                    .padding(.top, getRelativeHeight(100.0))
+                    .padding(.trailing, getRelativeWidth(300.0))
                     
                     VStack {
-                        
-                        // HStack {
-                        //  HStack {
-                        //     Image("img_arrowleft_gray_900")
-                        //       .resizable()
-                        //       .frame(width: getRelativeWidth(9.0), height: getRelativeHeight(16.0), alignment: .center)
-                        //       .scaledToFit()
-                        //       .clipped()
-                        //       .padding(.vertical, getRelativeHeight(7.0))
-                        //       .onTapGesture {
-                        //          self.presentationMode.wrappedValue.dismiss()
-                        //       }
-                        //       Spacer()
-                        //       Button(action: {}, label: {
-                        //          Image("img_group17")
-                        //       })
-                        //       .frame(width: getRelativeWidth(30.0), height: getRelativeWidth(30.0), alignment: .center)
-                        //       .background(RoundedCorners(topLeft: 5.0, topRight: 5.0, bottomLeft: 5.0, bottomRight: 5.0)
-                        //       .fill(ColorConstants.Gray40075))
-                        //  }
-                        //  .frame(width: getRelativeWidth(324.0), height: getRelativeHeight(30.0), alignment: .leading)
-                        // }
-                        // .frame(width: getRelativeWidth(324.0), height: getRelativeHeight(30.0), alignment: .leading)
-                        // .padding(.top, getRelativeHeight(30.0))
-                        // .padding(.horizontal, getRelativeWidth(16.0))
                         
                         HStack {
                             ZStack {}
                                 .hideNavigationBar()
-                                .frame(width: getRelativeWidth(8.0), height: getRelativeHeight(87.0), alignment: .center)
+                                .frame(width: getRelativeWidth(8.0), height: getRelativeHeight(87.0), alignment: .leading)
                                 .background(RoundedCorners(topLeft: 4.0, topRight: 4.0, bottomLeft: 4.0, bottomRight: 4.0)
                                     .fill(ColorConstants.OrangeA200))
-                            
-                            Button(action: {
-                                self.presentationMode.wrappedValue.dismiss()
-                            }, label: {
-                                Image("img_arrowleft")
-                            })
                             
                             VStack(alignment: .leading, spacing: 0) {
                                 Text("Event Details")
@@ -180,7 +151,7 @@ struct EventView: View {
                                 Text("Date: " + String(describing: self.date))
                                     .font(FontScheme.kInterBold(size: getRelativeHeight(16.0)))
                                     .fontWeight(.bold)
-                                    .foregroundColor(ColorConstants.Gray200)
+                                    .foregroundColor(ColorConstants.Gray600)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
                                     .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(16.0), alignment: .topLeading)
@@ -189,7 +160,7 @@ struct EventView: View {
                                 Text("Time: " + String(describing: self.time))
                                     .font(FontScheme.kInterBold(size: getRelativeHeight(16.0)))
                                     .fontWeight(.bold)
-                                    .foregroundColor(ColorConstants.Gray200)
+                                    .foregroundColor(ColorConstants.Gray600)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
                                     .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(16.0), alignment: .topLeading)
@@ -198,7 +169,7 @@ struct EventView: View {
                                 Text("Duration: " + String(describing: self.duration))
                                     .font(FontScheme.kInterBold(size: getRelativeHeight(16.0)))
                                     .fontWeight(.bold)
-                                    .foregroundColor(ColorConstants.Gray200)
+                                    .foregroundColor(ColorConstants.Gray600)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
                                     .frame(width: getRelativeWidth(157.0), height: getRelativeHeight(16.0), alignment: .topLeading)
@@ -208,149 +179,42 @@ struct EventView: View {
                             .padding(.leading, getRelativeWidth(16.0))
                             
                         }
-                        .frame(width: getRelativeWidth(232.0), height: getRelativeHeight(87.0), alignment: .leading)
-                        .padding(.top, getRelativeHeight(17.0))
-                        .padding(.trailing, getRelativeWidth(10.0))
-                        
-                        //                        .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                        //                                                   bottomRight: 8.0))
+                        .frame(width: getRelativeWidth(232.0), height: getRelativeHeight(200.0), alignment: .leading)
+                        .padding(.top, getRelativeHeight(-150.0))
+                        .padding(.trailing, getRelativeWidth(300.0))
                         
                         if (isShared) {
-                            
-                            if (checkIfAllInviteesConfirmed()) {
-                                
-                                if (isCreator) {
-                                    if (!selfConfirmed) {
-                                        // confirm availability button
-                                        Button(action: {
-                                            eventViewModel.nextScreen = "CreatorConfirmTimeView"
-                                        }, label: {
-                                            HStack(spacing: 0) {
-                                                Text("FINALIZE AVAILABILITY")
-                                                    .font(FontScheme
-                                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
-                                                    .fontWeight(.heavy)
-                                                    .padding(.horizontal, getRelativeWidth(30.0))
-                                                    .padding(.vertical, getRelativeHeight(22.0))
-                                                    .foregroundColor(ColorConstants.WhiteA700)
-                                                    .minimumScaleFactor(0.5)
-                                                    .frame(width: getRelativeWidth(295.0),
-                                                           height: getRelativeHeight(60.0),
-                                                           alignment: .center)
-                                                
-                                            }
-                                        })
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(60.0), alignment: .topLeading)
-                                        
-                                    } else {
-                                        // Text that says Confirmed
-                                        Text("Event Confirmed!")
-                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                            .fontWeight(.medium)
-                                            .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
-                                            .lineSpacing(26)
-                                    }
-                                } else {
-                                    // not creator
-                                    // Text that says waiting
-                                    if (creatorConfirmed) {
-                                        Text("Event Confirmed!")
-                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                            .fontWeight(.medium)
-                                            .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
-                                            .lineSpacing(26)
-                                    } else {
-                                        Text("Waiting for other users to confirm...")
-                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                            .fontWeight(.medium)
-                                            .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
-                                            .lineSpacing(26)
-                                    }
-                                    
-                                }
-                            } else {
-                                // not checkifallinviteesconfirmed
-                                if (isCreator) {
-                                    // Text that says waiting other
-                                    Text("Waiting for other users to confirm...")
-                                        .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                        .fontWeight(.medium)
-                                        .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
-                                        .lineSpacing(26)
-                                }
-                                else {
-                                    if (!selfConfirmed) {
-                                        // Button that says set availability
-                                        Button(action: {
-                                            eventViewModel.nextScreen = "OptimalTimeView"
-                                        }, label: {
-                                            HStack(spacing: 0) {
-                                                Text("SET AVAILABILITY")
-                                                    .font(FontScheme
-                                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
-                                                    .fontWeight(.heavy)
-                                                    .padding(.horizontal, getRelativeWidth(30.0))
-                                                    .padding(.vertical, getRelativeHeight(22.0))
-                                                    .foregroundColor(ColorConstants.WhiteA700)
-                                                    .minimumScaleFactor(0.5)
-                                                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0), alignment: .center)
-                                                
-                                            }
-                                        })
-                                        .frame(width: getRelativeWidth(295.0),
-                                               height: getRelativeHeight(60.0), alignment: .topLeading)
-                                        
-                                    } else {
-                                        // Text that says waiting
-                                        Text("Waiting for other users to confirm...")
-                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                            .fontWeight(.medium)
-                                            .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
-                                            .lineSpacing(26)
-                                    }
-                                }
-                            }
-                        } else {
-                            Text("Personal Event Confirmed")
-                                .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
-                                .fontWeight(.medium)
-                                .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
-                                .lineSpacing(26)
-                        }
-                        
-                        if (isShared) {
-                            
+
                             //                            $viewModel.allUsersInEvent
-                            
-                            
+
+
                             ZStack {
                                 Image("img_amigosshopping")
                                     .resizable()
-                                    .frame(width: getRelativeWidth(359.0), height: getRelativeHeight(215.0), alignment: .center)
+                                    .frame(width: getRelativeWidth(350.0), height: getRelativeHeight(200.0), alignment: .leading)
                                     .scaledToFit()
                                     .clipped()
                                     .padding(.all, getRelativeWidth(8.0))
-                                    .padding(.vertical, getRelativeHeight(8.0))
-                                    .padding(.horizontal, getRelativeWidth(8.0))
+                                    .padding(.vertical, getRelativeHeight(0.0))
+                                    .padding(.horizontal, getRelativeWidth(-80.0))
                             }
                             .hideNavigationBar()
-                            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(231.0), alignment: .leading)
+                            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(200.0), alignment: .leading)
                             .background(ColorConstants.WhiteA700)
                             .padding(.top, getRelativeHeight(16.0))
                         } else {
                             ZStack {
                                 Image("img_nomadscampfire")
                                     .resizable()
-                                    .frame(width: getRelativeWidth(359.0), height: getRelativeHeight(215.0), alignment: .center)
+                                    .frame(width: getRelativeWidth(350.0), height: getRelativeHeight(200.0), alignment: .center)
                                     .scaledToFit()
                                     .clipped()
                                     .padding(.all, getRelativeWidth(8.0))
-                                    .padding(.vertical, getRelativeHeight(8.0))
-                                    .padding(.horizontal, getRelativeWidth(8.0))
+                                    .padding(.vertical, getRelativeHeight(0.0))
+                                    .padding(.horizontal, getRelativeWidth(-80.0))
                             }
                             .hideNavigationBar()
-                            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(231.0), alignment: .leading)
+                            .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(200.0), alignment: .leading)
                             .background(ColorConstants.WhiteA700)
                             .padding(.top, getRelativeHeight(16.0))
                         }
@@ -383,43 +247,147 @@ struct EventView: View {
                                 .foregroundColor(ColorConstants.Gray900)
                                 .minimumScaleFactor(0.5)
                                 .multilineTextAlignment(.leading)
-                                .frame(width: getRelativeWidth(400.0), height: getRelativeHeight(16.0), alignment: .topLeading)
+                                .frame(width: getRelativeWidth(460.0), height: getRelativeHeight(16.0), alignment: .topLeading)
                                 .padding(.top, getRelativeHeight(20.0))
                                 .padding(.trailing, getRelativeWidth(10.0))
                             
-                        
-                            
-                            //                            Button(action: {}, label: {
-                            //                                HStack(spacing: 0) {
-                            //                                    Text("PLS DELETE")
-                            //                                        .font(FontScheme.kInterBlack(size: getRelativeHeight(15.0)))
-                            //                                        .fontWeight(.black)
-                            //                                        .padding(.horizontal, getRelativeWidth(30.0))
-                            //                                        .padding(.vertical, getRelativeHeight(15.0))
-                            //                                        .foregroundColor(ColorConstants.Gray801)
-                            //                                        .minimumScaleFactor(0.5)
-                            //                                        .multilineTextAlignment(.leading)
-                            //                                        .frame(width: getRelativeWidth(339.0), height: getRelativeHeight(45.0), alignment: .topLeading)
-                            //
-                            //                                        .padding(.top, getRelativeHeight(16.0))
-                            //                                        .padding(.trailing, getRelativeWidth(4.0))
-                            //                                }
-                            //                            })
-                            //                            .frame(width: getRelativeWidth(339.0), height: getRelativeHeight(45.0), alignment: .topLeading)
-                            //
-                            //                            .padding(.top, getRelativeHeight(16.0))
-                            //                            .padding(.trailing, getRelativeWidth(4.0))
                         }
-                        .frame(width: getRelativeWidth(343.0), height: getRelativeHeight(253.0), alignment: .center)
+                        .frame(width: getRelativeWidth(343.0), height: getRelativeHeight(170.0), alignment: .center)
                         // .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0, bottomRight: 8.0))
                         .padding(.vertical, getRelativeHeight(16.0))
                         .padding(.horizontal, getRelativeWidth(16.0))
+                        
+                        if (isShared) {
+
+                            if (checkIfAllInviteesConfirmed()) {
+
+                                if (isCreator) {
+                                    if (!selfConfirmed) {
+                                        // confirm availability button
+                                        Button(action: {
+                                            eventViewModel.nextScreen = "CreatorConfirmTimeView"
+                                        }, label: {
+                                            HStack(spacing: 0) {
+                                                Text("FINALIZE AVAILABILITY")
+                                                    .font(FontScheme
+                                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
+                                                    .fontWeight(.heavy)
+                                                    .padding(.horizontal, getRelativeWidth(30.0))
+                                                    .padding(.vertical, getRelativeHeight(22.0))
+                                                    .foregroundColor(ColorConstants.WhiteA700)
+                                                    .minimumScaleFactor(0.5)
+                                                    .frame(width: getRelativeWidth(295.0),
+                                                           height: getRelativeHeight(60.0),
+                                                           alignment: .center)
+
+                                            }
+                                        })
+                                        .frame(width: getRelativeWidth(295.0),
+                                               height: getRelativeHeight(60.0), alignment: .topLeading)
+
+                                    } else {
+                                        // Text that says Confirmed
+                                        Text("Event Confirmed!")
+                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                            .fontWeight(.medium)
+                                            .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
+                                            .lineSpacing(26)
+                                    }
+                                } else {
+                                    // not creator
+                                    // Text that says waiting
+                                    if (creatorConfirmed) {
+                                        Text("Event Confirmed!")
+                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                            .fontWeight(.medium)
+                                            .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
+                                            .lineSpacing(26)
+                                    } else {
+                                        Text("Waiting for other users to confirm...")
+                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(15)))
+                                            .fontWeight(.medium)
+                                            .frame(width: getRelativeWidth(470), height: 1, alignment: .leading)
+                                            .lineSpacing(26)
+                                    }
+
+                                }
+                            } else {
+                                // not checkifallinviteesconfirmed
+                                if (isCreator) {
+                                    // Text that says waiting other
+                                    Text("Waiting for other users to confirm...")
+                                        .font(FontScheme.kInterRegular(size: getRelativeHeight(15)))
+                                        .fontWeight(.medium)
+                                        .frame(width: getRelativeWidth(470), height: 1, alignment: .leading)
+                                        .lineSpacing(26)
+                                }
+                                else {
+                                    if (!selfConfirmed) {
+                                        // Button that says set availability
+                                        Button(action: {
+                                            eventViewModel.nextScreen = "OptimalTimeView"
+                                        }, label: {
+                                            HStack(spacing: 0) {
+                                                Text("SET AVAILABILITY")
+                                                    .font(FontScheme
+                                                        .kInterExtraBold(size: getRelativeHeight(35.0)))
+                                                    .fontWeight(.heavy)
+                                                    .padding(.horizontal, getRelativeWidth(30.0))
+                                                    .padding(.vertical, getRelativeHeight(22.0))
+                                                    .foregroundColor(ColorConstants.WhiteA700)
+                                                    .minimumScaleFactor(0.5)
+                                                    .frame(width: getRelativeWidth(295.0), height: getRelativeHeight(60.0), alignment: .center)
+
+                                            }
+                                        })
+                                        .frame(width: getRelativeWidth(295.0),
+                                               height: getRelativeHeight(60.0), alignment: .topLeading)
+
+                                    } else {
+                                        // Text that says waiting
+                                        Text("Waiting for other users to confirm...")
+                                            .font(FontScheme.kInterRegular(size: getRelativeHeight(15)))
+                                            .fontWeight(.medium)
+                                            .frame(width: getRelativeWidth(470), height: 1, alignment: .leading)
+                                            .lineSpacing(26)
+                                    }
+                                }
+                            }
+                        } else {
+                            Text("Personal Event Confirmed")
+                                .font(FontScheme.kInterRegular(size: getRelativeHeight(20)))
+                                .fontWeight(.medium)
+                                .frame(width: getRelativeWidth(300), height: 12, alignment: .leading)
+                                .lineSpacing(26)
+                        }
+                        
+                        Button(action: {
+                            viewModel.signOut()
+                        }, label: {
+                            Text("DELETE EVENT")
+                                .font(FontScheme
+                                    .kInterExtraBold(size: getRelativeHeight(25.0)))
+                                .fontWeight(.heavy)
+                                .padding(.horizontal, getRelativeWidth(30.0))
+                                .padding(.vertical, getRelativeHeight(22.0))
+                                .foregroundColor(ColorConstants.WhiteA700)
+                                .minimumScaleFactor(0.5)
+                                .frame(width: getRelativeWidth(250),
+                                       height: getRelativeHeight(40.0),
+                                       alignment: .center)
+                                .background(RoundedCorners(topLeft: 15,
+                                                           topRight: 15,
+                                                           bottomLeft: 15,
+                                                           bottomRight: 15)
+                                    .fill(ColorConstants.Gray600))
+                        })
+                        .padding(.vertical, getRelativeHeight(20))
+                        .padding(.horizontal, getRelativeWidth(-200.0))
+
+                        
                     }
                     .frame(width: UIScreen.main.bounds.width, height: getRelativeHeight(768.0), alignment: .leading)
                     
-                    
-                    //                    .background(RoundedCorners(topLeft: 8.0, topRight: 8.0, bottomLeft: 8.0,
-                    //                                               bottomRight: 8.0))
                 }
                 .frame(width: UIScreen.main.bounds.width, alignment: .topLeading)
                 .background(ColorConstants.WhiteA700)
@@ -456,6 +424,7 @@ struct EventView: View {
 
 struct EventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventView(particularEvent: ["eventUID": "0", "title" : "Test Title", "date": Date.now, "description" : "Test Description", "duration" : 5, "participantIDs" : ["CreatorUID", "InviteeUID"], "isCreator": true, "isShared" : true, "selfConfirmed": false, "everyoneConfirmed": false, "creatorConfirmed": false, "allUserHours" : ["creator": [0,1,2,3], "InviteeID1": [2,3,4,5]]]).environmentObject(AuthenticationViewModel())
+//        EventView().environmentObject(AuthenticationViewModel())
+        EventView(particularEvent: ["eventUID": "0", "title" : "Test Title", "date": NSDate().timeIntervalSince1970, "description" : "Test Description", "duration" : 5, "participantIDs" : ["CreatorUID", "InviteeUID"], "isCreator": true, "isShared" : true, "selfConfirmed": false, "everyoneConfirmed": false, "creatorConfirmed": false, "allUserHours" : ["creator": [0,1,2,3], "InviteeID1": [2,3,4,5]]]).environmentObject(AuthenticationViewModel())
     }
 }
