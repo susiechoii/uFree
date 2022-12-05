@@ -30,26 +30,6 @@ struct ProfileView: View {
             
             Spacer().frame(height: 30)
             
-            Button(action: {
-                viewModel.signOut()
-            }, label: {
-                Text("DELETE ACCOUNT")
-                    .font(FontScheme
-                        .kInterExtraBold(size: getRelativeHeight(25.0)))
-                    .fontWeight(.heavy)
-                    .padding(.horizontal, getRelativeWidth(30.0))
-                    .padding(.vertical, getRelativeHeight(22.0))
-                    .foregroundColor(ColorConstants.WhiteA700)
-                    .minimumScaleFactor(0.5)
-                    .frame(width: getRelativeWidth(250),
-                           height: getRelativeHeight(40.0),
-                           alignment: .center)
-                    .background(RoundedCorners(topLeft: 15,
-                                               topRight: 15,
-                                               bottomLeft: 15,
-                                               bottomRight: 15)
-                        .fill(ColorConstants.Gray600))
-            })//.redacted(reason: .placeholder)
             
             Button(action: {
                 viewModel.signOut()
