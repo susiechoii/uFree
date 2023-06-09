@@ -1,7 +1,7 @@
 # uFree
 
 ## Hannah Chen, Susie Choi, Leung Wai Liu, Nico Stuart, and Ian Youth
-## CSE438S | 12/05/2022
+## 12/05/2022
 
 ### Description
 
