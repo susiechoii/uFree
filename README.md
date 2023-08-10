@@ -64,7 +64,7 @@ https://drive.google.com/file/d/16h3dDkxOZW6D8qQD_jhN_RQ5J6BxSYLB/view?usp=drive
 
 * We hold our database of users, events, and hours in Google Firebase.
 
-* Later extension to this project: adding date ranges when creating an event (only applicable for iOS 16)
+* Later extension to this project: adding date ranges when creating an event (only applicable for iOS 16), suggesting optimal times if multiple "best" options exist
 
 #### Citations
 
