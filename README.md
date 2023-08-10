@@ -44,9 +44,9 @@ https://drive.google.com/file/d/16h3dDkxOZW6D8qQD_jhN_RQ5J6BxSYLB/view?usp=drive
 
 ### Potential Warnings That Currently Exist
 
-* We are confident in our database schema, so any downcasting and forced unwrapping of nil objects has undergone extensive verification. This is to say that nothing actually crashes when the app itself is run. Because of a tight time frame, we elected to keep these warnings in place to avoid any last minute issues regarding the functionality.
+* We are confident in our database schema, so any downcasting and forced unwrapping of nil objects has undergone extensive verification. This is to say that nothing actually crashes when the app itself is run. Because of a tight time frame, we elected to keep these warnings in place to avoid any last-minute issues regarding the functionality.
 
-* Immutable values that were never used were also kept in the final project, again due to a desire to submit something that we definitely know is working.
+* Immutable values that were never used were also kept in the final project, again due to the short time frame and to present a product that we know worked in the ways we wanted it to.
 
 ### Promised Functionality
 
