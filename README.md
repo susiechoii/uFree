@@ -9,6 +9,10 @@ uFree is an event scheduling app that offers a more intuitive mobile event sched
 
 Each user has a default calendar displaying their availability over the course of a week that they will create upon signing up to the app. With group events, invitees can modify their existing availability "template" and submit their availability to the event creator. Once all invitees have responded, the creator can choose an optimal time for an event for all invited members by consulting a calendar displaying the intersection of all event members’ availability. The templates to select availabilities will begin on the date selected by the event creator and run for 7 days after (1 week). This new event with a corresponding date, time, duration, invitees, and description will then be displayed on all user(s) home pages.
 
+### Demo
+
+https://drive.google.com/file/d/16h3dDkxOZW6D8qQD_jhN_RQ5J6BxSYLB/view?usp=drive_link
+
 ### Usage
 
 * Clone the XCode project on your local device and wait for Google Firebase packages to download.
